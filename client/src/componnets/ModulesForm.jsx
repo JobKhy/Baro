@@ -151,15 +151,23 @@ export const NavBar = ({ initialActive }) => {
 };
 
 
-export const DayNGas = () => {
+export const DayNGas = ( {dat, date, amount} ) => {
   return (
-    <div>sexooooo</div>
+    <div className="DatGrap">
+      <span>{ dat }</span>
+      <span>{ date }</span>
+      <span>${ amount }</span>
+    </div>
   )
 }
 
+import diosYe from "../Img/diosYe.png"
+
 export const Graph = () => {
   return (
-    <div>wwwww</div>
+    <div>
+      <img src={diosYe} alt="" className="ye"/>
+    </div>
   )
 }
 
