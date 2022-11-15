@@ -3,3 +3,12 @@
     --sec-color: #2584a0;
     --ter-color: #044C7C;
 }
+
+.semData {
+        position: relative;
+        width: calc(100vw - 40vw - 80px);
+        height: 90vh;
+        bottom: 10;
+        background-color: aquamarine;
+
+}

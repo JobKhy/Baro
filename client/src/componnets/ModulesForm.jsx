@@ -149,3 +149,11 @@ export const NavBar = ({ initialActive }) => {
     </div>
   );
 };
+
+
+export const DayNGas = () => {
+  return (
+    <div>sexooooo</div>
+  )
+}
+
