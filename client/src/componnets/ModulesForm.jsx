@@ -157,3 +157,10 @@ export const DayNGas = () => {
   )
 }
 
+export const Graph = () => {
+  return (
+    <div>ModulesForm</div>
+  )
+}
+
+

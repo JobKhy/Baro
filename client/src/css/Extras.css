@@ -5,10 +5,29 @@
 }
 
 .semData {
-        position: relative;
-        width: calc(100vw - 40vw - 80px);
-        height: 90vh;
-        bottom: 10;
-        background-color: aquamarine;
+    position: relative;
+    width: calc(100vw - 50vw - 80px);
+    height: 90vh;
+    background-color: aquamarine;
+}
 
+.typeOfGraph{
+    position: relative;
+    width: calc(100vw - 80px);
+    height: 10vh;
+    background-color: rgb(255, 174, 127);
+    padding: 0 auto;
+    text-transform: capitalize;
+}
+
+.typeOfGraph h1{
+    text-align: center;
+}
+
+.Graph {
+    position: relative;
+    width: calc(100vw - 50vw - 80px);
+    height: 90vh;
+    background-color: rgb(127, 131, 255);
+    right: 0px;
 }
