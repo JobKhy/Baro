@@ -106,9 +106,9 @@ export const NavBar = ({ initialActive }) => {
   const Menus = [
     { Name: "Home", icon: "fa-solid fa-house", dest: "../home" },
     { Name: "Graficas", icon: "fa-solid fa-chart-simple", dest: "../graficas" },
-    { Name: "Frecuentes", icon: "fa-solid fa-dollar-sign", dest: "graficas" },
-    { Name: "Config", icon: "fa-solid fa-bars", dest: "graficas" },
-    { Name: "Salir", icon: "fa-solid fa-arrow-right-from-bracket" },
+    { Name: "Frecuentes", icon: "fa-solid fa-dollar-sign", dest: "../frecuentes" },
+    { Name: "Config", icon: "fa-solid fa-bars", dest: "../config" },
+    { Name: "Salir", icon: "fa-solid fa-arrow-right-from-bracket", dest: ".." },
   ];
 
   const [active, setActive] = useState(0);

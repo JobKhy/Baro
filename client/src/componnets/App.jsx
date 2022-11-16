@@ -5,6 +5,8 @@ import { LogIn } from './LogIn'
 import { SignIn } from './SignIn'
 import { Perfiles} from './Perfiles'
 import { Graficas } from './Graficas'
+import { Frecuentes } from './Frecuentes'
+import { Config } from './Config'
 
 export const App = () => {
   return (
@@ -15,6 +17,8 @@ export const App = () => {
         <Route path='home' element={<Home/>}/>
         <Route path='perfiles' element={<Perfiles/>}/>
         <Route path='graficas' element={<Graficas/>}/>
+        <Route path='frecuentes' element={<Frecuentes/>}/>
+        <Route path='config' element={<Config/>}/>
     </Routes>
   )
 }
