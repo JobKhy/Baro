@@ -19,7 +19,11 @@ export const Home = () => {
           <UserPf User={"Gus of war"}></UserPf>
           <div className="BalanceDisp">
             <div className="BalanceCant">
-
+              <h6 className="white">Balance Total</h6>
+              <h1 className="white">$ 1,000,000</h1>
+              <hr className="ww" />
+              <h1 className="white">$ 1,000,000</h1>
+              <h6 className="white">Balance Disponible</h6>
             </div>
             <div className="BalanceMenu">
               <Item secc={'gasto'} icons={'fa-solid fa-arrow-right-to-bracket'} />

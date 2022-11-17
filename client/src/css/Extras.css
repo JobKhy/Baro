@@ -54,7 +54,7 @@
     position: relative;
     margin: 0 auto 4.5vh;
     width: 80%;
-    height: calc(100% - 10vh);
+    height: calc(100% - 10vh - 20px);
     /* background-color: white; */
     display: flex;
     flex-direction: column;
@@ -66,6 +66,13 @@
 
 .semData h2{
     text-align: center;
+    margin-top: 20px;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 3.5vh;
+    color: var(--sec-color);
+
 }
 
 .DatGrap{
@@ -83,3 +90,4 @@
 .white{
     color: white;
 }
+
