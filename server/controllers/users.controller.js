@@ -1,4 +1,4 @@
-import { pool } from "../DB.js";
+import { pool } from "../DB/DB.js";
 
 export const insertNewUser = async (req, res) => {
   try {
