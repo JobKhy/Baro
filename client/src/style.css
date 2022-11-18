@@ -209,6 +209,7 @@ form{
     color: white;
     font-family: Poppins;
     max-width: 100%;
+    cursor: pointer;
 }
 
 .sec-btn{
@@ -225,6 +226,7 @@ form{
     color: white;
     font-family: Poppins;
     max-width: 100%;
+    cursor: pointer;
 }
 
 /*------------------home-------------------*/
@@ -570,6 +572,16 @@ h6{
     font-weight: 500;
 }
 
+/* .load */
+
+.load{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+} 
 
 /* Sofia */
 

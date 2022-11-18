@@ -58,10 +58,11 @@ export const LogIn = () => {
               ) : null}
               <Button
                 disabled={formik.isSubmitting}
-                value={formik.isSubmitting ? "Cargando..." : "Entrar"} 
+                value={formik.isSubmitting.toString()} 
                 type={"submit"}
                 btnclass={"prime-btn"} />
             </form>
+            
           )}
         </Formik>
       </div>
