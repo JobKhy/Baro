@@ -13,15 +13,11 @@ export const Index = () => {
         setLoading(true)
         setTimeout(() => {
             setLoading(false)
-        }, 1000)
+        }, 500)
     }, [])
     
     return (
-        <>
-            {
-                loading ? (
-                    <Loader></Loader>
-                ) : (
+
                 <>
                     <img src={Fondobaromain} alt="fondo" className="bg-img" />
                     <div className="inicio">
@@ -31,14 +27,14 @@ export const Index = () => {
                             {state?.data?.insertId ? (<h4>Inicie sesión para continuar</h4>) : null}
                             <Button value={'Entrar'} dest={'login'} btnclass={'prime-btn'}></Button>
                             <Button value={'Crear cuenta'} dest={'signin'} btnclass={'sec-btn'}/>
-                        </div>
-
+                        </div>  
                     </div>
+
+                    {
+                        loading ? (
+                            <Loader></Loader>
+                        ) : null}
                 </>
-                )
-                           
-            }
-        </>
         
     )
 }

@@ -1,15 +1,15 @@
 import React from 'react'
-import RiseLoader from "react-spinners/RiseLoader";
+import SyncLoader from "react-spinners/SyncLoader";
 
 export const Loader = () => {
   return (
     <div className='load'>
-            <RiseLoader
-            color={"#044C7C"}
-            size={40}
-            aria-label="Loading Spinner"
-            data-testid="loader"
-                />
+            <SyncLoader
+            color="#044C7C"
+            margin={5}
+            size={25}
+            speedMultiplier={0.8}
+          />    
     </div>
   )
 }
