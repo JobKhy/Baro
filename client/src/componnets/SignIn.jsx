@@ -3,9 +3,14 @@ import { Form, Formik } from "formik";
 import { createUser } from "../api/users.api";
 import { Entry, Button } from "./ModulesForm";
 import { useNavigate } from "react-router-dom";
+import { Loader } from "./Loader";
+import { useState } from "react";
 
 export const SignIn = () => {
   const nav = useNavigate();
+
+  const [loading, setLoading] = useState(false);
+
   return (
     <div className="ali">
       <div className="form-cont">
@@ -45,7 +50,7 @@ export const SignIn = () => {
               contraseña: values.contraseña,
             });
             console.log(data);
-            nav("/", { state:  data });
+            nav("/perfiles", { state:  data });
           }}
         >
           {(formik) => (
@@ -58,6 +63,7 @@ export const SignIn = () => {
                 ExtraProps={formik.getFieldProps("nombre")}
               ></Entry>
               {formik.touched.nombre && formik.errors.nombre ? (
+                setLoading(false),
                 <div>{formik.errors.nombre}</div>
               ) : null}
               <Entry
@@ -67,6 +73,7 @@ export const SignIn = () => {
                 ExtraProps={formik.getFieldProps("correo")}
               ></Entry>
               {formik.touched.correo && formik.errors.correo ? (
+                setLoading(false),
                 <div>{formik.errors.correo}</div>
               ) : null}
               <Entry
@@ -76,6 +83,7 @@ export const SignIn = () => {
                 ExtraProps={formik.getFieldProps("contraseña")}
               ></Entry>
               {formik.touched.contraseña && formik.errors.contraseña ? (
+                setLoading(false),
                 <div>{formik.errors.contraseña}</div>
               ) : null}
               <Entry
@@ -86,11 +94,12 @@ export const SignIn = () => {
               ></Entry>
               {formik.touched.contraseñaConfirmada &&
               formik.errors.contraseñaConfirmada ? (
+                setLoading(false),
                 <div>{formik.errors.contraseñaConfirmada}</div>
               ) : null}
               <Button
                 disabled={formik.isSubmitting}
-                value={formik.isSubmitting ? "Cargando..." : "Continuar"}
+                value={formik.isSubmitting ? setLoading(true) : "Continuar"}
                 type={"submit"}
                 btnclass={"prime-btn"}
               />
@@ -98,6 +107,10 @@ export const SignIn = () => {
           )}
         </Formik>
       </div>
+      {
+      loading ? (
+        <Loader></Loader>
+      ) : null}
     </div>
   );
 };
