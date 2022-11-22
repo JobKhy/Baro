@@ -4,10 +4,14 @@ import { Form, Formik } from "formik";
 import { createUser } from "../api/users.api";
 import { Entry, Button } from "./ModulesForm";
 import { useNavigate } from "react-router-dom";
+import { Loader } from "./Loader";
+import { useState } from "react";
 
 export const SignIn = () => {
   const nav = useNavigate();
+
   const [loading, setLoading] = useState(false);
+
   return (
     <div className="ali">
       <div className="form-cont">
@@ -29,7 +33,7 @@ export const SignIn = () => {
               .required("El correo es requerido"),
 
             contraseña: Yup.string()
-              .min(8, "La contraseña debe ser mas larga")
+              .min(8, "La contraseña debe minimo 8 caracteres")
               .max(32, `El maximo numero de caracteres es ${32}`)
               .required("La contraseña es requerida"),
             contraseñaConfirmada: Yup.string().test(
@@ -41,14 +45,13 @@ export const SignIn = () => {
             ),
           })}
           onSubmit={async (values) => {
-            console.log(values);
-            // const data = await createUser({
-            //   nombre: values.nombre,
-            //   correo: values.correo,
-            //   contraseña: values.contraseña,
-            // });
-            // console.log(data);
-            // nav("/", { state:  data });
+            const data = await createUser({
+              nombre: values.nombre,
+              correo: values.correo,
+              contraseña: values.contraseña,
+            });
+            console.log(data);
+            nav("/perfiles", { state:  data });
           }}
         >
           {(formik) => (
