@@ -27,7 +27,7 @@ export const SignIn = () => {
               .required("El correo es requerido"),
 
             contraseña: Yup.string()
-              .min(8, "La contraseña debe ser mas larga")
+              .min(8, "La contraseña debe minimo 8 caracteres")
               .max(32, `El maximo numero de caracteres es ${32}`)
               .required("La contraseña es requerida"),
             contraseñaConfirmada: Yup.string().test(
