@@ -3,9 +3,14 @@ import { Form, Formik } from "formik";
 import { createUser } from "../api/users.api";
 import { Entry, Button } from "./ModulesForm";
 import { useNavigate } from "react-router-dom";
+import { Loader } from "./Loader";
+import { useState } from "react";
 
 export const SignIn = () => {
   const nav = useNavigate();
+
+  const [loading, setLoading] = useState(false);
+
   return (
     <div className="ali">
       <div className="form-cont">
@@ -45,7 +50,7 @@ export const SignIn = () => {
               contraseña: values.contraseña,
             });
             console.log(data);
-            nav("/", { state:  data });
+            nav("/perfiles", { state:  data });
           }}
         >
           {(formik) => (
