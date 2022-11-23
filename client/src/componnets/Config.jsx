@@ -103,11 +103,11 @@ const canperf = ()=>{
                 <UserConfg User={"Gus of war"}/>
               </div>
               <div className="SubSet">
-                <SubSet name={"Perfil"} icons={"fa-solid fa-dumbbell"} e={btnperf}/>
+                <SubSet name={"Perfil"} icons={"fa-solid fa-user"} e={btnperf}/>
                 <div className="Line"></div>
-                <SubSet name={"Gastos"} icons={"fa-solid fa-dumbbell"} e={btngas}/>
+                <SubSet name={"Gastos"} icons={"fa-solid fa-chart-simple"} e={btngas}/>
                 <div className="Line"></div>
-                <SubSet name={"Account"} icons={"fa-solid fa-dumbbell"} e={btnacc}/>
+                <SubSet name={"Account"} icons={"fa-solid fa-person"} e={btnacc}/>
               </div>
             </div>
             <div className="PerfSettings" id='PerfSettings'>
@@ -150,20 +150,32 @@ const canperf = ()=>{
                     ></EntrySet>
                   </div>
                   <div className="PerfImg">
-                  Hola
-                 </div>
+                    <div className="ConUserPf-Set">
+                      <div className="Confcircle-Set">
+                        <div className="ConfcircleImg-Set"></div>
+                      </div>
+                    </div>
+                    <div className="SetPhoto">
+                      <p>Cambiar Foto</p>
+                      <input type={"file"} className="SetPhotoIn"></input>
+                    </div>
+                  </div>
                 </div>
                 <div className="PerfType" id='YourType'>
                     <h1>Tu tipo de perfil actual es</h1>
                     <div className="TypeBody">
-                    <button className="YourPerf" type="submit" disabled>
-                      <i className={"fa-solid fa-school"}></i>
-                      <br></br>
-                      <div className="text">
-                        <h4>Estudiante</h4>
-                      </div>
-                    </button>
-                    <div className="DesYourType">lajdlkajflkasdjflkjsdklfasdklfjlkadjflkasdjflkasdjflak </div>
+                    <SetPerfil 
+                      icon={"fa-solid fa-school"} 
+                      perfil={"Estudiante"}
+                      />
+                    <div className="DesYourType">
+                      <h2 className='DesYourType-Title'>Descripción</h2>
+                      <p className='DesYourType-Des'>lajdlkajflkasdjflkjsdklfasdklfjlkadjflkasdj</p> 
+                    </div>
+                    <div className="AlertYourType">
+                      <h2 className='AlertYourType-Title'>Alerta</h2>
+                      <p className='AlertYourType-Des'>Si cambia de perfil va a perder todos sus gastos frecuentes</p> 
+                    </div>
                     <button className='BtnChangeType' onClick={setperf}>Cambiar Perfil</button>
                     </div>
                 </div>
@@ -175,16 +187,16 @@ const canperf = ()=>{
                       perfil={"Estudiante"}
                       />
                       <SetPerfil 
-                      icon={"fa-solid fa-school"} 
-                      perfil={"Estudiante"}
+                      icon={"fa-solid fa-briefcase"} 
+                      perfil={"Trabajador"}
                       />
                       <SetPerfil 
-                      icon={"fa-solid fa-school"} 
-                      perfil={"Estudiante"}
+                      icon={"fa-solid fa-house"} 
+                      perfil={"Sin oficio"}
                       />
                       <SetPerfil 
-                      icon={"fa-solid fa-school"} 
-                      perfil={"Estudiante"}
+                      icon={"fa-solid fa-user"} 
+                      perfil={"Otro"}
                       />
                       <button className='BtnChangeType' onClick={canperf}>Cancel</button>
                     </div>
@@ -193,8 +205,9 @@ const canperf = ()=>{
             </div>
             <div className="GasSettings" id='GasSettings'>
               <div><h1>Gastos</h1></div>
-              <Perfil icon={"fa-solid fa-school"} perfil={"Estudiante"} descripcion={"En este perfil encontraras gastos basicos como transporte, telefonia y alimentos."} des={'../home'}></Perfil>
-
+              <div className="ListFrec">
+                
+              </div>
             </div>
             <div className="AccountSettings" id='AccountSettings'>
               <div><h1>Account</h1></div>

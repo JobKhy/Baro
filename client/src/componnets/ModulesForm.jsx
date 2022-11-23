@@ -218,14 +218,14 @@ export const EntrySet = ({ Id, Name, Type, ExtraProps,e1,e2,e3,id1,id2,id3}) => 
         <span className="Setlogin-line"></span>
       </div>
     </div>
-    <div className="SetDat" id={id1}><button className="BtnSetDat" onClick={e1}><i className="BsPencilSquare"></i></button></div>
+    <div className="SetDat" id={id1}><button className="BtnSetDatI" onClick={e1}><i class="fa-solid fa-pen-to-square"></i></button></div>
     <div className="SetDat-Can DisNone" id={id2}><button className="BtnSetDat-Can" onClick={e2}>Cancel</button></div>
     <div className="SetDat DisNone" id={id3}><button className="BtnSetDat" onClick={e3}>Cambiar</button></div>
     </div>
       
   );
 };
-export const SetPerfil = ({ icon, perfil, descripcion }) => {
+export const SetPerfil = ({ icon, perfil }) => {
   return (
       <button className="SetBt-perfiles" type="submit">
         <i className={icon}></i>
@@ -234,5 +234,14 @@ export const SetPerfil = ({ icon, perfil, descripcion }) => {
           <h4>{perfil}</h4>
         </div>
       </button>
+  );
+};
+
+export const GasFrec = ({ icon, perfil }) => {
+  return (
+      <div className="ContainerFrec">
+        <div className="NameFrec"></div>
+
+      </div>
   );
 };
