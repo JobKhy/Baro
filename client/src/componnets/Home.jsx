@@ -1,15 +1,10 @@
-import { Item, UserPf, Reciente, NavBar } from "./ModulesForm"
+import { Item, UserPf, Reciente, NavBar, IngGas, GasRec } from "./ModulesForm"
+import { useState } from "react";
 
 export const Home = () => {
 
-  const list = (document.querySelectorAll('.list'));
-  function activeLink() {
-    list.forEach((item) =>
-      item.classList.remove('active'));
-    this.classList.add('active')
-  }
-  list.forEach((item) =>
-    item.addEventListener('click', activeLink));
+  const [disp, setDisp] = useState(true);
+  const [disp2, setDisp2] = useState(false);
 
   return (
     <>
@@ -26,25 +21,33 @@ export const Home = () => {
               <h6 className="white">Balance Disponible</h6>
             </div>
             <div className="BalanceMenu">
+            <button onClick={() => {setDisp2(true), setDisp(true)}}>
               <Item secc={'gasto'} icons={'fa-solid fa-arrow-right-to-bracket'} />
-              <Item secc={'ingreso'} icons={'fa-regular fa-square-caret-down'} />
-              <Item secc={'mas'} icons={'fa-solid fa-ellipsis'} />
+            </button>
+              <button onClick={() => {setDisp(false),setDisp2(false)}}>
+                <Item secc={'ingreso'} icons={'fa-regular fa-square-caret-down'}/>
+              </button>
+              <button onClick={() => {setDisp(true), setDisp2(false)}}>
+                <Item secc={'mas'} icons={'fa-solid fa-ellipsis'} />
+              </button> 
+              
             </div>
           </div>
         </div>
         <div className="GasRec">
-          <h1>Gastos recientes</h1>
-          <div className="GasCont">
-            <ul>
-              <Reciente gasto={"Mensualidad Gym"} icons={'fa-solid fa-dumbbell'} value={800} date={'12/3/22'}/>
-              <Reciente gasto={"Comida con Amigos"} icons={'fa-solid fa-bowl-food'} value={600} date={'6/3/22'}/>
-              <Reciente gasto={"Agua"} icons={'fa-solid fa-faucet-drip'} value={235} date={'3/3/22'}/>
-              <Reciente gasto={"Internet"} icons={'fa-solid fa-wifi'} value={759} date={'2/3/22'}/>
-              <Reciente gasto={"Visita a familiares"} icons={'fa-solid fa-bus-simple'} value={40} date={'22/2/22'}/>
-            </ul>
-          </div>
-            
-        </div>
+        {
+          disp?(
+            disp2?(
+              <p>hola</p>
+            ):(
+              <GasRec></GasRec>
+            )
+          ):(
+            <IngGas></IngGas>
+          )
+      }
+        </div> 
+
       </div>
     </>
   )
