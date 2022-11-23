@@ -258,6 +258,36 @@ export const GasRec = () => {
 
 export const IngGas = () => {
   return (
-    <div>IngGas</div>
+    <>
+      <h1>Ingreso de dinero</h1>
+          <div className="GasCont">
+            <Entry Id={"correo"}
+                Name={"Correo"}
+                Type={"text"}/>
+            <Button
+              value={"Añadir"}
+              type={"submit"}
+              btnclass={"prime-btn"}
+            />
+          </div>
+      </>
+  )
+}
+
+export const Gasto = () => {
+  return (
+    <>
+      <h1>Aña gasto</h1>
+          <div className="GasCont">
+            <Entry Id={"correo"}
+                Name={"Correo"}
+                Type={"text"}/>
+            <Button
+              value={"Añadir"}
+              type={"submit"}
+              btnclass={"prime-btn"}
+            />
+          </div>
+      </>
   )
 }

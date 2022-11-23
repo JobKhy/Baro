@@ -5,7 +5,6 @@ import { createUser } from "../api/users.api";
 import { Entry, Button } from "./ModulesForm";
 import { useNavigate } from "react-router-dom";
 import { Loader } from "./Loader";
-import { useState } from "react";
 
 export const SignIn = () => {
   const nav = useNavigate();

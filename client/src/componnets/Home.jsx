@@ -1,4 +1,4 @@
-import { Item, UserPf, Reciente, NavBar, IngGas, GasRec } from "./ModulesForm"
+import { Item, UserPf, Reciente, NavBar, IngGas, GasRec, Gasto } from "./ModulesForm"
 import { useState } from "react";
 
 export const Home = () => {
@@ -38,7 +38,7 @@ export const Home = () => {
         {
           disp?(
             disp2?(
-              <p>hola</p>
+              <Gasto></Gasto>
             ):(
               <GasRec></GasRec>
             )
