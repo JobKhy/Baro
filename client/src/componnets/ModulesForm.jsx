@@ -204,23 +204,23 @@ export const UserConfg = ({ User }) => {
 export const EntrySet = ({ Id, Name, Type, ExtraProps,e1,e2,e3,id1,id2,id3}) => {
   return (
       <div className="InputSetContainer">
-    <div className="Setlogin-container">
-      <div className="Setlogin-group">
-        <input
-          className="Setlogin-input"
-          type={Type}
-          placeholder=" "
-          id={Id}
-          {...ExtraProps}
-          disabled
-        />
-        <label className="Setlogin-label">{Name}</label>
-        <span className="Setlogin-line"></span>
-      </div>
-    </div>
-    <div className="SetDat" id={id1}><button className="BtnSetDat" onClick={e1}><i className="BsPencilSquare"></i></button></div>
-    <div className="SetDat-Can DisNone" id={id2}><button className="BtnSetDat-Can" onClick={e2}>Cancel</button></div>
-    <div className="SetDat DisNone" id={id3}><button className="BtnSetDat" onClick={e3}>Cambiar</button></div>
+        <div className="Setlogin-container">
+          <div className="Setlogin-group">
+            <input
+              className="Setlogin-input"
+              type={Type}
+              placeholder=" "
+              id={Id}
+              {...ExtraProps}
+              disabled
+            />
+            <label className="Setlogin-label">{Name}</label>
+            <span className="Setlogin-line"></span>
+          </div>
+        </div>
+        <div className="SetDat" id={id1}><button className="BtnSetDat" onClick={e1}><i className="BsPencilSquare"></i></button></div>
+        <div className="SetDat-Can DisNone" id={id2}><button className="BtnSetDat-Can" onClick={e2}>Cancel</button></div>
+        <div className="SetDat DisNone" id={id3}><button className="BtnSetDat" onClick={e3}>Cambiar</button></div>
     </div>
       
   );

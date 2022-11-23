@@ -24,6 +24,7 @@
 }
 
 .typeOfGraph h1{
+    font-size: 10vh;
     text-align: center;
 }
 
@@ -203,6 +204,13 @@
     color: var(--ter-color);
     opacity: 0.6;
 }
+.ConNamePf h2{
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 3.5vh;
+    color: var(--ter-color);
+}
 .GasIcon{
     color: var(--ter-color);
 }
@@ -224,25 +232,30 @@
     margin-left: 2vw;
     color: white;
     height: 15%;
+    font-size: 8vh;
 }
 /*inputs de perfil*/
 .Setlogin-container{
     width: 30vw;
+    height: 8vh;
     border-radius: 1em;
-    padding: .7em;
+    padding-top: 3vh;
+    padding-left: 1vw;
+    padding-right: 1vw;
     background-color: white;
-	margin-top: 3em;
+	margin-top: 2vh;
 	display: grid;
 	gap: 2.5em;
 }
 .Setlogin-group{
+    bottom: 1.3vh;
 	position: relative;
 	--color: var(--ter-color);
 }
 .Setlogin-input{
-	width: 100%;
-	font-size: 1rem;
-	padding: .6em .3em;
+	width: 100%;    
+	font-size: 3vh;
+	padding: .5vh;
 	background: none;
 	border: none;
 	outline: none;
@@ -253,6 +266,7 @@
 
 .Setlogin-input:focus,
 .Setlogin-input:not(:placeholder-shown){
+    font-size: 2vh;
 	color: black;
 }
 
@@ -263,18 +277,18 @@
 	color: var(--main-color);
 }
 .Setlogin-label{
+    font-size: 2vh;
 	color: var(--ter-color);
 	cursor: pointer;
 	position: absolute;
 	top: 0%;
 	left: 5px;
-	transform: translateY(10px);
+	transform: translateY(5px);
 	transition: transform .5s, color .3s;
         font-family: Poppins;
 }
 .Setlogin-line{
 	position: absolute;
-	bottom: 0;
 	left: 0;
 	width: 100%;
 	height: 1px;
@@ -285,6 +299,7 @@
         font-family: Poppins;
 }
 .BtnSetDat{
+    font-size: 1.5vh;
     color:var(--ter-color);
     border: none;
     background-color: transparent;
@@ -292,6 +307,7 @@
     height: 100%;
 }
 .BtnSetDat-Can{
+    font-size: 1.5vh;
     color:white;
     border: none;
     background-color: transparent;
@@ -303,8 +319,8 @@
     background-color: white;
     width: 4vw;
     height: 5vh;
-    margin-top: 4em;
-    margin-left: 1em;
+    margin-top: 4vh;
+    margin-left: 1vw;
 }
 .SetDat-Can{
     color: white;
@@ -312,8 +328,8 @@
     background-color: var(--ter-color);
     width: 4vw;
     height: 5vh;
-    margin-top: 4em;
-    margin-left: 1em;
+    margin-top: 4vh;
+    margin-left: 1vw;
 }
 .InputSetContainer{
     display: flex;
