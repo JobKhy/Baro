@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import * as Yup from "yup";
 import { Form, Formik } from "formik";
 import { createUser } from "../api/users.api";
@@ -62,30 +63,27 @@ export const SignIn = () => {
                 Type={"text"}
                 ExtraProps={formik.getFieldProps("nombre")}
               ></Entry>
-              {formik.touched.nombre && formik.errors.nombre ? (
-                setLoading(false),
-                <div>{formik.errors.nombre}</div>
-              ) : null}
+              {formik.touched.nombre && formik.errors.nombre
+                ? (setLoading(false), (<div>{formik.errors.nombre}</div>))
+                : null}
               <Entry
                 Id={"correo"}
                 Name={"Correo"}
                 Type={"email"}
                 ExtraProps={formik.getFieldProps("correo")}
               ></Entry>
-              {formik.touched.correo && formik.errors.correo ? (
-                setLoading(false),
-                <div>{formik.errors.correo}</div>
-              ) : null}
+              {formik.touched.correo && formik.errors.correo
+                ? (setLoading(false), (<div>{formik.errors.correo}</div>))
+                : null}
               <Entry
                 Id={"contraseña"}
                 Name={"Contraseña"}
                 Type={"password"}
                 ExtraProps={formik.getFieldProps("contraseña")}
               ></Entry>
-              {formik.touched.contraseña && formik.errors.contraseña ? (
-                setLoading(false),
-                <div>{formik.errors.contraseña}</div>
-              ) : null}
+              {formik.touched.contraseña && formik.errors.contraseña
+                ? (setLoading(false), (<div>{formik.errors.contraseña}</div>))
+                : null}
               <Entry
                 Id={"contraseñaConfirmada"}
                 Name={"Confirmar contraseña"}
@@ -93,10 +91,10 @@ export const SignIn = () => {
                 ExtraProps={formik.getFieldProps("contraseñaConfirmada")}
               ></Entry>
               {formik.touched.contraseñaConfirmada &&
-              formik.errors.contraseñaConfirmada ? (
-                setLoading(false),
-                <div>{formik.errors.contraseñaConfirmada}</div>
-              ) : null}
+              formik.errors.contraseñaConfirmada
+                ? (setLoading(false),
+                  (<div>{formik.errors.contraseñaConfirmada}</div>))
+                : null}
               <Button
                 disabled={formik.isSubmitting}
                 value={formik.isSubmitting ? setLoading(true) : "Continuar"}
@@ -107,10 +105,7 @@ export const SignIn = () => {
           )}
         </Formik>
       </div>
-      {
-      loading ? (
-        <Loader></Loader>
-      ) : null}
+      {loading ? <Loader></Loader> : null}
     </div>
   );
 };
