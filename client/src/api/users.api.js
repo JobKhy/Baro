@@ -1,12 +1,22 @@
 import axios from "axios";
 
-const HOST = "http://localhost:3000/api/users";
+const HOST = "http://localhost:3000/api/";
 
-export const createUser = async (user) => {
-  try {
-    const response = await axios.post(`${HOST}`, user);
-    return response.data;
-  } catch (error) {
-    console.log(error);
+export const userFetch = {
+  createUser: async (user) => {
+    try {
+      const response = await axios.post(`${HOST}`, user);
+      return response;
+    } catch (error) {
+      console.log(error);
+    }
+  },
+  getUsers: async (user) => {
+    try {
+      const response = await axios.get(`${HOST}`, user);
+      return response;
+    } catch (error) {
+      console.log(error);
+    }
   }
 };

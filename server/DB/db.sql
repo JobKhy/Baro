@@ -9,3 +9,12 @@ CREATE TABLE `usuarios` (
 ) ENGINE InnoDB,
   CHARSET utf8mb4,
   COLLATE utf8mb4_0900_ai_ci;
+
+create table `secure` (
+	`idSec` int NOT NULL AUTO_INCREMENT,
+	`emailSec` varchar(511) NOT NULL,
+	`passwordSec` varchar(511) NOT NULL,
+	`idUsu` int NOT NULL,
+	PRIMARY KEY (`idSec`),
+	
+)

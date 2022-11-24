@@ -5,8 +5,8 @@ const router = Router();
 
 router.get("/ping", async (req, res) => {
   try {
-    const result = await pool.query("SELECT * from usuarios");
-    res.json(result[0]);
+    const [result] = await pool.query("SELECT 1 + 1 AS solution");
+    res.json(result);
   } catch (e) {
     res.send("Error: " + e);
   }
