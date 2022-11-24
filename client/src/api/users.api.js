@@ -1,11 +1,14 @@
 import axios from "axios";
-
-const HOST = "http://localhost:3000/api/";
+// "http://localhost:3000/api/"
+// 
+const myAxios = axios({
+  baseUrl: "http://localhost:3000/api/"
+});
 
 export const userFetch = {
   createUser: async (user) => {
     try {
-      const response = await axios.post(`${HOST}`, user);
+      const response = await myAxios.post(`/users`, user);
       return response;
     } catch (error) {
       console.log(error);
@@ -13,7 +16,7 @@ export const userFetch = {
   },
   getUsers: async (user) => {
     try {
-      const response = await axios.get(`${HOST}`, user);
+      const response = await myAxios.get(`/getUsers`, user);
       return response;
     } catch (error) {
       console.log(error);

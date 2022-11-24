@@ -51,6 +51,7 @@ CREATE TABLE `frecuentes` (
   `freId` int NOT NULL AUTO_INCREMENT,
   `freName` varchar(50) NOT NULL,
   `freDescription` varchar(150) DEFAULT NULL,
+  `freColor` varchar(50) DEFAULT NULL,
   `freAmount` float NOT NULL,
   `freLapse` int NOT NULL,
   `dayId` int NOT NULL,
