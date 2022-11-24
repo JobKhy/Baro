@@ -218,14 +218,14 @@ export const EntrySet = ({ Id, Name, Type, ExtraProps,e1,e2,e3,id1,id2,id3}) => 
         <span className="Setlogin-line"></span>
       </div>
     </div>
-    <div className="SetDat" id={id1}><button className="BtnSetDat" onClick={e1}><i className="BsPencilSquare"></i></button></div>
+    <div className="SetDat" id={id1}><button className="BtnSetDatI" onClick={e1}><i class="fa-solid fa-pen-to-square"></i></button></div>
     <div className="SetDat-Can DisNone" id={id2}><button className="BtnSetDat-Can" onClick={e2}>Cancel</button></div>
     <div className="SetDat DisNone" id={id3}><button className="BtnSetDat" onClick={e3}>Cambiar</button></div>
     </div>
       
   );
 };
-export const SetPerfil = ({ icon, perfil, descripcion }) => {
+export const SetPerfil = ({ icon, perfil }) => {
   return (
       <button className="SetBt-perfiles" type="submit">
         <i className={icon}></i>
@@ -236,3 +236,66 @@ export const SetPerfil = ({ icon, perfil, descripcion }) => {
       </button>
   );
 };
+
+export const GasFrec = ({ icon, perfil }) => {
+  return (
+      <div className="ContainerFrec">
+        <div className="NameFrec"></div>
+
+      </div>
+  );
+};
+export const GasRec = () => {
+  return (
+      <>
+      <h1>Gastos recientes</h1>
+          <div className="GasCont">
+            <ul>
+              <Reciente gasto={"Mensualidad Gym"} icons={'fa-solid fa-dumbbell'} value={800} date={'12/3/22'}/>
+              <Reciente gasto={"Comida con Amigos"} icons={'fa-solid fa-bowl-food'} value={600} date={'6/3/22'}/>
+              <Reciente gasto={"Agua"} icons={'fa-solid fa-faucet-drip'} value={235} date={'3/3/22'}/>
+              <Reciente gasto={"Internet"} icons={'fa-solid fa-wifi'} value={759} date={'2/3/22'}/>
+              <Reciente gasto={"Visita a familiares"} icons={'fa-solid fa-bus-simple'} value={40} date={'22/2/22'}/>
+            </ul>
+          </div>
+      </>
+
+  )
+}
+
+
+export const IngGas = () => {
+  return (
+    <>
+      <h1>Ingreso de dinero</h1>
+          <div className="GasCont">
+            <Entry Id={"correo"}
+                Name={"Correo"}
+                Type={"text"}/>
+            <Button
+              value={"Añadir"}
+              type={"submit"}
+              btnclass={"prime-btn"}
+            />
+          </div>
+      </>
+  )
+}
+
+export const Gasto = () => {
+  return (
+    <>
+      <h1>Aña gasto</h1>
+          <div className="GasCont">
+            <Entry Id={"correo"}
+                Name={"Correo"}
+                Type={"text"}/>
+            <Button
+              value={"Añadir"}
+              type={"submit"}
+              btnclass={"prime-btn"}
+            />
+          </div>
+      </>
+  )
+}
