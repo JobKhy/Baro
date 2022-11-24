@@ -171,80 +171,6 @@ export const Graph = () => {
     </div>
   )
 }
-
-/*COMPONENTES GUSTAVO*/
-
-export const SubSet = ({ name, icons,e }) => {
-  return (
-        <div className="OpcSet">
-            <span className="OpcName">
-              <button className="OpcBtn" onClick={e}>
-                <span className="GasIcon">
-                  <i className={icons}></i>
-                </span>
-                {name}
-              </button></span>
-        </div>
-  );
-};
-
-export const UserConfg = ({ User }) => {
-  return (
-    <div className="ConUserPf">
-      <div className="Confcircle">
-        <div className="ConfcircleImg"></div>
-      </div>
-      <div className="ConNamePf">
-        <h2>{User}</h2>
-        <h3>Estudiante</h3>
-      </div>
-    </div>
-  );
-};
-export const EntrySet = ({ Id, Name, Type, ExtraProps,e1,e2,e3,id1,id2,id3}) => {
-  return (
-      <div className="InputSetContainer">
-    <div className="Setlogin-container">
-      <div className="Setlogin-group">
-        <input
-          className="Setlogin-input"
-          type={Type}
-          placeholder=" "
-          id={Id}
-          {...ExtraProps}
-          disabled
-        />
-        <label className="Setlogin-label">{Name}</label>
-        <span className="Setlogin-line"></span>
-      </div>
-    </div>
-    <div className="SetDat" id={id1}><button className="BtnSetDatI" onClick={e1}><i class="fa-solid fa-pen-to-square"></i></button></div>
-    <div className="SetDat-Can DisNone" id={id2}><button className="BtnSetDat-Can" onClick={e2}>Cancel</button></div>
-    <div className="SetDat DisNone" id={id3}><button className="BtnSetDat" onClick={e3}>Cambiar</button></div>
-    </div>
-      
-  );
-};
-export const SetPerfil = ({ icon, perfil }) => {
-  return (
-      <button className="SetBt-perfiles" type="submit">
-        <i className={icon}></i>
-        <br></br>
-        <div className="text">
-          <h4>{perfil}</h4>
-        </div>
-      </button>
-  );
-};
-
-export const GasFrec = ({ icon, perfil }) => {
-  return (
-      <div className="ContainerFrec">
-        <div className="NameFrec"></div>
-
-      </div>
-  );
-};
 export const GasRec = () => {
   return (
       <>
@@ -299,3 +225,101 @@ export const Gasto = () => {
       </>
   )
 }
+
+/*COMPONENTES GUSTAVO*/
+
+export const SubSet = ({ name, icons,e }) => {
+  return (
+        <div className="OpcSet">
+            <span className="OpcName">
+              <button className="OpcBtn" onClick={e}>
+                <span className="GasIcon">
+                  <i className={icons}></i>
+                </span>
+                {name}
+              </button></span>
+        </div>
+  );
+};
+
+export const UserConfg = ({ User }) => {
+  return (
+    <div className="ConUserPf">
+      <div className="Confcircle">
+        <div className="ConfcircleImg"></div>
+      </div>
+      <div className="ConNamePf">
+        <h2>{User}</h2>
+        <h3>Estudiante</h3>
+      </div>
+    </div>
+  );
+};
+export const EntrySet = ({ Id, Name, Type, ExtraProps,e1,e2,e3,id1,id2,id3}) => {
+  return (
+      <div className="InputSetContainer">
+    <div className="Setlogin-container">
+      <div className="Setlogin-group">
+        <input
+          className="Setlogin-input"
+          type={Type}
+          placeholder=" "
+          id={Id}
+          {...ExtraProps}
+          disabled
+        />
+        <label className="Setlogin-label">{Name}</label>
+        <span className="Setlogin-line"></span>
+      </div>
+    </div>
+    <div className="SetDat" id={id1}><button className="BtnSetDatI" onClick={e1}><i className="fa-solid fa-pen-to-square"></i></button></div>
+    <div className="SetDat-Can DisNone" id={id2}><button className="BtnSetDat-Can" onClick={e2}>Cancel</button></div>
+    <div className="SetDat DisNone" id={id3}><button className="BtnSetDat" onClick={e3}>Cambiar</button></div>
+    </div>
+      
+  );
+};
+export const SetPerfil = ({ icon, perfil }) => {
+  return (
+      <button className="SetBt-perfiles" type="submit">
+        <i className={icon}></i>
+        <br></br>
+        <div className="text">
+          <h4>{perfil}</h4>
+        </div>
+      </button>
+  );
+};
+
+export const GasFrec = ({ icon, perfil,e }) => {
+  return (
+      <div className="ContainerFrec">
+        <div className="NameFrec">Agua</div>
+        <button className="PeriodList" onClick={e}>
+          Periodos
+        </button>
+        <div className="PeriodListCont">
+          <ul className="PeriodShow">
+              <li>
+                  chi
+              </li>
+              <li>
+                chi
+              </li>
+              <li>
+                che
+              </li>
+              <li>
+                che
+              </li>
+              <li>
+                che
+              </li>
+              <li>
+                che
+              </li>
+          </ul>
+        </div>
+      </div>
+  );
+};

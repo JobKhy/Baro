@@ -95,6 +95,9 @@
 .DisNone{
     display: none;
 }
+.select{
+    transition: transform .3s;
+}
 /*PAGINA_GENERAL*/
 .SubSet{
     grid-column: 1/3;
@@ -552,31 +555,62 @@
 .GasSettings{
     padding: 1rem;
     border-radius: 1rem;
-    display: none;
-    margin-top:3rem ;
-    margin-right: 5rem;
+    display: grid;
+    margin-top:8vh ;
+    margin-right: 5vw;
     background-color: var(--sec-color);
     grid-column: 2/3;   
     width: 60vw;
     height: 75vh;
 }
 .GasSettings h1{
+    width: 100%;
     margin-left: 2vw;
     color: white;
+    height: 15%;
+    font-size: 8vh; 
+}
+.ListFrec{
+    border-radius: 1rem;
+    position: absolute;
+    margin: 1.5vh;
+    background-color: yellowgreen;
+    height: 56vh;
+    width: 57vw;
+}
+.PeriodList{
+    border: none;
+    height: 10vh;
+    background-color: red;
+    width: 10vw;
+    cursor: pointer;
+    list-style: none;
+}
+.PeriodShow{
+    list-style: none;
+    transition: background-color 4s;
+    height: 0;
+}
+.PeriodListCont{
+    background-color: white;
+    overflow: hidden;
 }
 /*DIV_CUENTA*/
 .AccountSettings{
     padding: 1rem;
     border-radius: 1rem;
-    display: none;
-    margin-top:3rem ;
-    margin-right: 5rem;
+    display: grid;
+    margin-top:8vh ;
+    margin-right: 5vw;
     background-color: var(--sec-color);
     grid-column: 2/3;   
     width: 60vw;
     height: 75vh;
 }
 .AccountSettings h1{
+    width: 100%;
     margin-left: 2vw;
     color: white;
+    height: 15%;
+    font-size: 8vh;
 }

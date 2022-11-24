@@ -1,5 +1,5 @@
 import React from 'react'
-import { NavBar,SubSet ,UserConfg,EntrySet,SetPerfil,Perfil} from './ModulesForm'
+import { NavBar,SubSet ,UserConfg,EntrySet,SetPerfil,GasFrec} from './ModulesForm'
 //Para cambio de pestaña
 export const Config = () => {
 const btnperf = ()=>{
@@ -90,12 +90,24 @@ const canperf = ()=>{
   document.querySelector('#YourType').style.display="block"
   document.querySelector('#SelectType').style.display="none"
 }
+
+const btnlistperiod = ()=>{
+  let lista= document.querySelector('.PeriodList')
+  lista.classList.toggle("select")
+  let alto = 0
+  let listperiod = lista.nextElementSibling;
+  if(listperiod.clientHeight == "0"){
+    alto = listperiod.scrollHeight;
+  }
+  listperiod.style.height= alto+"px"
+}
   return (
+    
     <div className='home-body-w'>
         <NavBar initialActive={3}></NavBar>
         <div className="colGraph">
           <div className="typeOfGraph">
-                  <h1>Config</h1>
+                  <h1>Configuración</h1>
           </div>
           <div className="Config">
             <div className="PagSet">
@@ -107,11 +119,11 @@ const canperf = ()=>{
                 <div className="Line"></div>
                 <SubSet name={"Gastos"} icons={"fa-solid fa-chart-simple"} e={btngas}/>
                 <div className="Line"></div>
-                <SubSet name={"Account"} icons={"fa-solid fa-person"} e={btnacc}/>
+                <SubSet name={"Cuenta"} icons={"fa-solid fa-person"} e={btnacc}/>
               </div>
             </div>
             <div className="PerfSettings" id='PerfSettings'>
-              <h1>Settings</h1>
+              <h1>Perfil</h1>
               <div className="PerfBody">
                 <div className="PerfLeft">
                   <div className="PerfData">
@@ -198,7 +210,7 @@ const canperf = ()=>{
                       icon={"fa-solid fa-user"} 
                       perfil={"Otro"}
                       />
-                      <button className='BtnChangeType' onClick={canperf}>Cancel</button>
+                      <button className='BtnChangeType' onClick={canperf}>Cancelar</button>
                     </div>
                 </div>
               </div>
@@ -206,11 +218,13 @@ const canperf = ()=>{
             <div className="GasSettings" id='GasSettings'>
               <div><h1>Gastos</h1></div>
               <div className="ListFrec">
-                
+              <GasFrec 
+              e={btnlistperiod}
+              />
               </div>
             </div>
             <div className="AccountSettings" id='AccountSettings'>
-              <div><h1>Account</h1></div>
+              <div><h1>Cuenta</h1></div>
             </div>
           </div>
         </div>    
