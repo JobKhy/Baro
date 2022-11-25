@@ -48,11 +48,11 @@ app.use("/", sendfile);
 
 //routes
 app.use("/api", pruebaRoutes);
-app.use("/api", usersRoutes);
+app.use("/api/users", usersRoutes);
 
 app.listen(PORT, () => {
   console.log(
-`Server listening on port ${PORT}`
+`http://localhost:${PORT}`
   );
 });
 

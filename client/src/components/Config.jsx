@@ -97,7 +97,7 @@ const btnlistperiod = ()=>{
   let alto = 0
   let listperiod = lista.nextElementSibling;
   if(listperiod.clientHeight == "0"){
-    alto = listperiod.scrollHeight;
+    alto = listperiod.scrollHeight-2;
   }
   listperiod.style.height= alto+"px"
 }

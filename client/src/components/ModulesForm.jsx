@@ -300,23 +300,25 @@ export const GasFrec = ({ icon, perfil,e }) => {
         </button>
         <div className="PeriodListCont">
           <ul className="PeriodShow">
-              <li>
-                  chi
+              <li className="PeriodItem">
+                <div className="PeriodText">
+                Diario
+                </div> 
               </li>
-              <li>
-                chi
+              <li className="PeriodItem">
+                <div className="PeriodText">
+                Semanal
+                </div>
               </li>
-              <li>
-                che
+              <li className="PeriodItem">
+                <div className="PeriodText">
+                Quincenal
+                </div>
               </li>
-              <li>
-                che
-              </li>
-              <li>
-                che
-              </li>
-              <li>
-                che
+              <li className="PeriodItem">
+                <div className="PeriodText">
+                Mensual
+                </div>
               </li>
           </ul>
         </div>
