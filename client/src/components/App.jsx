@@ -7,8 +7,18 @@ import { Perfiles} from './Perfiles'
 import { Graficas } from './Graficas'
 import { Frecuentes } from './Frecuentes'
 import { Config } from './Config'
+import { useContext, useEffect } from 'react'
+import UserContext from '../context/UserContext'
 
 export const App = () => {
+
+  const {user, setUser} = useContext(UserContext)
+
+  useEffect(()=>{
+    if(!user){
+      
+    }
+  }, [])
   return (
     <Routes>
         <Route path='/' element={<Index/>}/>

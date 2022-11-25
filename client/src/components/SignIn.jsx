@@ -6,6 +6,11 @@ import { Entry, Button } from "./ModulesForm";
 import { useNavigate } from "react-router-dom";
 import { Loader } from "./Loader";
 
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
+
+const MySwal = withReactContent(Swal);
+
 export const SignIn = () => {
   const nav = useNavigate();
 
@@ -19,7 +24,7 @@ export const SignIn = () => {
             nombre: "",
             correo: "",
             contraseña: "",
-            contraseñaConfirmada: "",
+            contraseñaConfirmada: ""
           }}
           validationSchema={Yup.object({
             nombre: Yup.string()
@@ -38,22 +43,35 @@ export const SignIn = () => {
             contraseñaConfirmada: Yup.string().test(
               "passwords-match",
               "Las contraseñas deben coincidir",
-              function (value) {
+              function(value) {
                 return this.parent.contraseña === value;
               }
-            ),
+            )
           })}
-          onSubmit={async (values) => {
-            const data = await uApi.createUser({
-              nombre: values.nombre,
-              correo: values.correo,
-              contraseña: values.contraseña,
-            });
-            console.log(data);
-            nav("/perfiles", { state:  data });
+          onSubmit={async values => {
+            const res = await uApi.createUser(values);
+            console.log(res)
+            if (res.status === 200) {
+              MySwal.fire({
+                title: "Exitoso",
+                text: res.data.message,
+                type: "success",
+                timer: 3000,
+                timerProgressBar:true
+              }).then(() => {
+                nav("/login");
+              });
+            } else {
+              MySwal.fire({
+                title: "Hubo un error",
+                text: res.data.message,
+                type: "error",
+                showCancelButton: true
+              });
+            }
           }}
         >
-          {(formik) => (
+          {formik =>
             <form onSubmit={formik.handleSubmit}>
               <div className="form-title">Crear cuenta</div>
               <Entry
@@ -61,38 +79,65 @@ export const SignIn = () => {
                 Name={"Nombre"}
                 Type={"text"}
                 ExtraProps={formik.getFieldProps("nombre")}
-              ></Entry>
+              />
               {formik.touched.nombre && formik.errors.nombre
-                ? (setLoading(false), (<div>{formik.errors.nombre}</div>))
+                ? (
+                    setLoading(false),
+                    (
+                      <div>
+                        {formik.errors.nombre}
+                      </div>
+                    )
+                  )
                 : null}
               <Entry
                 Id={"correo"}
                 Name={"Correo"}
                 Type={"email"}
                 ExtraProps={formik.getFieldProps("correo")}
-              ></Entry>
+              />
               {formik.touched.correo && formik.errors.correo
-                ? (setLoading(false), (<div>{formik.errors.correo}</div>))
+                ? (
+                    setLoading(false),
+                    (
+                      <div>
+                        {formik.errors.correo}
+                      </div>
+                    )
+                  )
                 : null}
               <Entry
                 Id={"contraseña"}
                 Name={"Contraseña"}
                 Type={"password"}
                 ExtraProps={formik.getFieldProps("contraseña")}
-              ></Entry>
+              />
               {formik.touched.contraseña && formik.errors.contraseña
-                ? (setLoading(false), (<div>{formik.errors.contraseña}</div>))
+                ? (
+                    setLoading(false),
+                    (
+                      <div>
+                        {formik.errors.contraseña}
+                      </div>
+                    )
+                  )
                 : null}
               <Entry
                 Id={"contraseñaConfirmada"}
                 Name={"Confirmar contraseña"}
                 Type={"password"}
                 ExtraProps={formik.getFieldProps("contraseñaConfirmada")}
-              ></Entry>
+              />
               {formik.touched.contraseñaConfirmada &&
               formik.errors.contraseñaConfirmada
-                ? (setLoading(false),
-                  (<div>{formik.errors.contraseñaConfirmada}</div>))
+                ? (
+                    setLoading(false),
+                    (
+                      <div>
+                        {formik.errors.contraseñaConfirmada}
+                      </div>
+                    )
+                  )
                 : null}
               <Button
                 disabled={formik.isSubmitting}
@@ -100,11 +145,10 @@ export const SignIn = () => {
                 type={"submit"}
                 btnclass={"prime-btn"}
               />
-            </form>
-          )}
+            </form>}
         </Formik>
       </div>
-      {loading ? <Loader></Loader> : null}
+      {/* {loading ? <Loader></Loader> : null} */}
     </div>
   );
 };
