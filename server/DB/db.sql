@@ -15,9 +15,9 @@ DROP TABLE IF EXISTS `data_usuario`;
 CREATE TABLE `data_usuario` (
   `datId` int NOT NULL AUTO_INCREMENT,
   `datName` varchar(50) NOT NULL,
-  `datPhoto` varchar(50) NOT NULL,
-  `datProfile` int NOT NULL,
-  `datBalance` float NOT NULL,
+  `datPhoto` varchar(50) DEFAULT NULL,
+  `datProfile` int DEFAULT 0,
+  `datBalance` float DEFAULT 0,
   `usuId` int NOT NULL,
   PRIMARY KEY (`datId`),
   KEY `usuId_idx` (`usuId`),
