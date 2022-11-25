@@ -2,6 +2,7 @@
     --main-color: #4CADCA;
     --sec-color: #2584a0;
     --ter-color: #044C7C;
+    --wh-color: white;
 }
 
 .semData {
@@ -245,6 +246,11 @@
     color: var(--ter-color);
 }
 .GasIcon{
+    margin: 2vh;
+    color: var(--wh-color);
+}
+
+.OpcBtn .GasIcon{
     margin: 2vh;
     color: var(--ter-color);
 }
