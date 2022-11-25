@@ -1,14 +1,13 @@
 CREATE DATABASE  IF NOT EXISTS `baro`;
 USE `baro`;
 
-DROP TABLE IF EXISTS `cobros_fre`;
-CREATE TABLE `cobros_fre` (
-  `cobId` int NOT NULL AUTO_INCREMENT,
-  `cobDate` datetime NOT NULL,
-  `freId` int NOT NULL,
-  PRIMARY KEY (`cobId`),
-  KEY `freIdCob_idx` (`freId`),
-  CONSTRAINT `freIdCob` FOREIGN KEY (`freId`) REFERENCES `frecuentes` (`freId`)
+DROP TABLE IF EXISTS `usuario`;
+CREATE TABLE `usuario` (
+  `usuId` int NOT NULL AUTO_INCREMENT,
+  `usuEmail` varchar(50) NOT NULL,
+  `usuPassword` varchar(300) NOT NULL,
+  PRIMARY KEY (`usuId`),
+  UNIQUE KEY `usuEmail_UNIQUE` (`usuEmail`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 DROP TABLE IF EXISTS `data_usuario`;
@@ -22,6 +21,17 @@ CREATE TABLE `data_usuario` (
   PRIMARY KEY (`datId`),
   KEY `usuId_idx` (`usuId`),
   CONSTRAINT `usuIdDat` FOREIGN KEY (`usuId`) REFERENCES `usuario` (`usuId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+
+DROP TABLE IF EXISTS `semanas`;
+CREATE TABLE `semanas` (
+  `semId` int NOT NULL AUTO_INCREMENT,
+  `semStart` datetime NOT NULL,
+  `semEnd` datetime NOT NULL,
+  `usuId` int NOT NULL,
+  PRIMARY KEY (`semId`),
+  KEY `usuId_idx` (`usuId`),
+  CONSTRAINT `usuIdSem` FOREIGN KEY (`usuId`) REFERENCES `usuario` (`usuId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 DROP TABLE IF EXISTS `day`;
@@ -60,21 +70,12 @@ CREATE TABLE `frecuentes` (
   CONSTRAINT `dayIdFre` FOREIGN KEY (`dayId`) REFERENCES `day` (`dayId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
-DROP TABLE IF EXISTS `semanas`;
-CREATE TABLE `semanas` (
-  `semId` int NOT NULL AUTO_INCREMENT,
-  `semStart` datetime NOT NULL,
-  `semEnd` datetime NOT NULL,
-  `usuId` int NOT NULL,
-  PRIMARY KEY (`semId`),
-  KEY `usuId_idx` (`usuId`),
-  CONSTRAINT `usuIdSem` FOREIGN KEY (`usuId`) REFERENCES `usuario` (`usuId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
-
-DROP TABLE IF EXISTS `usuario`;
-CREATE TABLE `usuario` (
-  `usuId` int NOT NULL AUTO_INCREMENT,
-  `usuEmail` varchar(300) NOT NULL,
-  `usuPassword` varchar(300) NOT NULL,
-  PRIMARY KEY (`usuId`)
+DROP TABLE IF EXISTS `cobros_fre`;
+CREATE TABLE `cobros_fre` (
+  `cobId` int NOT NULL AUTO_INCREMENT,
+  `cobDate` datetime NOT NULL,
+  `freId` int NOT NULL,
+  PRIMARY KEY (`cobId`),
+  KEY `freIdCob_idx` (`freId`),
+  CONSTRAINT `freIdCob` FOREIGN KEY (`freId`) REFERENCES `frecuentes` (`freId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
