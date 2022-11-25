@@ -1,5 +1,6 @@
 import React from 'react'
-import { NavBar,SubSet ,UserConfg,EntrySet,SetPerfil,GasFrec} from './ModulesForm'
+import { useState } from 'react'
+import { NavBar,SubSet ,UserConfg,EntrySet,SetPerfil,GasFrec,DiaFacFre,SubAcc} from './ModulesForm'
 //Para cambio de pestaña
 export const Config = () => {
 const btnperf = ()=>{
@@ -90,16 +91,66 @@ const canperf = ()=>{
   document.querySelector('#YourType').style.display="block"
   document.querySelector('#SelectType').style.display="none"
 }
-
-const btnlistperiod = ()=>{
+//STATES
+const [periodo, setPeriodo] = useState("");
+const btnlistperiod = (e)=>{
   let lista= document.querySelector('.PeriodList')
+  let flecha= document.querySelector('.PeriodList i')
   lista.classList.toggle("select")
   let alto = 0
   let listperiod = lista.nextElementSibling;
+  flecha.style.rotate="90deg"
   if(listperiod.clientHeight == "0"){
+    flecha.style.rotate="180deg"
     alto = listperiod.scrollHeight-2;
   }
   listperiod.style.height= alto+"px"
+  if(e.target.textContent =="Periodos"||e.target.textContent =="Diario"||e.target.textContent =="Semanal"||e.target.textContent =="Quincenal"){
+    if(e.target.textContent =="Periodos"){
+      setPeriodo("Eligiendo...")
+    }else{
+      setPeriodo(e.target.textContent)
+    }
+  }else{
+    setPeriodo("Eligiendo...")
+  }
+  //IDENTIFICADOR DE ENTRADA DE GASTO
+}
+const btndiasfac = ()=>{
+  let diafacts = document.querySelector('.DiaFacFre')
+  let listfacts = document.querySelector('.ListFrec')
+  diafacts.style.display="block"
+  listfacts.style.display="none"
+}
+const btnlistfrec = ()=>{
+  let diafacts = document.querySelector('.DiaFacFre')
+  let listfacts = document.querySelector('.ListFrec')
+  diafacts.style.display="none"
+  listfacts.style.display="block"
+}
+const btnvaciar = ()=>{
+let vaciar = document.querySelector('.ContainerVaciar')
+let terminos = document.querySelector('.ContainerTerminos')
+let borrar = document.querySelector('.ContainerDelete')
+terminos.style.display="none"
+vaciar.style.display="block"
+borrar.style.display="none"
+}
+const btnterminos = ()=>{
+let vaciar = document.querySelector('.ContainerVaciar')
+let terminos = document.querySelector('.ContainerTerminos')
+let borrar = document.querySelector('.ContainerDelete')
+borrar.style.display="none"
+vaciar.style.display="none"
+terminos.style.display="block"
+}
+const btnborrar = ()=>{
+let vaciar = document.querySelector('.ContainerVaciar')
+let terminos = document.querySelector('.ContainerTerminos')
+let borrar = document.querySelector('.ContainerDelete')
+vaciar.style.display="none"
+terminos.style.display="none"
+borrar.style.display="block"
 }
   return (
     
@@ -182,7 +233,7 @@ const btnlistperiod = ()=>{
                       />
                     <div className="DesYourType">
                       <h2 className='DesYourType-Title'>Descripción</h2>
-                      <p className='DesYourType-Des'>lajdlkajflkasdjflkjsdklfasdklfjlkadjflkasdj</p> 
+                      <p>Un perfil idea para todo tiempo de estudiante de que este cursando el nivel medio superior, cuenta con los gastos comunes de estos ademas de tener de posibilidad de adicionar los que el estudiante quiera</p> 
                     </div>
                     <div className="AlertYourType">
                       <h2 className='AlertYourType-Title'>Alerta</h2>
@@ -219,14 +270,143 @@ const btnlistperiod = ()=>{
               <div><h1>Gastos</h1></div>
               <div className="ListFrec">
               <GasFrec 
+              name={"Gas"}
+              balance={"500"}
+              des={"Gasto de consumo de agua de la casa de don juan"}
+              date={"14/04/2024"}
+              periodo={periodo}
+              e={btnlistperiod}
+              e2={btndiasfac}
+              />
+              <GasFrec 
+              name={"Gas"}
+              balance={"500"}
+              des={"Gasto de consumo de agua de la casa de don juan"}
+              date={"14/04/2024"}
+              periodo={periodo}
+              e={btnlistperiod}
+              />
+              <GasFrec 
+              name={"Gas"}
+              balance={"500"}
+              des={"Gasto de consumo de agua de la casa de don juan"}
+              date={"14/04/2024"}
+              periodo={periodo}
               e={btnlistperiod}
               />
               </div>
+              <div className="DiaFacFre">
+              <div className="TitleListaGasFre">Días de Facturación de Agua</div>
+                <DiaFacFre
+                padre={"Agua"}
+                cantidad={"5000"}
+                date={"12/07/2022"}
+                />
+                <DiaFacFre
+                padre={"Agua"}
+                cantidad={"5000"}
+                date={"12/07/2022"}
+                />
+                <DiaFacFre
+                padre={"Agua"}
+                cantidad={"5000"}
+                date={"12/07/2022"}
+                />
+                <DiaFacFre
+                padre={"Agua"}
+                cantidad={"5000"}
+                date={"12/07/2022"}
+                />
+                <DiaFacFre
+                padre={"Agua"}
+                cantidad={"5000"}
+                date={"12/07/2022"}
+                />
+                <DiaFacFre
+                padre={"Agua"}
+                cantidad={"5000"}
+                date={"12/07/2022"}
+                />
+                <DiaFacFre
+                padre={"Agua"}
+                cantidad={"5000"}
+                date={"12/07/2022"}
+                />
+                <DiaFacFre
+                padre={"Agua"}
+                cantidad={"5000"}
+                date={"12/07/2022"}
+                />
+                <DiaFacFre
+                padre={"Agua"}
+                cantidad={"5000"}
+                date={"12/07/2022"}
+                />
+                <DiaFacFre
+                padre={"Agua"}
+                cantidad={"5000"}
+                date={"12/07/2022"}
+                />
+                <DiaFacFre
+                padre={"Agua"}
+                cantidad={"5000"}
+                date={"12/07/2022"}
+                />
+                <DiaFacFre
+                padre={"Agua"}
+                cantidad={"5000"}
+                date={"12/07/2022"}
+                />
+                <div className="BtnReturn" ><button className="BtnReturnFre" onClick={btnlistfrec} >Regresar a configuración de gastos frecuentes<i className="fa-solid fa-reply"></i></button></div>
+              </div>
+              
             </div>
             <div className="AccountSettings" id='AccountSettings'>
               <div><h1>Cuenta</h1></div>
-              <div className="AccountBody">
-                
+              <div className="ContainerAcc">
+                <div className="AccountBody">
+                    <SubAcc name={"Vaciar Datos"} icons={"fa-solid fa-inbox"} e={btnvaciar}/>
+                    <div className="LineAcc"></div>
+                    <SubAcc name={"Términos y Condiciones"} icons={"fa-solid fa-book"} e={btnterminos}/>
+                    <div className="LineAcc"></div>
+                    <SubAcc name={"Borrar Cuenta"} icons={"fa-solid fa-fire"} e={btnborrar}/>
+                </div>
+                <div className="ContainerResultsAcc">
+                  <div className="ContainerVaciar">
+                    <h2>Vaciar Datos</h2>
+                    <br></br>
+                    <h3>Advertencia</h3>
+                    <p>Si confirmas esta operación se eliminaran todos los registros que tengas hasta el momento, además de esto se borraran los gastos frecuentes, asi como sus configuraciones.</p>
+                    <br></br>
+                    <h3>Resumen</h3>
+                    <p>Es comenzar desde cero. Perfecto para poder aplicarse en el cambio radical de tus gastos</p>
+                    <div className="BtnsVaciar">
+                      <div className="SetDat" ><button className="BtnSetDat">Cancelar</button></div>
+                      <div className="SetDat" ><button className="BtnSetDat">Cambiar</button></div>
+                    </div>
+                  </div>
+                  <div className="ContainerTerminos">
+                    <h2>Terminos y Condiciones</h2>
+                    <br></br>
+                    <p>En esta parte podrás tener acceso a los Términos y Condiciones de la empresa Euclid Tech. Esto con el proposito de conozcas mejor la forma de trabajar de nosotros, estamos agradecidos de poder brindar productos de calidad por medio del software.</p>
+                    <br></br>
+                    <h3>Para mas detalle</h3>
+                    <p>Puedes vistiar los siguientes links para ver los terminos y condiciones a detalle</p>
+                  </div>
+                  <div className="ContainerDelete">
+                    <h2>Eliminar Cuenta</h2>
+                    <br></br>
+                    <h3>Advertencia</h3>
+                    <p>Esta acción es irreversible, eliminara tu cuenta por completo sin nunguna posibilidad de acceder a ella.</p>
+                    <br></br>
+                    <h3>Sin Embargo</h3>
+                    <p>En Baro podrás realizar mas cuentas si asi lo deseas, evidentemente vacias.</p>
+                    <div className="BtnsDelete">
+                      <div className="SetDat" ><button className="BtnSetDat">Cancelar</button></div>
+                      <div className="SetDat" ><button className="BtnSetDat">Confirmar</button></div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

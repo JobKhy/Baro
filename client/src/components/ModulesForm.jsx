@@ -193,7 +193,7 @@ export const GasRec = () => {
 export const IngGas = () => {
   return (
     <>
-      <h1>Ingreso de dinero</h1>
+      <h1>Ingreso de Balance</h1>
           <div className="GasCont">
             <Entry Id={"correo"}
                 Name={"Correo"}
@@ -211,7 +211,7 @@ export const IngGas = () => {
 export const Gasto = () => {
   return (
     <>
-      <h1>Aña gasto</h1>
+      <h1>Agrega Gasto</h1>
           <div className="GasCont">
             <Entry Id={"correo"}
                 Name={"Correo"}
@@ -291,37 +291,82 @@ export const SetPerfil = ({ icon, perfil }) => {
   );
 };
 
-export const GasFrec = ({ icon, perfil,e }) => {
+export const GasFrec = ({ name, balance,des,date, periodo,e,e2 }) => {
   return (
+    
       <div className="ContainerFrec">
-        <div className="NameFrec">Agua</div>
-        <button className="PeriodList" onClick={e}>
-          Periodos
-        </button>
-        <div className="PeriodListCont">
-          <ul className="PeriodShow">
-              <li className="PeriodItem">
-                <div className="PeriodText">
-                Diario
-                </div> 
-              </li>
-              <li className="PeriodItem">
-                <div className="PeriodText">
-                Semanal
-                </div>
-              </li>
-              <li className="PeriodItem">
-                <div className="PeriodText">
-                Quincenal
-                </div>
-              </li>
-              <li className="PeriodItem">
-                <div className="PeriodText">
-                Mensual
-                </div>
-              </li>
-          </ul>
+        <div className="NameFrec">{name}</div>
+        <div className="ContainerDataFre">
+          <div>
+            <button className="PeriodList" onClick={e}>
+              <p>Periodos</p>
+              <i className="fa-solid fa-chevron-up"></i>
+            </button>
+            <div className="PeriodListCont">
+              <ul className="PeriodShow">
+                  <li className="PeriodItem">
+                    <div className="PeriodText" onClick={e} >
+                    Diario
+                    </div> 
+                  </li>
+                  <li className="PeriodItem">
+                    <div className="PeriodText" onClick={e} >
+                    Semanal
+                    </div>
+                  </li>
+                  <li className="PeriodItem">
+                    <div className="PeriodText" onClick={e} >
+                    Quincenal
+                    </div>
+                  </li>
+              </ul>
+            </div>
+          </div>
+          <div className="PeriodAmount">
+            <h2>Facturación</h2>
+            <input type={"number"} placeholder={balance} disabled/><br></br>
+            <p>{periodo}</p>
+          </div>
+          <div className="FreLine"></div>
+          <div className="DescriptionFre">
+            <h2>Descripción</h2>
+            <p>{des}</p>
+          </div>
+          <div className="FreLine"></div>
+          <div className="DateStartFre">
+            <h2>Fecha de registro</h2>
+            <p>{date}</p>
+          </div>
         </div>
+        <div className="FreOptions">
+          <div className="FactFre " ><button className="BtnFactFre" onClick={e2}>Ver días de Facturación<i className="fa-solid fa-calendar-days"></i></button></div>
+          <div className="FactFre" ><button className="BtnFactFreI" >Editar gasto frecuente<i className="fa-solid fa-pen-to-square"></i></button></div>
+          <div className="FactFre-Can " ><button className="BtnFactFre-Can" >Eliminar gasto frecuente<i className="fa-solid fa-trash"></i></button></div>
+        </div>
+        <div className="LinePad"></div>
       </div>
+  );
+};
+export const DiaFacFre = ({ padre, cantidad, date }) => {
+  return (
+    <div className="DiaFre">
+      <div><h2>{padre}</h2></div>
+      <div><h2>{cantidad}</h2></div>
+      <div><h2>{date}</h2></div>
+    </div>
+  );
+};
+export const SubAcc = ({ name, icons,e }) => {
+  return (
+        <div className="OpcAcc">
+            <span className="OpcAccName">
+              <button className="OpcBtnAcc" onClick={e}>
+                <span className="AccIcon">
+                  <i className={icons}></i>
+                </span>
+                <p>{name}</p>
+              </button>
+            </span>
+        </div>
   );
 };

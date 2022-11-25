@@ -342,6 +342,7 @@
     width: 100%;
     height: 100%;
 }
+/*nota*/
 .BtnSetDat{
     position: absolute;
     text-align: center;
@@ -469,6 +470,7 @@
     margin-left: 1vw;
 }
 .DesYourType{
+    overflow: hidden;
     color: white;
     font-size: 1.5vh;
     margin-right: 1%;
@@ -476,6 +478,9 @@
     margin-top: 2%;
     background-color: transparent;
     width: 20vw;
+}
+.DesYourType p{
+    text-align: justify;
 }
 .AlertYourType{
     color: white;
@@ -569,41 +574,272 @@
     height: 15%;
     font-size: 8vh; 
 }
+.ContainerFrec{
+    padding: 1vh 2vw 1vh 2vw;
+}
+.NameFrec{
+    margin-bottom:1vh ;
+    font-size: 2vw;
+    color: white;
+}
 .ListFrec{
+    overflow: auto;
     border-radius: 1rem;
     position: absolute;
     margin: 1.5vh;
-    background-color: yellowgreen;
+    background-color: var(--main-color);
     height: 56vh;
     width: 57vw;
 }
 .PeriodList{
+    padding: 1.5vh;
+    display: flex;
+    font-size: 2.5vh;
+    color: var(--ter-color);
     border-radius: 1rem;
     border: none;
-    height: 10vh;
+    height: 6vh;
     background-color: white;
-    width: 10vw;
+    width: 9vw;
     cursor: pointer;
     list-style: none;
+    margin: 1vh 0 0 0;
+}
+.PeriodList i{
+    margin:.3vh 6vw auto ;
+    position: absolute;
+    rotate: 90deg;
+    transition: rotate .5s;
+}
+.PeriodList p{
+    margin-right: 3vh
 }
 .PeriodShow{
     list-style: none;
-    transition: background-color 4s;
     height: 0;
 }
-.PeriodListCont{
+.DescriptionFre{
+    width: 17vw;
+    height: 13vh;
+    color: white;
+}
+.DescriptionFre p{
+    font-size: 1.5vh;
+    overflow: hidden;
+    text-align: justify;
+}
+.DescriptionFre h2{
+    font-size: 2.5vh;
+}
+.DateStartFre{
     text-align: center;
-    width: 10vw;
-    border-radius: 0 0 1rem 1rem;
+    color: #fff;
+}
+.DateStartFre p{
+    font-size: 1vw;
+    margin: 1vh;
+}
+.DateStartFre h2{
+    font-size: 2.5vh;
+}
+.PeriodListCont{
+    position: relative;
+    bottom: 1.4vh;
+    list-style: none;
+    transition: height .4s;
+    height: 0;
+    text-align: center;
+    width: 9vw;
+    border-radius: 0 0 1vw 1vw;
     border-color: var(--main-color) solid 1px;
     background-color: white;
     overflow: hidden;
 }
+.ContainerDataFre{
+    display: flex;
+}
+.PeriodAmount{
+    position: relative;
+    align-items: center;
+    margin: 0 0 1vh 1vw;
+    color: white;
+}
+.PeriodAmount input{
+    text-align: center;
+    position: absolute;
+    width: 8vw;
+    border: none;
+    outline: none;
+    font-size: 3vh;
+    background-color: var(--main-color);
+    color: white;
+}
+.PeriodAmount input::placeholder{
+    color: white;
+    font-family: 'Poppins';
+}
+.FreLine{
+    background-color: var(--ter-color);
+    height: 11vh;
+    width: 3px;
+    margin: 0 1vw 0 1vw;
+}
+.PeriodAmount p{
+    margin-top: 1vh;
+    text-align: center;
+    font-size: 1vw;
+    font-weight: 600;
+}
+.PeriodAmount h3{
+    text-align: center;
+    font-size: 1.4vw;
+    font-weight: 600;
+}
 .PeriodText{
+    font-size: 1.8vh;
     border-bottom: var(--ter-color) solid 2px;
 }
 .PeriodItem{
     color: var(--ter-color);
+}
+.PeriodItem:hover{
+    cursor: pointer;
+    color: white;
+    background-color: var(--ter-color);
+}
+.FreOptions{
+    margin: 0 1vw 0 1vw;
+    display: flex;
+}
+.FactFre{
+    position: relative;
+    align-items: center;
+    border-radius: 1em;
+    background-color: white;
+    width: 15vw;
+    height: 5vh;
+    margin: 2vh 1vw 1vh 1vw;
+}
+.FactFre-Can{
+    position: relative;
+    align-items: center;
+    color: white;
+    border-radius: 1em;
+    background-color: var(--ter-color);
+    width: 15vw;
+    height: 5vh;
+    margin: 2vh 1vw 1vh 1vw;
+}
+.BtnFactFre{
+    position: absolute;
+    text-align: center;
+    font-weight: 600;
+    font-size: 2vh;
+    color:var(--ter-color);
+    border: none;
+    background-color: transparent;
+    width: 100%;
+    height: 100%;
+}
+.BtnFactFre i{
+    margin: 0 0 0 1vh;
+}
+.BtnFactFreI{
+    position: absolute;
+    text-align: center;
+    font-weight: 600;
+    font-size: 2vh;
+    color:var(--ter-color);
+    border: none;
+    background-color: transparent;
+    width: 100%;
+    height: 100%;
+}
+.BtnFactFreI i{
+    margin: 0 0 0 1vh;
+}
+.BtnFactFre-Can{
+    position: absolute;
+    text-align: center;
+    font-size: 2vh;
+    font-weight: 600;
+    color:white;
+    border: none;
+    background-color: transparent;
+    width: 100%;
+    height: 100%;
+}
+.BtnFactFre-Can i{
+    margin: 0 0 0 1vh;
+}
+.LinePad{
+    margin-top: 3vh;
+    background-color: var(--ter-color);
+    width: 100%;
+    height: 1vh;
+}
+.DiaFre{
+    display: flex;
+    background-color: var(--ter-color);
+    color: white;
+    padding: 2%;
+    width: 100%;
+    height: 5vh;
+    border-top: white solid .3vh;
+    border-bottom: white solid .3vh;;
+}
+.DiaFre h2{
+    position: relative;
+    bottom: 1.2vh;
+    margin: 0 7.5vw 1vh 7.5vw;
+    font-size: 2vh;
+}
+.DiaFacFre{
+    border: white solid .5vh;
+    display: none;
+    overflow: auto;
+    border-radius: 1rem;
+    position: absolute;
+    margin: 1.5vh;
+    background-color: var(--ter-color);
+    height: 50vh;
+    width: 57vw;
+}
+.BtnReturn{
+    font-size: 2vh;
+    font-weight: 600;
+    position: relative;
+    align-items: center;
+    background-color: white;
+    width: 100%;
+    height: 20%;
+    margin: 0
+}
+.BtnReturn i{
+    margin-left: 1vw;
+}
+.TitleListaGasFre{
+    color: var(--ter-color);
+    text-align: center;
+    font-size: 5vh;
+    font-weight: 600;
+    position: relative;
+    align-items: center;
+    background-color: white;
+    width: 100%;
+    height: 20%;
+    margin: 0
+}
+.BtnReturnFre{
+    position: absolute;
+    text-align: center;
+    font-weight: 600;
+    font-size: 2vh;
+    color:var(--ter-color);
+    border: none;
+    background-color: transparent;
+    width: 100%;
+    height: 100%;
 }
 /*DIV_CUENTA*/
 .AccountSettings{
@@ -623,4 +859,83 @@
     color: white;
     height: 15%;
     font-size: 8vh;
+}
+.AccountBody{
+    display: grid;
+    margin: 4vh;
+}
+.OpcAcc{
+    position: relative;
+    height: fit-content;
+    width: 100%;
+    font-size: 1.2rem;
+    text-align: center;
+}
+.OpcBtnAcc{
+    position: relative;
+    background-color: transparent;
+    border: none;
+    color:white;
+    font-size:3vh;
+    width: 100%;
+    height: 100%;
+}
+.OpcBtnAcc p{
+    left: 3.5vw;
+    position: absolute;
+}
+.OpcBtnAcc i{
+    font-size: 2vw;
+    position: absolute;
+    left: 1vw;
+}
+.AccIcon{
+    margin: 2vh;
+    color: white;
+}
+.LineAcc{
+    background-color: white;
+    margin: 5vh;
+    height: 2px;
+    width: 17vw;
+}
+.ContainerAcc{
+    display: flex;
+}
+.ContainerResultsAcc{
+    padding: 1vw;
+    border-radius: 1vw;
+    background-color: var(--ter-color);
+    height: 57vh;
+    width: 31vw;
+}
+.ContainerResultsAcc h2{
+    color:white;
+    font-size: 2vw;
+}
+.ContainerResultsAcc h3{
+    color: white;
+    font-size: 2vh;
+}
+.ContainerResultsAcc p{
+    font-size: 1vw;
+    color: white;
+    text-align: justify;
+}
+.BtnsVaciar{
+    margin-top: 5vh;
+    display: flex;
+}
+.BtnsDelete{
+    margin-top: 11.1vh;
+    display: flex;
+}
+.ContainerVaciar{
+    display: none;
+}
+.ContainerTerminos{
+    display: none;
+}
+.ContainerDelete{
+    display: block;
 }
