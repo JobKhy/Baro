@@ -36,9 +36,9 @@ export const Home = () => {
           <UserPf User={user?.name}></UserPf>
           <div className="BalanceDisp">
             <div className="BalanceCant">
-              <hr className="ww" />
               <h1 className="white">$ {user?.balance}</h1>
               <h6 className="white">Balance Disponible</h6>
+              <hr className="ww" />
             </div>
             <div className="BalanceMenu">
             <button onClick={() => {setDisp2(true), setDisp(true)}}>

@@ -572,6 +572,51 @@ h6{
     font-weight: 500;
 }
 
+.alignGas{
+    position: absolute;
+    align-items: center;
+    left: calc(50% - 70%/2);
+    min-height: 600px;
+    width: 70%;
+    max-width: 500px;
+    padding: 4.5em 3em;
+}
+
+.alignGas .prime-btn{
+    font-size: 1rem;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 10vw;
+    margin: .7rem 30%;
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 25px;
+    margin-top: 2rem;
+    background-color: var(--main-color);
+    color: white;
+    font-family: Poppins;
+    max-width: 100%;
+    cursor: pointer;
+}
+
+.alignGas .sec-btn{
+    font-size: 1rem;
+    align-items: center;
+    justify-content: center;
+    width: 10vw;
+    margin: .7rem 30%;
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 25px;
+    margin-top: 2rem;
+    background-color: var(--sec-color);
+    color: white;
+    font-family: Poppins;
+    max-width: 100%;
+    cursor: pointer;
+}
+
 /* .load */
 
 .load{
