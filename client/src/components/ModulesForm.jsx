@@ -267,7 +267,7 @@ export const GasRec = () => {
             date={"3/3/22"}
           />
           <Reciente
-            gasto={"Internet"}
+            gasto={"Internet "}
             icons={"fa-solid fa-wifi"}
             value={759}
             date={"2/3/22"}
