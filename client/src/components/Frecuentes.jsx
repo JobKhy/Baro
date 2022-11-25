@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react'
-import { NavBar } from './ModulesForm'
+import { NavBar,SubSet ,UserConfg,EntrySet,SetPerfil,GasFrec,DiaFacFre,SubAcc} from './ModulesForm'
 import "../css/Extras.css"
 import UserContext from '../context/UserContext';
 import { userFetch } from '../api/users.api';
@@ -27,11 +27,23 @@ const nav = useNavigate()
     }
   }, []);
   return (
-    <div>
+    <div className='home-body-w'>
         <NavBar initialActive={2}></NavBar>
-        <div className="ow">
-            hola
-        </div>
+        <div className="colGraph">
+          <div className="typeOfGraph">
+                  <h1>Frecuentes</h1>
+          </div>
+          <div className="BodyFrec">
+            <div className="InfoFrec">
+
+            </div>
+            <div className="GasProx">
+              
+            </div>
+          </div>
+          
+        </div>    
     </div>
+
   )
 }

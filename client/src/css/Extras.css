@@ -776,7 +776,7 @@
     margin-top: 3vh;
     background-color: var(--ter-color);
     width: 100%;
-    height: 1vh;
+    height: .5vh;
 }
 .DiaFre{
     display: flex;
