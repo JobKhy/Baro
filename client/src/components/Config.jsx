@@ -1,5 +1,8 @@
-import React from 'react'
+import React, { useContext, useEffect } from 'react'
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import UserContext from '../context/UserContext'
+import { userFetch as uApi } from '../api/users.api'
 import { NavBar,SubSet ,UserConfg,EntrySet,SetPerfil,GasFrec,DiaFacFre,SubAcc} from './ModulesForm'
 //Para cambio de pestaña
 export const Config = () => {
@@ -152,6 +155,26 @@ vaciar.style.display="none"
 terminos.style.display="none"
 borrar.style.display="block"
 }
+
+const nav = useNavigate()
+
+const { user, setUser } = useContext(UserContext);
+  
+useEffect(() => {
+  async function fetchUser() {
+    const res = await uApi.checkSession();
+    if (res?.status === 200) {
+      setUser(res.data.user);
+      console.log(res.data.user);
+    } else {
+      nav("/login");
+    }
+  }
+  if (!user) {
+    fetchUser();
+  }
+}, []);
+
   return (
     
     <div className='home-body-w'>

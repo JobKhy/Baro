@@ -188,5 +188,19 @@ export const setProfile = async (req, res) => {
   }
 };
 export const logout = async (req, res) => {
-  
-}
+  try {
+    if(!req.cookies.token){
+      return res.status(400).json({message: "No hay sesión iniciada"})
+    }
+    req.session.destroy((err)=>{
+      if(err){
+        return res.status(400).json({message: "Error al cerrar sesión"})
+      }
+      res.clearCookie("token");
+      return res.status(200).json({message: "Sesión cerrada correctamente"})
+    });
+  } catch (e) {
+    return res.status(400).json({ message: "Error al cerrar sesión", e });
+  }
+};
+// abrela 
