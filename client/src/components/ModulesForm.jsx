@@ -267,7 +267,7 @@ export const GasRec = () => {
             date={"3/3/22"}
           />
           <Reciente
-            gasto={"Internet"}
+            gasto={"Internet "}
             icons={"fa-solid fa-wifi"}
             value={759}
             date={"2/3/22"}
@@ -291,6 +291,7 @@ export const IngGas = () => {
     <>
       <h1>Ingreso de Balance</h1>
       <div className="GasCont">
+        <div className="alignGas">
         <Entry2
           Id={"Ingreso"}
           Name={"Ingreso"}
@@ -328,6 +329,8 @@ export const IngGas = () => {
             }
           }}
         />
+        </div>
+        
       </div>
     </>
   );
@@ -344,6 +347,7 @@ export const Gasto = () => {
     <>
       <h1>Agrega Gasto</h1>
       <div className="GasCont">
+        <div className="alignGas">
         <Entry2
           Id={"nombre"}
           Name={"Nombre del gasto"}
@@ -377,6 +381,7 @@ export const Gasto = () => {
             console.log(res);
           }}
         />
+        </div>
       </div>
     </>
   );
