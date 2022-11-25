@@ -24,7 +24,7 @@ export const SignIn = () => {
             nombre: "",
             correo: "",
             contraseña: "",
-            contraseñaConfirmada: ""
+            contraseñaConfirmada: "",
           }}
           validationSchema={Yup.object({
             nombre: Yup.string()
@@ -43,35 +43,38 @@ export const SignIn = () => {
             contraseñaConfirmada: Yup.string().test(
               "passwords-match",
               "Las contraseñas deben coincidir",
-              function(value) {
+              function (value) {
                 return this.parent.contraseña === value;
               }
-            )
+            ),
           })}
-          onSubmit={async values => {
-            const res = await uApi.createUser(values);
-            console.log(res)
-            if (res.status === 200) {
-              MySwal.fire({
-                title: "Exitoso",
-                text: res.data.message,
-                type: "success",
-                timer: 3000,
-                timerProgressBar:true
-              }).then(() => {
-                nav("/login");
-              });
-            } else {
-              MySwal.fire({
-                title: "Hubo un error",
-                text: res.data.message,
-                type: "error",
-                showCancelButton: true
-              });
+          onSubmit={async (values) => {
+            try {
+              const res = await uApi.createUser(values);
+              console.log(res);
+              if (res?.status === 200) {
+                MySwal.fire({
+                  title: "Exitoso",
+                  text: res.data.message,
+                  icon: "success",
+                  timer: 3000,
+                  timerProgressBar: true,
+                }).then(() => {
+                  nav("/login");
+                });
+              } else {
+                MySwal.fire({
+                  title: "Error",
+                  icon: "error",
+                  text: res.response.data.message,
+                });
+              }
+            } catch (e) {
+              console.log(e);
             }
           }}
         >
-          {formik =>
+          {(formik) => (
             <form onSubmit={formik.handleSubmit}>
               <div className="form-title">Crear cuenta</div>
               <Entry
@@ -81,14 +84,7 @@ export const SignIn = () => {
                 ExtraProps={formik.getFieldProps("nombre")}
               />
               {formik.touched.nombre && formik.errors.nombre
-                ? (
-                    setLoading(false),
-                    (
-                      <div>
-                        {formik.errors.nombre}
-                      </div>
-                    )
-                  )
+                ? (setLoading(false), (<div>{formik.errors.nombre}</div>))
                 : null}
               <Entry
                 Id={"correo"}
@@ -97,14 +93,7 @@ export const SignIn = () => {
                 ExtraProps={formik.getFieldProps("correo")}
               />
               {formik.touched.correo && formik.errors.correo
-                ? (
-                    setLoading(false),
-                    (
-                      <div>
-                        {formik.errors.correo}
-                      </div>
-                    )
-                  )
+                ? (setLoading(false), (<div>{formik.errors.correo}</div>))
                 : null}
               <Entry
                 Id={"contraseña"}
@@ -113,14 +102,7 @@ export const SignIn = () => {
                 ExtraProps={formik.getFieldProps("contraseña")}
               />
               {formik.touched.contraseña && formik.errors.contraseña
-                ? (
-                    setLoading(false),
-                    (
-                      <div>
-                        {formik.errors.contraseña}
-                      </div>
-                    )
-                  )
+                ? (setLoading(false), (<div>{formik.errors.contraseña}</div>))
                 : null}
               <Entry
                 Id={"contraseñaConfirmada"}
@@ -130,14 +112,8 @@ export const SignIn = () => {
               />
               {formik.touched.contraseñaConfirmada &&
               formik.errors.contraseñaConfirmada
-                ? (
-                    setLoading(false),
-                    (
-                      <div>
-                        {formik.errors.contraseñaConfirmada}
-                      </div>
-                    )
-                  )
+                ? (setLoading(false),
+                  (<div>{formik.errors.contraseñaConfirmada}</div>))
                 : null}
               <Button
                 disabled={formik.isSubmitting}
@@ -145,7 +121,8 @@ export const SignIn = () => {
                 type={"submit"}
                 btnclass={"prime-btn"}
               />
-            </form>}
+            </form>
+          )}
         </Formik>
       </div>
       {/* {loading ? <Loader></Loader> : null} */}

@@ -8,14 +8,6 @@ import { Button } from "./ModulesForm"
 export const Index = () => {
     const { state } = useLocation();
     const [loading, setLoading] = useState(false)
-
-    useEffect(() => {
-        setLoading(true)
-        setTimeout(() => {
-            setLoading(false)
-        }, 500)
-    }, [])
-    
     return (
 
                 <>
@@ -24,7 +16,6 @@ export const Index = () => {
                         <div className="bir">
                             <img src={BaroLogo} alt="fondo" className="baro-img" />
                             <h1>Baro</h1>
-                            {state?.data?.insertId ? (<h4>Inicie sesión para continuar</h4>) : null}
                             <Button value={'Entrar'} dest={'login'} btnclass={'prime-btn'}></Button>
                             <Button value={'Crear cuenta'} dest={'signin'} btnclass={'sec-btn'}/>
                         </div>  

@@ -1,23 +1,43 @@
 import { Item, UserPf, Reciente, NavBar, IngGas, GasRec, Gasto } from "./ModulesForm"
-import { useState } from "react";
+import { useContext, useState } from "react";
+import UserContext from "../context/UserContext";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { userFetch as uApi } from "../api/users.api";
 
 export const Home = () => {
 
+  const nav = useNavigate()
+  const {user, setUser} = useContext(UserContext)
+
   const [disp, setDisp] = useState(true);
   const [disp2, setDisp2] = useState(false);
+
+  useEffect(()=>{
+    async function fetchUser() {
+      const res = await uApi.checkSession();
+      if (res?.status === 200) {
+        setUser(res.data.user);
+        console.log(res.data.user);
+      } else {
+        nav("/login");
+      }
+    }
+    if (!user) {
+      fetchUser();
+    }
+  }, [])
 
   return (
     <>
       <div className="home-body">
         <NavBar></NavBar>
         <div className="Balance">
-          <UserPf User={"Gus of war"}></UserPf>
+          <UserPf User={user?.name}></UserPf>
           <div className="BalanceDisp">
             <div className="BalanceCant">
-              <h6 className="white">Balance Total</h6>
-              <h1 className="white">$ 1,000,000</h1>
               <hr className="ww" />
-              <h1 className="white">$ 1,000,000</h1>
+              <h1 className="white">$ {user?.balance}</h1>
               <h6 className="white">Balance Disponible</h6>
             </div>
             <div className="BalanceMenu">
