@@ -1,7 +1,7 @@
 import { Entry, Button } from "./ModulesForm";
 import * as Yup from "yup";
 import { Form, Formik } from "formik";
-import { createUser } from "../api/users.api";
+import { userFetch as uApi } from "../api/users.api";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { Loader } from "./Loader";
@@ -32,7 +32,7 @@ export const LogIn = () => {
                   .required("La contraseña es requerida"),
               })}
               onSubmit={async (values) => {
-                const data = await createUser({
+                const data = await uApi.createUser({
                   correo: values.correo,
                   contraseña: values.contraseña,
                 });

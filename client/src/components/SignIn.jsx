@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import * as Yup from "yup";
 import { Form, Formik } from "formik";
-import { createUser } from "../api/users.api";
+import { userFetch as uApi } from "../api/users.api";
 import { Entry, Button } from "./ModulesForm";
 import { useNavigate } from "react-router-dom";
 import { Loader } from "./Loader";
@@ -44,7 +44,7 @@ export const SignIn = () => {
             ),
           })}
           onSubmit={async (values) => {
-            const data = await createUser({
+            const data = await uApi.createUser({
               nombre: values.nombre,
               correo: values.correo,
               contraseña: values.contraseña,

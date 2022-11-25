@@ -1,5 +1,5 @@
 import React from 'react'
-import { NavBar,SubSet ,UserConfg,EntrySet,SetPerfil,Perfil} from './ModulesForm'
+import { NavBar,SubSet ,UserConfg,EntrySet,SetPerfil,GasFrec} from './ModulesForm'
 //Para cambio de pestaña
 export const Config = () => {
 const btnperf = ()=>{
@@ -90,12 +90,24 @@ const canperf = ()=>{
   document.querySelector('#YourType').style.display="block"
   document.querySelector('#SelectType').style.display="none"
 }
+
+const btnlistperiod = ()=>{
+  let lista= document.querySelector('.PeriodList')
+  lista.classList.toggle("select")
+  let alto = 0
+  let listperiod = lista.nextElementSibling;
+  if(listperiod.clientHeight == "0"){
+    alto = listperiod.scrollHeight-2;
+  }
+  listperiod.style.height= alto+"px"
+}
   return (
+    
     <div className='home-body-w'>
         <NavBar initialActive={3}></NavBar>
         <div className="colGraph">
           <div className="typeOfGraph">
-                  <h1>Config</h1>
+                  <h1>Configuración</h1>
           </div>
           <div className="Config">
             <div className="PagSet">
@@ -103,15 +115,15 @@ const canperf = ()=>{
                 <UserConfg User={"Gus of war"}/>
               </div>
               <div className="SubSet">
-                <SubSet name={"Perfil"} icons={"fa-solid fa-dumbbell"} e={btnperf}/>
+                <SubSet name={"Perfil"} icons={"fa-solid fa-user"} e={btnperf}/>
                 <div className="Line"></div>
-                <SubSet name={"Gastos"} icons={"fa-solid fa-dumbbell"} e={btngas}/>
+                <SubSet name={"Gastos"} icons={"fa-solid fa-chart-simple"} e={btngas}/>
                 <div className="Line"></div>
-                <SubSet name={"Account"} icons={"fa-solid fa-dumbbell"} e={btnacc}/>
+                <SubSet name={"Cuenta"} icons={"fa-solid fa-person"} e={btnacc}/>
               </div>
             </div>
             <div className="PerfSettings" id='PerfSettings'>
-              <h1>Settings</h1>
+              <h1>Perfil</h1>
               <div className="PerfBody">
                 <div className="PerfLeft">
                   <div className="PerfData">
@@ -150,20 +162,32 @@ const canperf = ()=>{
                     ></EntrySet>
                   </div>
                   <div className="PerfImg">
-                  Hola
-                 </div>
+                    <div className="ConUserPf-Set">
+                      <div className="Confcircle-Set">
+                        <div className="ConfcircleImg-Set"></div>
+                      </div>
+                    </div>
+                    <div className="SetPhoto">
+                      <p>Cambiar Foto</p>
+                      <input type={"file"} className="SetPhotoIn"></input>
+                    </div>
+                  </div>
                 </div>
                 <div className="PerfType" id='YourType'>
                     <h1>Tu tipo de perfil actual es</h1>
                     <div className="TypeBody">
-                    <button className="YourPerf" type="submit" disabled>
-                      <i className={"fa-solid fa-school"}></i>
-                      <br></br>
-                      <div className="text">
-                        <h4>Estudiante</h4>
-                      </div>
-                    </button>
-                    <div className="DesYourType">lajdlkajflkasdjflkjsdklfasdklfjlkadjflkasdjflkasdjflak </div>
+                    <SetPerfil 
+                      icon={"fa-solid fa-school"} 
+                      perfil={"Estudiante"}
+                      />
+                    <div className="DesYourType">
+                      <h2 className='DesYourType-Title'>Descripción</h2>
+                      <p className='DesYourType-Des'>lajdlkajflkasdjflkjsdklfasdklfjlkadjflkasdj</p> 
+                    </div>
+                    <div className="AlertYourType">
+                      <h2 className='AlertYourType-Title'>Alerta</h2>
+                      <p className='AlertYourType-Des'>Si cambia de perfil va a perder todos sus gastos frecuentes</p> 
+                    </div>
                     <button className='BtnChangeType' onClick={setperf}>Cambiar Perfil</button>
                     </div>
                 </div>
@@ -175,29 +199,32 @@ const canperf = ()=>{
                       perfil={"Estudiante"}
                       />
                       <SetPerfil 
-                      icon={"fa-solid fa-school"} 
-                      perfil={"Estudiante"}
+                      icon={"fa-solid fa-briefcase"} 
+                      perfil={"Trabajador"}
                       />
                       <SetPerfil 
-                      icon={"fa-solid fa-school"} 
-                      perfil={"Estudiante"}
+                      icon={"fa-solid fa-house"} 
+                      perfil={"Sin oficio"}
                       />
                       <SetPerfil 
-                      icon={"fa-solid fa-school"} 
-                      perfil={"Estudiante"}
+                      icon={"fa-solid fa-user"} 
+                      perfil={"Otro"}
                       />
-                      <button className='BtnChangeType' onClick={canperf}>Cancel</button>
+                      <button className='BtnChangeType' onClick={canperf}>Cancelar</button>
                     </div>
                 </div>
               </div>
             </div>
             <div className="GasSettings" id='GasSettings'>
               <div><h1>Gastos</h1></div>
-              <Perfil icon={"fa-solid fa-school"} perfil={"Estudiante"} descripcion={"En este perfil encontraras gastos basicos como transporte, telefonia y alimentos."} des={'../home'}></Perfil>
-
+              <div className="ListFrec">
+              <GasFrec 
+              e={btnlistperiod}
+              />
+              </div>
             </div>
             <div className="AccountSettings" id='AccountSettings'>
-              <div><h1>Account</h1></div>
+              <div><h1>Cuenta</h1></div>
             </div>
           </div>
         </div>    

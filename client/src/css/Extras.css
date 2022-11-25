@@ -19,12 +19,11 @@
     position: relative;
     width: calc(100vw - 80px);
     height: 10vh;
-    padding: 0 auto;
     text-transform: capitalize;
 }
 
 .typeOfGraph h1{
-    font-size: 10vh;
+    font-size: 7vh;
     text-align: center;
 }
 
@@ -96,15 +95,18 @@
 .DisNone{
     display: none;
 }
+.select{
+    transition: transform .3s;
+}
 /*PAGINA_GENERAL*/
 .SubSet{
     grid-column: 1/3;
     grid-row: 2/4;
-    padding: 1rem;
+    padding: 1vw;
     display: grid;
     background-color: white;
     margin-left: 8vw;
-    margin-top: 1rem;
+    margin-top: 4vh;
     position: absolute;
     width: 20vw;
     height: 50vh;
@@ -130,7 +132,7 @@
 .Perfil{
     background-color: #fff;
     margin-left:8vw ;
-    margin-top: 2rem;
+    margin-top: 2vh;
     grid-row: 1/4;
     grid-column: 1/4;
     width: 25vw;
@@ -138,6 +140,31 @@
 }
 .PagSet{
     width: 30vw;
+}
+.Confcircle-Set{
+    position: absolute;
+    width:  300.4%;
+    height: 1000%;
+    background-color: none;
+    border-radius: 100%;
+    border: white solid 2px;
+    position: relative;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    justify-items: center;
+}
+.ConfcircleImg-Set{
+    position: relative;
+    border: white solid 8px;
+    width: 100%;
+    height: 100%;
+    border-radius: 100%;
+    background-image: url(../Img/PFP.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position-x: center;
+    background-position-y: center;
 }
 .Confcircle{
     position: absolute;
@@ -176,6 +203,12 @@
     font-size: 4vh;
     width: 100%;
     height: 100%;
+}.ConUserPf-Set{
+    position: absolute;
+    width: 33%;
+    height: 13%;
+    margin: 13px;
+    display: flex;
 }
 .ConUserPf{
     position: absolute;
@@ -212,6 +245,7 @@
     color: var(--ter-color);
 }
 .GasIcon{
+    margin: 2vh;
     color: var(--ter-color);
 }
 /*DIVS_DINAMICOS*/
@@ -220,8 +254,8 @@
     padding: 1rem;
     border-radius: 1rem;
     display: grid;
-    margin-top:3rem ;
-    margin-right: 5rem;
+    margin-top:8vh ;
+    margin-right: 5vw;
     background-color: var(--sec-color);
     grid-column: 2/3;   
     width: 60vw;
@@ -242,7 +276,7 @@
     padding-top: 3vh;
     padding-left: 1vw;
     padding-right: 1vw;
-    background-color: white;
+    background-color:var(--sec-color);
 	margin-top: 2vh;
 	display: grid;
 	gap: 2.5em;
@@ -253,32 +287,32 @@
 	--color: var(--ter-color);
 }
 .Setlogin-input{
-	width: 100%;    
+	width: 100%;
 	font-size: 3vh;
 	padding: .5vh;
 	background: none;
 	border: none;
 	outline: none;
-	border-bottom: 1px solid var(--ter-color);	
+	border-bottom: 1px solid white;	
 	font-family: Poppins;
 }
 
 
 .Setlogin-input:focus,
 .Setlogin-input:not(:placeholder-shown){
-    font-size: 2vh;
-	color: black;
+    font-size: 1.45vw;
+	color: white;
 }
 
 .Setlogin-input:focus + .Setlogin-label, 
 .Setlogin-input:not(:placeholder-shown) + .Setlogin-label{
 	transform: translateY(-12px) scale(.7);
 	transform-origin: left top;
-	color: var(--main-color);
+	color: var(--ter-color)
 }
 .Setlogin-label{
-    font-size: 2vh;
-	color: var(--ter-color);
+    font-size: 1.45vw;
+	color: white;
 	cursor: pointer;
 	position: absolute;
 	top: 0%;
@@ -292,13 +326,25 @@
 	left: 0;
 	width: 100%;
 	height: 1px;
-	background-color: var(--ter-color);
+	background-color: white;
 	transform: scale(0);
 	transform: left bottom;
 	transition: transform .4s;
         font-family: Poppins;
 }
+.BtnSetDatI{
+    position: absolute;
+    text-align: center;
+    font-size: 3vh;
+    color:var(--ter-color);
+    border: none;
+    background-color: transparent;
+    width: 100%;
+    height: 100%;
+}
 .BtnSetDat{
+    position: absolute;
+    text-align: center;
     font-size: 1.5vh;
     color:var(--ter-color);
     border: none;
@@ -307,6 +353,8 @@
     height: 100%;
 }
 .BtnSetDat-Can{
+    position: absolute;
+    text-align: center;
     font-size: 1.5vh;
     color:white;
     border: none;
@@ -315,6 +363,8 @@
     height: 100%;
 }
 .SetDat{
+    position: relative;
+    align-items: center;
     border-radius: 1em;
     background-color: white;
     width: 4vw;
@@ -323,6 +373,8 @@
     margin-left: 1vw;
 }
 .SetDat-Can{
+    position: relative;
+    align-items: center;
     color: white;
     border-radius: 1em;
     background-color: var(--ter-color);
@@ -336,19 +388,19 @@
 }
 /*perfil tipo*/
 .SetBt-perfiles{
-    float: left;
+    font-size: 1.5vh;
+    width: 10vw;
+    height: 15vh;
     background-color: var(--ter-color);
     box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.25);
     border-radius: 10px;
-    border: none;
-    width: 30%;
-    height: 10vh;    
-    margin-top: 2%;   
-    margin-left: 3rem;
+    border: none;  
+    margin-top: 3vh;   
+    margin-left: 1vw;
+    margin-right: 1vw;
 }
 .SetBt-perfiles i{
     margin: .1em;
-    float: left;
     font-size: 500%;
     color:#FFFFFF;
     align-items: center;
@@ -356,6 +408,7 @@
     
 }
 .SetBt-perfiles h4{
+    text-align: center;
     font-family: 'Poppins';
     font-style: normal;
     font-size: 1.2em;
@@ -373,53 +426,65 @@
     opacity: 0.65;
 }
 .YourPerf{
-    float: left;
+    text-align: center;
+    margin-top: 1vh;
     background-color: var(--ter-color);
     box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.25);
     border-radius: 10px;
     border: none;
-    width: 10%;
-    height: 10vh;    
+    width: 12vw;
+    height: 15vh;    
     margin-top: 2%;   
-    margin-left: 3rem;
+    margin-left: 1vw;
 }
 .YourPerf i{
-    font-size: 300%;
+    font-size: 4vw;
     color:#FFFFFF;
     align-items: center;
     align-content: center;
     
 }
 .YourPerf h4{
-    text-align: center;
-    width: 100%;
+    margin-inline-start: 2.3vw;
     position: absolute;
     font-family: 'Poppins';
     font-style: normal;
-    font-size: 1em;
+    font-size: 2vh;
     color:#FFFFFF;
     font-weight: 500;
 }
 .BtnChangeType{
-    color: white;
-    float: right;
-    background-color: var(--ter-color);
+    color: var(--ter-color);
+    background-color: white;
     box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.25);
     border-radius: 10px;
     border: none;
     font-family: 'Poppins';
     font-style: normal;
-    font-weight: 500;
-    width: 10%;
+    font-size: 1.7vh;
+    font-weight: 600;
+    width: 6vw;
     height: 5vh;    
-    margin-top: 6%;   
+    margin-top: 7%;
+    margin-left: 1vw;
 }
 .DesYourType{
-    margin-right: 3%;
-    margin-left: 3%;
+    color: white;
+    font-size: 1.5vh;
+    margin-right: 1%;
+    margin-left: 2%;
     margin-top: 2%;
-    background-color: black;
-    width: 70%;
+    background-color: transparent;
+    width: 20vw;
+}
+.AlertYourType{
+    color: white;
+    font-size: 1.5vh;
+    margin-right: 2%;
+    margin-left: 2%;
+    margin-top: 2%;
+    background-color: transparent;
+    width: 15vw;
 }
 /*estructura de perfil*/
 .PerfBody{
@@ -436,52 +501,126 @@
     height: 60%;
 }
 .PerfImg{
-    margin-left: 3em;
-    color: var(--ter-color);
+    height: 100%;
+    width: 35vw;
+    position: absolute;
+    right: -17vw;
+    bottom: 8vh;
+}
+.SetPhoto{
+    padding: 1vw;
+    border-radius: 1rem;
+    font-size: 1vw;
+    position: relative;
+    top: 28vh;
+    margin-left: 1.6vw;
+    width: 10vw;
+    height: 7vh;
+    background-color: var(--ter-color);
+}
+.SetPhoto p{
+    color: white;
+    text-align: center;
+}
+.SetPhotoIn{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
 }
 .PerfType{
-    padding: 1em;
+    width: 56.5vw;
+    margin-left: 1vw;
+    margin-right: 1vw;
+    margin-top:2vh ;
+    padding: 1.2vh;
     position: relative;
-    margin-top: 2em;
-    margin-bottom: 1rem;
+    margin-top: 4vh;
     background-color: var(--main-color);
-    height: 80%;
+    height: 25vh;
 }
 .PerfType h1{
     font-size: 3vh;
 }
 .TypeBody{
+    position: absolute;
     display: flex;
 }
 /*DIV_GASTOS*/
 .GasSettings{
     padding: 1rem;
     border-radius: 1rem;
-    display: none;
-    margin-top:3rem ;
-    margin-right: 5rem;
+    display: grid;
+    margin-top:8vh ;
+    margin-right: 5vw;
     background-color: var(--sec-color);
     grid-column: 2/3;   
     width: 60vw;
     height: 75vh;
 }
 .GasSettings h1{
+    width: 100%;
     margin-left: 2vw;
     color: white;
+    height: 15%;
+    font-size: 8vh; 
+}
+.ListFrec{
+    border-radius: 1rem;
+    position: absolute;
+    margin: 1.5vh;
+    background-color: yellowgreen;
+    height: 56vh;
+    width: 57vw;
+}
+.PeriodList{
+    border-radius: 1rem;
+    border: none;
+    height: 10vh;
+    background-color: white;
+    width: 10vw;
+    cursor: pointer;
+    list-style: none;
+}
+.PeriodShow{
+    list-style: none;
+    transition: background-color 4s;
+    height: 0;
+}
+.PeriodListCont{
+    text-align: center;
+    width: 10vw;
+    border-radius: 0 0 1rem 1rem;
+    border-color: var(--main-color) solid 1px;
+    background-color: white;
+    overflow: hidden;
+}
+.PeriodText{
+    border-bottom: var(--ter-color) solid 2px;
+}
+.PeriodItem{
+    color: var(--ter-color);
 }
 /*DIV_CUENTA*/
 .AccountSettings{
     padding: 1rem;
     border-radius: 1rem;
-    display: none;
-    margin-top:3rem ;
-    margin-right: 5rem;
+    display: grid;
+    margin-top:8vh ;
+    margin-right: 5vw;
     background-color: var(--sec-color);
     grid-column: 2/3;   
     width: 60vw;
     height: 75vh;
 }
 .AccountSettings h1{
+    width: 100%;
     margin-left: 2vw;
     color: white;
+    height: 15%;
+    font-size: 8vh;
 }
