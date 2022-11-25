@@ -219,10 +219,10 @@ export const NavBar = ({ initialActive }) => {
   );
 };
 
-export const DayNGas = ({ dat, date, amount }) => {
+export const DayNGas = ({ dia, date, amount }) => {
   return (
     <div className="DatGrap">
-      <span>{dat}</span>
+      <span>{dia}</span>
       <span>{date}</span>
       <span>${amount}</span>
     </div>

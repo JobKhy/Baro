@@ -945,3 +945,13 @@
 .ContainerDelete{
     display: block;
 }
+/*PAGINA_FRECUENTES_GUSTAVO*/
+.BodyFrec{
+    display: flex;
+}
+.InfoFrec{
+    display: grid;
+    background-color: rebeccapurple;
+    height: 30vh;
+    width: 50vw;
+}

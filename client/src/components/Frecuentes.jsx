@@ -35,10 +35,15 @@ const nav = useNavigate()
           </div>
           <div className="BodyFrec">
             <div className="InfoFrec">
+              <div className="IngreFrec">
 
+              </div>
+              <div className="JerFrec">
+                
+              </div>
             </div>
             <div className="GasProx">
-              
+
             </div>
           </div>
           

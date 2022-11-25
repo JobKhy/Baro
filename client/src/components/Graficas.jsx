@@ -33,6 +33,7 @@ export const Graficas = () => {
         <div className="colGraph">
           <div className="typeOfGraph">
             <h1>semana</h1>
+            <h2>10/09/2022-17/09/2022</h2>
           </div>
           <div className="ow">
             <div className="semData">
