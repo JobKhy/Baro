@@ -225,6 +225,9 @@ const btnlistperiod = ()=>{
             </div>
             <div className="AccountSettings" id='AccountSettings'>
               <div><h1>Cuenta</h1></div>
+              <div className="AccountBody">
+                
+              </div>
             </div>
           </div>
         </div>    
