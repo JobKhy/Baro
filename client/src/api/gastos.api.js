@@ -14,5 +14,14 @@ export const gastosFetch = {
       console.log(e)
       return e;
     }
+  },
+  getGastos: async ()=>{
+    try {
+      const res = await myAxios.get("gastos/getGastos")
+      return res
+    } catch (error) {
+      console.log(error)
+      return error
+    }
   }
 }
