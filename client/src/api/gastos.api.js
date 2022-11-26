@@ -11,6 +11,7 @@ export const gastosFetch = {
       const response = await myAxios.post(`gastos/createGastoDiario`, gasto);
       return response;
     } catch (e) {
+      console.log(e)
       return e;
     }
   }

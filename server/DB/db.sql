@@ -26,8 +26,8 @@ CREATE TABLE `data_usuario` (
 DROP TABLE IF EXISTS `semanas`;
 CREATE TABLE `semanas` (
   `semId` int NOT NULL AUTO_INCREMENT,
-  `semStart` datetime NOT NULL,
-  `semEnd` datetime NOT NULL,
+  `semStart` date NOT NULL,
+  `semEnd` date NOT NULL,
   `usuId` int NOT NULL,
   PRIMARY KEY (`semId`),
   KEY `usuId_idx` (`usuId`),
@@ -37,7 +37,7 @@ CREATE TABLE `semanas` (
 DROP TABLE IF EXISTS `day`;
 CREATE TABLE `day` (
   `dayId` int NOT NULL AUTO_INCREMENT,
-  `dayDate` datetime NOT NULL,
+  `dayDate` date NOT NULL,
   `semId` int NOT NULL,
   PRIMARY KEY (`dayId`),
   KEY `semIdDay_idx` (`semId`),
