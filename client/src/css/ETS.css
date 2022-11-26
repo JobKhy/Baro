@@ -1,0 +1,31 @@
+:root {
+    --main-color: #4CADCA;
+    --sec-color: #2584a0;
+    --ter-color: #044C7C;
+    --wh-color: white;
+}
+
+.SlAl{
+    position: absolute;
+    height: 100vh;
+    width: 77vw;
+    display: grid;
+    align-items: center;
+    align-content: center;
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+.Slides{
+    position: relative;
+    min-width: 400px;
+    max-width: 800px;
+    width: 70%;
+    background-color: var(--wh-color);
+    margin: 10px auto;
+    padding: 20px;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: .3 ease all;
+    z-index: 10;
+}
