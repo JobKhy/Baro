@@ -149,11 +149,7 @@ export const NavBar = ({ initialActive }) => {
   const Menus = [
     { Name: "Home", icon: "fa-solid fa-house", dest: "../home" },
     { Name: "Graficas", icon: "fa-solid fa-chart-simple", dest: "../graficas" },
-    {
-      Name: "Frecuentes",
-      icon: "fa-solid fa-dollar-sign",
-      dest: "../frecuentes",
-    },
+    { Name: "Frecuentes", icon: "fa-solid fa-dollar-sign", dest: "../frecuentes" },
     { Name: "Config", icon: "fa-solid fa-bars", dest: "../config" },
     { Name: "Salir", icon: "fa-solid fa-arrow-right-from-bracket", dest: "" },
   ];
@@ -243,41 +239,38 @@ export const Graph = () => {
   );
 };
 export const GasRec = () => {
+
+  const [gastos, setGastos] = useState([])
+
+  useEffect(()=>{
+    async function fetchData(){
+      const data = await gastosFetch.getGastos()
+      console.log(data)
+      if(data?.status===200){
+        setGastos(data.data.finalGastos)
+      }
+    }
+    fetchData()
+  }, [])
+
   return (
     <>
       <h1>Gastos recientes</h1>
       <div className="GasCont">
         <ul>
-          <Reciente
-            gasto={"Mensualidad Gym"}
-            icons={"fa-solid fa-dumbbell"}
-            value={800}
-            date={"12/3/22"}
-          />
-          <Reciente
-            gasto={"Comida con Amigos"}
-            icons={"fa-solid fa-bowl-food"}
-            value={600}
-            date={"6/3/22"}
-          />
-          <Reciente
-            gasto={"Agua"}
-            icons={"fa-solid fa-faucet-drip"}
-            value={235}
-            date={"3/3/22"}
-          />
-          <Reciente
-            gasto={"Internet"}
-            icons={"fa-solid fa-wifi"}
-            value={759}
-            date={"2/3/22"}
-          />
-          <Reciente
-            gasto={"Visita a familiares"}
-            icons={"fa-solid fa-bus-simple"}
-            value={40}
-            date={"22/2/22"}
-          />
+          
+          {gastos ? gastos.map((e, i)=>{
+            return (
+
+              <Reciente
+                gasto={e.diaName}
+                icons={"fa-solid fa-bowl-food"}
+                value={e.diaAmount}
+                date={e.diaDescription}
+              />
+            )
+          }):<h1>Aun no hay gastos</h1>}
+          
         </ul>
       </div>
     </>
@@ -291,6 +284,7 @@ export const IngGas = () => {
     <>
       <h1>Ingreso de Balance</h1>
       <div className="GasCont">
+        <div className="alignGas">
         <Entry2
           Id={"Ingreso"}
           Name={"Ingreso"}
@@ -328,6 +322,8 @@ export const IngGas = () => {
             }
           }}
         />
+        </div>
+        
       </div>
     </>
   );
@@ -344,6 +340,7 @@ export const Gasto = () => {
     <>
       <h1>Agrega Gasto</h1>
       <div className="GasCont">
+        <div className="alignGas">
         <Entry2
           Id={"nombre"}
           Name={"Nombre del gasto"}
@@ -377,6 +374,7 @@ export const Gasto = () => {
             console.log(res);
           }}
         />
+        </div>
       </div>
     </>
   );

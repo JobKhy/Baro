@@ -2,7 +2,7 @@ import axios from "axios";
 // "http://localhost:3000/api/"
 //
 const myAxios = axios.create({
-  baseURL: "http://localhost:3000/api/",
+  baseURL: "https://baro.up.railway.app/api/",
 });
 
 export const gastosFetch = {
@@ -11,7 +11,17 @@ export const gastosFetch = {
       const response = await myAxios.post(`gastos/createGastoDiario`, gasto);
       return response;
     } catch (e) {
+      console.log(e)
       return e;
+    }
+  },
+  getGastos: async ()=>{
+    try {
+      const res = await myAxios.get("gastos/getGastos")
+      return res
+    } catch (error) {
+      console.log(error)
+      return error
     }
   }
 }
