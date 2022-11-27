@@ -1,6 +1,6 @@
 import { useState } from "react";
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 
 import { userFetch as uApi } from "../api/users.api";
@@ -19,6 +19,23 @@ export const Button = ({ type, value, btnclass, dest, disabled }) => {
     </Link>
   ) : (
     <button type={type} className={btnclass} disabled={disabled}>
+      {name}
+    </button>
+  );
+};
+export const Button2 = ({ type, value, btnclass, dest, disabled, onClick }) => {
+  const [name] = useState(value);
+  return dest ? (
+    <Link to={dest}>
+      <button className={btnclass}>{name}</button>
+    </Link>
+  ) : (
+    <button
+      onClick={onClick}
+      type={type}
+      className={btnclass}
+      disabled={disabled}
+    >
       {name}
     </button>
   );
@@ -49,6 +66,24 @@ export const Entry = ({ Id, Name, Type, ExtraProps }) => {
           placeholder=" "
           id={Id}
           {...ExtraProps}
+        />
+        <label className="login-label">{Name}</label>
+        <span className="login-line"></span>
+      </div>
+    </div>
+  );
+};
+export const Entry2 = ({ Id, Name, Type, ExtraProps, onChange }) => {
+  return (
+    <div className="login-container">
+      <div className="login-group">
+        <input
+          className="login-input"
+          type={Type}
+          placeholder=" "
+          id={Id}
+          {...ExtraProps}
+          onChange={onChange}
         />
         <label className="login-label">{Name}</label>
         <span className="login-line"></span>
@@ -123,6 +158,9 @@ export const NavBar = ({ initialActive }) => {
     { Name: "Salir", icon: "fa-solid fa-arrow-right-from-bracket", dest: "" },
   ];
 
+  const { setUser } = useContext(UserContext);
+  const nav = useNavigate();
+
   const [active, setActive] = useState(0);
 
   useEffect(() => {
@@ -145,21 +183,24 @@ export const NavBar = ({ initialActive }) => {
             <Link
               onClick={() => {
                 if (!initialActive) setActive(i);
-                if(menu.dest === ""){
+                if (menu.dest === "") {
                   MySwal.fire({
                     title: "¿Estas seguro que quieres salir?",
                     text: "Esta acción no se puede deshacer",
                     icon: "warning",
                     showDenyButton: true,
-                    showCancelButton: true,
                     confirmButtonText: `Si`,
                     denyButtonText: `No`,
-                  }).then((res)=>{
-                    if(res.isConfirmed){
-                      const res = uApi.logout();
-                      console.log(res)
+                  }).then(async (res) => {
+                    if (res.isConfirmed) {
+                      const res = await uApi.logout();
+                      console.log(res);
+                      if (res.status === 200) {
+                        setUser(null);
+                        nav("/login");
+                      }
                     }
-                  })
+                  });
                 }
               }}
               to={menu.dest}
@@ -189,6 +230,10 @@ export const DayNGas = ({ dat, date, amount }) => {
 };
 
 import diosYe from "../Img/diosYe.png";
+import { useContext } from "react";
+import UserContext from "../context/UserContext";
+import { ingresosFetch } from "../api/ingresos.api";
+import { gastosFetch } from "../api/gastos.api";
 
 export const Graph = () => {
   return (
@@ -240,40 +285,102 @@ export const GasRec = () => {
 };
 
 export const IngGas = () => {
+  const [ingreso, setIngreso] = useState(null);
+  const { setUser } = useContext(UserContext);
   return (
     <>
       <h1>Ingreso de Balance</h1>
-          <div className="GasCont">
-            <Entry Id={"correo"}
-                Name={"Correo"}
-                Type={"text"}/>
-            <Button
-              value={"Añadir"}
-              type={"submit"}
-              btnclass={"prime-btn"}
-            />
-          </div>
-      </>
-  )
-}
+      <div className="GasCont">
+        <Entry2
+          Id={"Ingreso"}
+          Name={"Ingreso"}
+          Type={"number"}
+          onChange={(val) => {
+            setIngreso(val.target.value);
+          }}
+        />
+        <Button2
+          value={"Añadir"}
+          type={"submit"}
+          btnclass={"prime-btn"}
+          onClick={async () => {
+            const res = await ingresosFetch.updateIngreso(ingreso);
+            console.log(res);
+            if (res.status === 200) {
+              setUser((prev) => ({
+                ...prev,
+                balance: prev.balance + parseFloat(ingreso),
+              }));
+              MySwal.fire({
+                title: "Ingreso actualizado",
+                icon: "success",
+                confirmButtonText: `Ok`,
+                timer: 1000,
+              });
+            } else {
+              MySwal.fire({
+                title: "Error al actualizar ingreso",
+                text: res.response.data.message,
+                icon: "error",
+                confirmButtonText: `Ok`,
+                timer: 1000,
+              });
+            }
+          }}
+        />
+      </div>
+    </>
+  );
+};
 
 export const Gasto = () => {
+  const [values, setValues] = useState({
+    nombre: "",
+    desc: "",
+    monto: "",
+  });
+
   return (
     <>
       <h1>Agrega Gasto</h1>
-          <div className="GasCont">
-            <Entry Id={"correo"}
-                Name={"Correo"}
-                Type={"text"}/>
-            <Button
-              value={"Añadir"}
-              type={"submit"}
-              btnclass={"prime-btn"}
-            />
-          </div>
-      </>
-  )
-}
+      <div className="GasCont">
+        <Entry2
+          Id={"nombre"}
+          Name={"Nombre del gasto"}
+          Type={"text"}
+          onChange={(e) => {
+            setValues((prev) => ({ ...prev, nombre: e.target.value }));
+          }}
+        />
+        <Entry2
+          Id={"descripcion"}
+          Name={"Descripcion del gasto"}
+          Type={"text"}
+          onChange={(e) => {
+            setValues((prev) => ({ ...prev, desc: e.target.value }));
+          }}
+        />
+        <Entry2
+          Id={"monto"}
+          Name={"Monto por tiempo"}
+          Type={"number"}
+          onChange={(e) => {
+            setValues((prev) => ({ ...prev, monto: e.target.value }));
+          }}
+        />
+        <Button2
+          value={"Añadir"}
+          type={"submit"}
+          btnclass={"prime-btn"}
+          onClick={async () => {
+            const res = await gastosFetch.createGastoDiario(values);
+            console.log(res);
+          }}
+        />
+      </div>
+    </>
+  );
+};
 
 /*COMPONENTES GUSTAVO*/
 
@@ -363,83 +470,100 @@ export const SetPerfil = ({ icon, perfil }) => {
   );
 };
 
-export const GasFrec = ({ name, balance,des,date, periodo,e,e2 }) => {
+export const GasFrec = ({ name, balance, des, date, periodo, e, e2 }) => {
   return (
-    
-      <div className="ContainerFrec">
-        <div className="NameFrec">{name}</div>
-        <div className="ContainerDataFre">
-          <div>
-            <button className="PeriodList" onClick={e}>
-              <p>Periodos</p>
-              <i className="fa-solid fa-chevron-up"></i>
-            </button>
-            <div className="PeriodListCont">
-              <ul className="PeriodShow">
-                  <li className="PeriodItem">
-                    <div className="PeriodText" onClick={e} >
-                    Diario
-                    </div> 
-                  </li>
-                  <li className="PeriodItem">
-                    <div className="PeriodText" onClick={e} >
-                    Semanal
-                    </div>
-                  </li>
-                  <li className="PeriodItem">
-                    <div className="PeriodText" onClick={e} >
-                    Quincenal
-                    </div>
-                  </li>
-              </ul>
-            </div>
-          </div>
-          <div className="PeriodAmount">
-            <h2>Facturación</h2>
-            <input type={"number"} placeholder={balance} disabled/><br></br>
-            <p>{periodo}</p>
-          </div>
-          <div className="FreLine"></div>
-          <div className="DescriptionFre">
-            <h2>Descripción</h2>
-            <p>{des}</p>
-          </div>
-          <div className="FreLine"></div>
-          <div className="DateStartFre">
-            <h2>Fecha de registro</h2>
-            <p>{date}</p>
+    <div className="ContainerFrec">
+      <div className="NameFrec">{name}</div>
+      <div className="ContainerDataFre">
+        <div>
+          <button className="PeriodList" onClick={e}>
+            <p>Periodos</p>
+            <i className="fa-solid fa-chevron-up"></i>
+          </button>
+          <div className="PeriodListCont">
+            <ul className="PeriodShow">
+              <li className="PeriodItem">
+                <div className="PeriodText" onClick={e}>
+                  Diario
+                </div>
+              </li>
+              <li className="PeriodItem">
+                <div className="PeriodText" onClick={e}>
+                  Semanal
+                </div>
+              </li>
+              <li className="PeriodItem">
+                <div className="PeriodText" onClick={e}>
+                  Quincenal
+                </div>
+              </li>
+            </ul>
           </div>
         </div>
-        <div className="FreOptions">
-          <div className="FactFre " ><button className="BtnFactFre" onClick={e2}>Ver días de Facturación<i className="fa-solid fa-calendar-days"></i></button></div>
-          <div className="FactFre" ><button className="BtnFactFreI" >Editar gasto frecuente<i className="fa-solid fa-pen-to-square"></i></button></div>
-          <div className="FactFre-Can " ><button className="BtnFactFre-Can" >Eliminar gasto frecuente<i className="fa-solid fa-trash"></i></button></div>
+        <div className="PeriodAmount">
+          <h2>Facturación</h2>
+          <input type={"number"} placeholder={balance} disabled />
+          <br></br>
+          <p>{periodo}</p>
         </div>
-        <div className="LinePad"></div>
+        <div className="FreLine"></div>
+        <div className="DescriptionFre">
+          <h2>Descripción</h2>
+          <p>{des}</p>
+        </div>
+        <div className="FreLine"></div>
+        <div className="DateStartFre">
+          <h2>Fecha de registro</h2>
+          <p>{date}</p>
+        </div>
       </div>
-
+      <div className="FreOptions">
+        <div className="FactFre ">
+          <button className="BtnFactFre" onClick={e2}>
+            Ver días de Facturación<i className="fa-solid fa-calendar-days"></i>
+          </button>
+        </div>
+        <div className="FactFre">
+          <button className="BtnFactFreI">
+            Editar gasto frecuente<i className="fa-solid fa-pen-to-square"></i>
+          </button>
+        </div>
+        <div className="FactFre-Can ">
+          <button className="BtnFactFre-Can">
+            Eliminar gasto frecuente<i className="fa-solid fa-trash"></i>
+          </button>
+        </div>
+      </div>
+      <div className="LinePad"></div>
+    </div>
   );
 };
 export const DiaFacFre = ({ padre, cantidad, date }) => {
   return (
     <div className="DiaFre">
-      <div><h2>{padre}</h2></div>
-      <div><h2>{cantidad}</h2></div>
-      <div><h2>{date}</h2></div>
+      <div>
+        <h2>{padre}</h2>
+      </div>
+      <div>
+        <h2>{cantidad}</h2>
+      </div>
+      <div>
+        <h2>{date}</h2>
+      </div>
     </div>
   );
 };
-export const SubAcc = ({ name, icons,e }) => {
+export const SubAcc = ({ name, icons, e }) => {
   return (
-        <div className="OpcAcc">
-            <span className="OpcAccName">
-              <button className="OpcBtnAcc" onClick={e}>
-                <span className="AccIcon">
-                  <i className={icons}></i>
-                </span>
-                <p>{name}</p>
-              </button>
-            </span>
-        </div>
+    <div className="OpcAcc">
+      <span className="OpcAccName">
+        <button className="OpcBtnAcc" onClick={e}>
+          <span className="AccIcon">
+            <i className={icons}></i>
+          </span>
+          <p>{name}</p>
+        </button>
+      </span>
+    </div>
   );
 };

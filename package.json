@@ -26,6 +26,7 @@
     "jsonwebtoken": "^8.5.1",
     "multer": "^1.4.5-lts.1",
     "mysql2": "^2.3.3",
+    "node-calendar": "^0.1.5",
     "yup": "^0.32.11"
   },
   "devDependencies": {

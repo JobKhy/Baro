@@ -15,7 +15,21 @@ export const Perfiles = () => {
   const nav = useNavigate();
 
   const {user} = useContext(UserContext)
-
+  useEffect(() => {
+    async function fetchUser() {
+      const res = await userFetch.checkSession();
+      if (res?.status === 200) {
+        setUser(res.data.user);
+        console.log(res.data.user);
+      } else {
+        nav("/login");
+      }
+    }
+    if (!user) {
+      fetchUser();
+    }
+  }, []); 
+  
   useEffect(()=>{
     async function fetchUser(){
       console.log(user.id)
@@ -26,6 +40,7 @@ export const Perfiles = () => {
     }
     fetchUser()
   }, [user])
+
 
   return (
     <>

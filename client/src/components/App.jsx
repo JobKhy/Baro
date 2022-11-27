@@ -27,9 +27,7 @@ export const App = () => {
         } else {
           nav("/home");
         }
-      } else {
-        nav("/login");
-      }
+      } 
     }
     if (!user) {
       fetchUser();

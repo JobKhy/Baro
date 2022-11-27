@@ -1,5 +1,9 @@
-import React from 'react'
+import {Moment} from 'moment'
+import React, { useContext, useEffect } from 'react'
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import UserContext from '../context/UserContext'
+import { userFetch as uApi } from '../api/users.api'
 import { NavBar,SubSet ,UserConfg,EntrySet,SetPerfil,GasFrec,DiaFacFre,SubAcc} from './ModulesForm'
 //Para cambio de pestaña
 export const Config = () => {
@@ -38,6 +42,14 @@ const btnupname = ()=>{
   document.querySelector('#BtnUpName').style.display="none"
   document.querySelector('#SetName').disabled=true
   //AQUI CODIGO DE CAMBIAR EL NOMBRE EN LA BASE DE DATOS
+  const today = moment();
+  const from_date = today.startOf('week');
+  const to_date = today.endOf('week');
+  console.log({
+  from_date: from_date.toString(),
+  today: moment().toString(),
+  to_date: to_date.toString(),
+  });
 
 }
 //Botones Email
@@ -152,6 +164,26 @@ vaciar.style.display="none"
 terminos.style.display="none"
 borrar.style.display="block"
 }
+
+const nav = useNavigate()
+
+const { user, setUser } = useContext(UserContext);
+  
+useEffect(() => {
+  async function fetchUser() {
+    const res = await uApi.checkSession();
+    if (res?.status === 200) {
+      setUser(res.data.user);
+      console.log(res.data.user);
+    } else {
+      nav("/login");
+    }
+  }
+  if (!user) {
+    fetchUser();
+  }
+}, []);
+
   return (
     
     <div className='home-body-w'>
