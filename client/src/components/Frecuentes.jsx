@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react'
-import { NavBar,SubSet ,UserConfg,EntrySet,SetPerfil,GasFrec,DiaFacFre,SubAcc} from './ModulesForm'
+import { NavBar,ColorFrec,GasFrec} from './ModulesForm'
 import "../css/Extras.css"
 import UserContext from '../context/UserContext';
 import { userFetch } from '../api/users.api';
@@ -34,14 +34,37 @@ const nav = useNavigate()
                   <h1>Frecuentes</h1>
           </div>
           <div className="BodyFrec">
-            <div className="InfoFrec">
+            <div className="BodyLeft">
+             <div className="FormFrec">
 
+              </div>
+              <div className="InfoFrec">
+                <h2>Indicativos</h2>
+                <ColorFrec
+                color={"ColorFrec-low"}
+                data={"Prioridad baja"}
+                />
+                <ColorFrec
+                color={"ColorFrec-medium"}
+                data={"Prioridad media"}
+                />
+                <ColorFrec
+                
+                color={"ColorFrec-high"}
+                data={"Prioridad alta"}
+                />
+              </div>
             </div>
-            <div className="GasProx">
-              
-            </div>
+            <div className="ListProx">
+              <div className="ListFreTitle">
+                <h1>Gastos Próximos</h1>
+              </div>
+              <div className="ListFreBody">
+              <GasFrec/>
+                <GasFrec/>
+              </div>
+           </div>
           </div>
-          
         </div>    
     </div>
 

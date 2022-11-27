@@ -565,3 +565,64 @@ export const SubAcc = ({ name, icons, e }) => {
     </div>
   );
 };
+
+export const ColorFrec = ({color, data}) => {
+  return (
+    <div className="JercFrec">
+      <div className={color}></div>
+      <p>{data}</p>
+    </div>
+  );
+};
+
+export const AddFrec = ({ name, balance, des, date, periodo, e, e2 }) => {
+  return (
+    <div className="ContainerFrec">
+      <div className="NameFrec">{name}</div>
+      <div className="ContainerDataFre">
+        <div>
+          <button className="PeriodList" onClick={e}>
+            <p>Periodos</p>
+            <i className="fa-solid fa-chevron-up"></i>
+          </button>
+          <div className="PeriodListCont">
+            <ul className="PeriodShow">
+              <li className="PeriodItem">
+                <div className="PeriodText" onClick={e}>
+                  Diario
+                </div>
+              </li>
+              <li className="PeriodItem">
+                <div className="PeriodText" onClick={e}>
+                  Semanal
+                </div>
+              </li>
+              <li className="PeriodItem">
+                <div className="PeriodText" onClick={e}>
+                  Quincenal
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div className="PeriodAmount">
+          <h2>Facturación</h2>
+          <input type={"number"} placeholder={balance} disabled />
+          <br></br>
+          <p>{periodo}</p>
+        </div>
+        <div className="FreLine"></div>
+        <div className="DescriptionFre">
+          <h2>Descripción</h2>
+          <p>{des}</p>
+        </div>
+        <div className="FreLine"></div>
+        <div className="DateStartFre">
+          <h2>Fecha de registro</h2>
+          <p>{date}</p>
+        </div>
+      </div>
+      <div className="LinePad"></div>
+    </div>
+  );
+};

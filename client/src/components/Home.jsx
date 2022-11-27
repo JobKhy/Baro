@@ -65,7 +65,7 @@ export const Home = () => {
           ):(
             <IngGas></IngGas>
           )
-      }
+        }
         </div> 
 
       </div>

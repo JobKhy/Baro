@@ -945,3 +945,111 @@
 .ContainerDelete{
     display: block;
 }
+/*PAGINA_FRECUENTES_GUSTAVO*/
+.BodyFrec{
+    display:flex ;
+    width: 100%;
+    height: 100vh;
+}
+.BodyLeft{
+    width: 40%;
+    height: 100%;
+}
+.FormFrec{
+    background-color: transparent;
+    height: 60%;
+    width: 100%;
+    display: grid;
+    padding: 1vw;
+}
+.InfoFrec{
+    margin: 1vw;
+    height: 30%;
+    width: 80%;
+    display: grid;
+    border-radius: 10px;
+    background-color: var(--sec-color);
+    margin: 10% 10% 5% 5%;
+    padding: 2%;
+}
+.InfoFrec h2{
+    text-align: center;
+    font-size: 3vh;
+    margin-left: 1vh;
+    color: white;
+}
+
+.JercFrec{
+    padding: 1%;
+    width: 100%;
+    height: 40%;
+    margin-bottom: 1%;
+    display: flex;
+}
+.JercFrec p{
+    color: white;
+    padding: 1.5%;
+    font-size: 2vh;
+    text-align: left;
+    margin-left: 10%;
+}
+.ColorFrec-low{
+    border: white solid 2px;
+    width: 3vw;
+    height: 5vh;
+    border-radius: 100%;
+    background-color: var(--main-color);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position-x: center;
+    background-position-y: center;
+}
+.ColorFrec-medium{
+    border: white solid 2px;
+    width: 3vw;
+    height: 5vh;
+    border-radius: 100%;
+    background-color: var(--sec-color);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position-x: center;
+    background-position-y: center;
+}
+.ColorFrec-high{
+    border: white solid 2px;
+    width: 3vw;
+    height: 5.5vh;
+    border-radius: 100%;
+    background-color: var(--ter-color);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position-x: center;
+    background-position-y: center;
+}
+.ListFreTitle{
+    width: 80%;
+    margin: 0 10% 5% 10%;
+    background-color: var(--sec-color);
+    border-radius: 10px;
+    padding: 4%;
+}
+.ListProx{
+    margin-top: 1%;
+    width: 60%;
+    height: 100%;
+
+}
+.ListFreTitle h1{
+    font-weight: 600;
+    text-align: center;
+    color: white;
+    font-size: 5vh;
+}
+.ListFreBody{
+    width: 90%;
+    height: 65%;
+    margin: 5%;
+    overflow: auto;
+    border-radius: 10px;
+    box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.5);
+}
