@@ -1,7 +1,14 @@
 CREATE DATABASE  IF NOT EXISTS `baro`;
 USE `baro`;
 
+DROP TABLE IF EXISTS `cobros_fre`;
+DROP TABLE IF EXISTS `frecuentes`;
+DROP TABLE IF EXISTS `diarios`;
+DROP TABLE IF EXISTS `day`;
+DROP TABLE IF EXISTS `semanas`;
+DROP TABLE IF EXISTS `data_usuario`;
 DROP TABLE IF EXISTS `usuario`;
+
 CREATE TABLE `usuario` (
   `usuId` int NOT NULL AUTO_INCREMENT,
   `usuEmail` varchar(50) NOT NULL,
@@ -10,7 +17,6 @@ CREATE TABLE `usuario` (
   UNIQUE KEY `usuEmail_UNIQUE` (`usuEmail`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
-DROP TABLE IF EXISTS `data_usuario`;
 CREATE TABLE `data_usuario` (
   `datId` int NOT NULL AUTO_INCREMENT,
   `datName` varchar(50) NOT NULL,
@@ -23,7 +29,6 @@ CREATE TABLE `data_usuario` (
   CONSTRAINT `usuIdDat` FOREIGN KEY (`usuId`) REFERENCES `usuario` (`usuId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
-DROP TABLE IF EXISTS `semanas`;
 CREATE TABLE `semanas` (
   `semId` int NOT NULL AUTO_INCREMENT,
   `semStart` date NOT NULL,
@@ -34,7 +39,6 @@ CREATE TABLE `semanas` (
   CONSTRAINT `usuIdSem` FOREIGN KEY (`usuId`) REFERENCES `usuario` (`usuId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
-DROP TABLE IF EXISTS `day`;
 CREATE TABLE `day` (
   `dayId` int NOT NULL AUTO_INCREMENT,
   `dayDate` date NOT NULL,
@@ -44,7 +48,6 @@ CREATE TABLE `day` (
   CONSTRAINT `semIdDay` FOREIGN KEY (`semId`) REFERENCES `semanas` (`semId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
-DROP TABLE IF EXISTS `diarios`;
 CREATE TABLE `diarios` (
   `diaId` int NOT NULL AUTO_INCREMENT,
   `diaName` varchar(50) NOT NULL,
@@ -56,7 +59,6 @@ CREATE TABLE `diarios` (
   CONSTRAINT `dayIdDia` FOREIGN KEY (`dayId`) REFERENCES `day` (`dayId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
-DROP TABLE IF EXISTS `frecuentes`;
 CREATE TABLE `frecuentes` (
   `freId` int NOT NULL AUTO_INCREMENT,
   `freName` varchar(50) NOT NULL,
@@ -70,7 +72,6 @@ CREATE TABLE `frecuentes` (
   CONSTRAINT `dayIdFre` FOREIGN KEY (`dayId`) REFERENCES `day` (`dayId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
-DROP TABLE IF EXISTS `cobros_fre`;
 CREATE TABLE `cobros_fre` (
   `cobId` int NOT NULL AUTO_INCREMENT,
   `cobDate` datetime NOT NULL,

@@ -4,7 +4,7 @@ import { SECRET } from "../config.js";
 import jwt from "jsonwebtoken";
 
 export const updateIngreso = async (req, res) => {
-  const { ingreso } = req.params;
+  const { ingreso } = req.body;
   if (!ingreso) return res.status(400).json({ message: "No ingreso" });
   if (parseFloat(ingreso) <= 0)
     return res.status(400).json({ message: "Ingreso invalido" });

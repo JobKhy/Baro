@@ -2,7 +2,7 @@ import { useState } from "react";
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
-
+import * as Yup from "yup";
 import { userFetch as uApi } from "../api/users.api";
 
 import Swal from "sweetalert2";
@@ -56,7 +56,7 @@ export const Item = ({ secc, icons, sel }) => {
 };
 
 //Inputs
-export const Entry = ({ Id, Name, Type, ExtraProps }) => {
+export const Entry = ({ Id, Name, Type, ExtraProps, value }) => {
   return (
     <div className="login-container">
       <div className="login-group">
@@ -66,6 +66,7 @@ export const Entry = ({ Id, Name, Type, ExtraProps }) => {
           placeholder=" "
           id={Id}
           {...ExtraProps}
+          value={value}
         />
         <label className="login-label">{Name}</label>
         <span className="login-line"></span>
@@ -149,7 +150,11 @@ export const NavBar = ({ initialActive }) => {
   const Menus = [
     { Name: "Home", icon: "fa-solid fa-house", dest: "../home" },
     { Name: "Graficas", icon: "fa-solid fa-chart-simple", dest: "../graficas" },
-    { Name: "Frecuentes", icon: "fa-solid fa-dollar-sign", dest: "../frecuentes" },
+    {
+      Name: "Frecuentes",
+      icon: "fa-solid fa-dollar-sign",
+      dest: "../frecuentes",
+    },
     { Name: "Config", icon: "fa-solid fa-bars", dest: "../config" },
     { Name: "Salir", icon: "fa-solid fa-arrow-right-from-bracket", dest: "" },
   ];
@@ -230,6 +235,7 @@ import { useContext } from "react";
 import UserContext from "../context/UserContext";
 import { ingresosFetch } from "../api/ingresos.api";
 import { gastosFetch } from "../api/gastos.api";
+import { Formik } from "formik";
 
 export const Graph = () => {
   return (
@@ -239,38 +245,38 @@ export const Graph = () => {
   );
 };
 export const GasRec = () => {
+  const [gastos, setGastos] = useState([]);
 
-  const [gastos, setGastos] = useState([])
-
-  useEffect(()=>{
-    async function fetchData(){
-      const data = await gastosFetch.getGastos()
-      console.log(data)
-      if(data?.status===200){
-        setGastos(data.data.finalGastos)
+  useEffect(() => {
+    async function fetchData() {
+      const data = await gastosFetch.getGastos();
+      console.log(data);
+      if (data?.status === 200) {
+        setGastos(data.data.finalGastos);
       }
     }
-    fetchData()
-  }, [])
+    fetchData();
+  }, []);
 
   return (
     <>
       <h1>Gastos recientes</h1>
       <div className="GasCont">
         <ul>
-          
-          {gastos ? gastos.map((e, i)=>{
-            return (
-
-              <Reciente
-                gasto={e.diaName}
-                icons={"fa-solid fa-bowl-food"}
-                value={e.diaAmount}
-                date={e.diaDescription}
-              />
-            )
-          }):<h1>Aun no hay gastos</h1>}
-          
+          {gastos ? (
+            gastos.map((e, i) => {
+              return (
+                <Reciente
+                  gasto={e.diaName}
+                  icons={"fa-solid fa-bowl-food"}
+                  value={e.diaAmount}
+                  date={e.diaDescription}
+                />
+              );
+            })
+          ) : (
+            <h1>Aun no hay gastos</h1>
+          )}
         </ul>
       </div>
     </>
@@ -285,95 +291,190 @@ export const IngGas = () => {
       <h1>Ingreso de Balance</h1>
       <div className="GasCont">
         <div className="alignGas">
-        <Entry2
-          Id={"Ingreso"}
-          Name={"Ingreso"}
-          Type={"number"}
-          onChange={(val) => {
-            setIngreso(val.target.value);
-          }}
-        />
-        <Button2
-          value={"Añadir"}
-          type={"submit"}
-          btnclass={"prime-btn"}
-          onClick={async () => {
-            const res = await ingresosFetch.updateIngreso(ingreso);
-            console.log(res);
-            if (res.status === 200) {
-              setUser((prev) => ({
-                ...prev,
-                balance: prev.balance + parseFloat(ingreso),
-              }));
-              MySwal.fire({
-                title: "Ingreso actualizado",
-                icon: "success",
-                confirmButtonText: `Ok`,
-                timer: 1000,
-              });
-            } else {
-              MySwal.fire({
-                title: "Error al actualizar ingreso",
-                text: res.response.data.message,
-                icon: "error",
-                confirmButtonText: `Ok`,
-                timer: 1000,
-              });
-            }
-          }}
-        />
+          <Formik
+            initialValues={{
+              ingreso: 0.0,
+            }}
+            validationSchema={Yup.object({
+              ingreso: Yup.number()
+                .required("Campo requerido")
+                .min(1.0, "El ingreso debe ser mayor a 0")
+                .max(10000, "El ingreso debe ser menor a 10000")
+                .positive("El ingreso debe ser positivo")
+                .typeError("El ingreso debe ser un numero")
+                .test(
+                  "is-decimal",
+                  "El ingreso debe ser un decimal de 2 digitos",
+                  (value) => {
+                    if (value) {
+                      if (!value.toString().split(".")[1]) return true;
+                      return value.toString().split(".")[1]?.length <= 2;
+                    }
+                    return true;
+                  }
+                ),
+            })}
+            onSubmit={async (values, { resetForm }) => {
+              const res = await ingresosFetch.updateIngreso(values);
+              console.log(res);
+              if (res.status === 200) {
+                MySwal.fire({
+                  title: "Ingreso actualizado",
+                  icon: "success",
+                  confirmButtonText: `Ok`,
+                  timer: 1000,
+                }).then(() => {
+                  setUser((prev) => {
+                    return {
+                      ...prev,
+                      balance: prev.balance + parseFloat(values.ingreso),
+                    };
+                  });
+                  resetForm({ values: { ingreso: 0.0 } });
+                });
+              } else {
+                MySwal.fire({
+                  title: "Error al actualizar ingreso",
+                  text: res.response.data.message,
+                  icon: "error",
+                  confirmButtonText: `Ok`,
+                  timer: 1000,
+                });
+              }
+            }}
+          >
+            {(formik) => (
+              <form onSubmit={formik.handleSubmit}>
+                <Entry
+                  Id={"ingreso"}
+                  Name={"Ingreso"}
+                  Type={"number"}
+                  value={formik.values.ingreso}
+                  ExtraProps={formik.getFieldProps("ingreso")}
+                />
+                {formik.touched.ingreso && formik.errors.ingreso ? (
+                  <div>{formik.errors.ingreso}</div>
+                ) : null}
+                <Button
+                  disabled={formik.isSubmitting}
+                  value={formik.isSubmitting ? "Subiendo" : "Continuar"}
+                  type={"submit"}
+                  btnclass={"prime-btn"}
+                />
+              </form>
+            )}
+          </Formik>
         </div>
-        
       </div>
     </>
   );
 };
 
 export const Gasto = () => {
-  const [values, setValues] = useState({
-    nombre: "",
-    desc: "",
-    monto: "",
-  });
-
   return (
     <>
       <h1>Agrega Gasto</h1>
       <div className="GasCont">
         <div className="alignGas">
-        <Entry2
-          Id={"nombre"}
-          Name={"Nombre del gasto"}
-          Type={"text"}
-          onChange={(e) => {
-            setValues((prev) => ({ ...prev, nombre: e.target.value }));
-          }}
-        />
-        <Entry2
-          Id={"descripcion"}
-          Name={"Descripcion del gasto"}
-          Type={"text"}
-          onChange={(e) => {
-            setValues((prev) => ({ ...prev, desc: e.target.value }));
-          }}
-        />
-        <Entry2
-          Id={"monto"}
-          Name={"Monto por tiempo"}
-          Type={"number"}
-          onChange={(e) => {
-            setValues((prev) => ({ ...prev, monto: e.target.value }));
-          }}
-        />
-        <Button2
-          value={"Añadir"}
-          type={"submit"}
-          btnclass={"prime-btn"}
-          onClick={async () => {
-            const res = await gastosFetch.createGastoDiario(values);
-            console.log(res);
-          }}
-        />
+          <Formik
+            initialValues={{
+              nombre: "",
+              desc: "",
+              monto: 0.0,
+            }}
+            validationSchema={Yup.object({
+              nombre: Yup.string()
+                .required("Campo requerido")
+                .min(3, "El nombre debe ser mayor a 3 caracteres")
+                .max(30, "El nombre debe ser menor a 30 caracteres")
+                .matches(/^[a-zA-Z\d ]+$/, "Solo letras"),
+              desc: Yup.string()
+                .required("Campo requerido")
+                .min(10, "La descripcion debe ser mayor a 10 caracteres")
+                .max(100, "La descripcion debe ser menor a 100 caracteres")
+                .matches(/^[a-zA-Z\d ]+$/, "Solo letras"),
+              monto: Yup.number()
+                .required("Campo requerido")
+                .min(1.0, "El monto debe ser mayor a 0")
+                .max(10000, "El monto debe ser menor a 10000")
+                .positive("El monto debe ser positivo")
+                .typeError("El monto debe ser un numero")
+                .test(
+                  "is-decimal",
+                  "El monto debe ser un decimal de 2 digitos",
+                  (value) => {
+                    if (value) {
+                      if (!value.toString().split(".")[1]) return true;
+                      return value.toString().split(".")[1]?.length <= 2;
+                    }
+                    return true;
+                  }
+                ),
+            })}
+            onSubmit={async (values, { resetForm }) => {
+              const res = await gastosFetch.createGastoDiario(values);
+              console.log(res);
+              if(res?.status===200){
+                MySwal.fire({
+                  title: "Gasto agregado",
+                  text: res.data.message,
+                  icon: "success",
+                  confirmButtonText: `Ok`,
+                  timer: 1000,
+                }).then(() => {
+                  resetForm({ values: { nombre: "", desc: "", monto: 0.0 } });
+                });
+              }else{
+                MySwal.fire({
+                  title: "Error al agregar gasto",
+                  text: res.response.data.message,
+                  icon: "error",
+                  confirmButtonText: `Ok`,
+                });
+              }
+            }}
+          >
+            {(formik) => (
+              <form onSubmit={formik.handleSubmit}>
+                <Entry
+                  Id={"nombre"}
+                  Name={"Nombre del gasto"}
+                  Type={"text"}
+                  ExtraProps={formik.getFieldProps("nombre")}
+                  value={formik.values.nombre}
+                />
+                {formik.touched.nombre && formik.errors.nombre ? (
+                  <div style={{ color: "red" }}>{formik.errors.nombre}</div>
+                ) : null}
+                <Entry
+                  value={formik.values.monto}
+                  Id={"monto"}
+                  Name={"Cargo"}
+                  Type={"number"}
+                  ExtraProps={formik.getFieldProps("monto")}
+                />
+                {formik.touched.monto && formik.errors.monto ? (
+                  <div style={{ color: "red" }}>{formik.errors.monto}</div>
+                ) : null}
+                <Entry
+                  value={formik.values.desc}
+                  Id={"desc"}
+                  Name={"Descripcion del gasto"}
+                  Type={"text"}
+                  ExtraProps={formik.getFieldProps("desc")}
+                />
+                {formik.touched.desc && formik.errors.desc ? (
+                  <div style={{ color: "red" }}>{formik.errors.desc}</div>
+                ) : null}
+                <Button
+                  disabled={formik.isSubmitting}
+                  value={formik.isSubmitting ? "Subiendo" : "Continuar"}
+                  type={"submit"}
+                  btnclass={"prime-btn"}
+                />
+              </form>
+            )}
+          </Formik>
         </div>
       </div>
     </>
@@ -566,7 +667,7 @@ export const SubAcc = ({ name, icons, e }) => {
   );
 };
 
-export const ColorFrec = ({color, data}) => {
+export const ColorFrec = ({ color, data }) => {
   return (
     <div className="JercFrec">
       <div className={color}></div>

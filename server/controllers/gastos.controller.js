@@ -2,18 +2,18 @@ import { pool } from "../DB/DB.js";
 import bcrypt from "bcrypt";
 import { SECRET } from "../config.js";
 import jwt from "jsonwebtoken";
-import calendar from "node-calendar";
 import moment from "moment/moment.js";
 
 export const createGastoDiario = async (req, res) => {
-  const today = moment().format("YYYY-MM-DD");
+  moment.locale("es");
+  const today = moment().add(1, "days").format("YYYY-MM-DD");
   const from_date = moment().startOf("week").format("YYYY-MM-DD");
   const to_date = moment().endOf("week").format("YYYY-MM-DD");
   console.log({
     today: today.toString(),
     from_date: from_date.toString(),
-    to_date: to_date.toString()
-  });
+    to_date: to_date.toString(),
+  }); 
   const { nombre, desc, monto } = req.body;
   if (!nombre || !desc || !monto)
     return res.status(400).json({ message: "Faltan datos" });
@@ -54,33 +54,35 @@ export const createGastoDiario = async (req, res) => {
   } else if (rows1.length > 0) {
     const [resultDay] = await pool.query(
       "select * from day where semId = ? and dayDate = ?;",
-      [rows1[0].semId, today.toString()]
+      [rows1[0].semId, "2022-11-18"]
     );
-    console.log("creando dia con semana existente");
+    console.log(resultDay)
     if (resultDay.length > 0) {
       const [insertDiario] = await pool.query(
         "insert into diarios(diaName, diaDescription, diaAmount, dayId) values(?,?,?,?)",
         [nombre, desc, monto, resultDay[0].dayId]
       );
+      console.log(insertDiario);
       if (insertDiario) {
         return res.status(200).json({
-          message: "gasto agregado exitosmaente"
+          message: "gasto agregado exitosmaente",
         });
       }
-      console.log("creando gasto con dia existente");
     } else if (resultDay.length === 0) {
       const [insertDay] = await pool.query(
         "insert into day (dayDate, semId) values(?, ?);",
-        [today.toString(), rows1[0].semId]
+        ["2022-11-18", rows1[0].semId]
       );
-      console.log("creando dia porque no existia aunque semana si");
+      console.log(["2022-11-18", rows1[0].semId])
+      console.log(insertDay);
       if (!insertDay) {
-        return res.status(400).json({ message: "Gasto invalido" });
+        return res.status(400).json({ message: "No se pudo crear day con semana pero sin day" });
       }
       const [insertDiario] = await pool.query(
         "insert into diarios(diaName, diaDescription, diaAmount, dayId) values(?, ?, ?, ?);",
         [nombre, desc, monto, insertDay.insertId]
       );
+      console.log(insertDiario);
       if (insertDiario) {
         return res.status(200).json({ message: "gasto creado exitosamente" });
       }
@@ -105,7 +107,7 @@ export const getGastos = async (req, res) => {
   }
   const { semId } = rows[0];
   const [rows1] = await pool.query("select * from day where semId =?;", [
-    semId
+    semId,
   ]);
   if (rows1.length === 0) {
     return res.status(400).json({ message: "No hay dias aquí" });

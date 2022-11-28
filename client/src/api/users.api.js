@@ -2,7 +2,7 @@ import axios from "axios";
 // "http://localhost:3000/api/"
 //
 const myAxios = axios.create({
-  baseURL: "https://baro.up.railway.app/api/",
+  baseURL: "http://localhost:3000/api/",
 });
 
 export const userFetch = {
