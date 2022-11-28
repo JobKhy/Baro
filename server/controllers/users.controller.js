@@ -249,21 +249,76 @@ export const updatePhoto = async (req, res) => {
   return res.status(200).json({ message: "Foto actualizada", filename });
 };
 export const updateUser = async (req, res) => {
-  const {name } = req.params;
-  if(!name){
-    return res.status(400).json({message: "Faltan datos (name)"})
+  const { name } = req.params;
+  if (!name) {
+    return res.status(400).json({ message: "Faltan datos (name)" });
   }
-  const {token} = req.cookies;
-  if(!token){
-    return res.status(400).json({message: "No hay sesión iniciada"})
+  const { token } = req.cookies;
+  if (!token) {
+    return res.status(400).json({ message: "No hay sesión iniciada" });
   }
-  const {id} = jwt.verify(token, SECRET);
-  if(!id){
-    return res.status(400).json({message: "Sesión invalida"})
+  const { id } = jwt.verify(token, SECRET);
+  if (!id) {
+    return res.status(400).json({ message: "Sesión invalida" });
   }
-  const [result] = await pool.query("UPDATE data_usuario SET datName = ? WHERE usuId = ?", [name, id]);
-  if(!result){
-    return res.status(400).json({message: "Error al actualizar nombre"})
+  const [result] = await pool.query(
+    "UPDATE data_usuario SET datName = ? WHERE usuId = ?",
+    [name, id]
+  );
+  if (!result) {
+    return res.status(400).json({ message: "Error al actualizar nombre" });
   }
-  return res.status(200).json({message: "Nombre actualizado"})
+  return res.status(200).json({ message: "Nombre actualizado" });
+};
+export const cleanAccount = async (req, res) => {
+  const { token } = req.cookies;
+  if (!token) {
+    return res.status(400).json({ message: "No hay sesión iniciada" });
+  }
+  const { id } = jwt.verify(token, SECRET);
+  if (!id) {
+    return res.status(400).json({ message: "Sesión invalida" });
+  }
+  const [result] = await pool.query("delete from semanas where usuId = ?", [
+    id,
+  ]);
+  if (!result) {
+    return res.status(400).json({ message: "Error al limpiar cuenta" });
+  }
+  return res.status(200).json({ message: "Cuenta limpiada" });
+};
+export const deleteAccount = async (req, res) => {
+  const { token } = req.cookies;
+  if (!token) {
+    return res.status(400).json({ message: "No hay sesión iniciada" });
+  }
+  const { id } = jwt.verify(token, SECRET);
+  if (!id) {
+    return res.status(400).json({ message: "Sesión invalida" });
+  }
+  const { password } = req.body;
+  if (!password) {
+    return res.status(400).json({ message: "Faltan datos (password)" });
+  }
+  const [row] = await pool.query("select * from usuario where usuId = ?", [id]);
+  if (!row) {
+    return res.status(400).json({ message: "Error al obtener usuario" });
+  }
+  const validPassword = await bcrypt.compare(password, row[0].usuPassword);
+  if (!validPassword) {
+    return res.status(400).json({ message: "Contraseña incorrecta" });
+  }
+  const [result] = await pool.query("delete from usuario where usuId = ?", [
+    id,
+  ]);
+  if (!result) {
+    return res.status(400).json({ message: "Error al eliminar cuenta" });
+  }
+  req.session.destroy((err) => {
+    if (err) {
+      return res.status(400).json({ message: "Error al cerrar sesión" });
+    }
+    res.clearCookie("token");
+    return res.status(200).json({ message: "Cuenta eliminada" });
+  });
 };
