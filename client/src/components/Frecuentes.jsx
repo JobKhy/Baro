@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react'
-import { NavBar,ColorFrec,GasFrec} from './ModulesForm'
+import { NavBar,ColorFrec,GasProx,Entry2,PeriodPleg} from './ModulesForm'
 import "../css/Extras.css"
 import UserContext from '../context/UserContext';
 import { userFetch } from '../api/users.api';
@@ -26,6 +26,8 @@ const nav = useNavigate()
       fetchUser();
     }
   }, []);
+
+  
   return (
     <div className='home-body-w'>
         <NavBar initialActive={2}></NavBar>
@@ -36,8 +38,31 @@ const nav = useNavigate()
           <div className="BodyFrec">
             <div className="BodyLeft">
              <div className="FormFrec">
-
+              <div className="FormFrecTitle">
+               <h2>Ingresa un gasto frecuente</h2>
               </div>
+              <div className="FormTopFrec">
+                <div className="FormLeftFrec">
+                 <Entry2 
+                  Id={""}
+                  Name={"Nombre"}
+                  Type={"text"}
+                  />
+                </div>
+                <div className="FormRightFrec">
+                 <PeriodPleg/>
+                <h2>{"Periodo de facturación: "}</h2>
+                </div>
+              </div>
+              <div className="FormBottomFrec">
+                  <Entry2 
+                  Id={""}
+                  Name={"Descripción"}
+                  Type={"text"}
+                  />
+                  <button className='BtnChangeType'>Agregar</button>
+              </div>
+             </div>
               <div className="InfoFrec">
                 <h2>Indicativos</h2>
                 <ColorFrec
@@ -60,8 +85,30 @@ const nav = useNavigate()
                 <h1>Gastos Próximos</h1>
               </div>
               <div className="ListFreBody">
-              <GasFrec/>
-                <GasFrec/>
+              <GasProx
+              name={"Renta"}
+              balance={"2500"}
+              time={"3"}
+              periodo={"Semanal"}
+              color={"ColorIndicate-low"}
+              date={"20/9/2021"}
+              />
+              <GasProx
+              name={"Renta"}
+              balance={"2500"}
+              time={"3"}
+              periodo={"Semanal"}
+              color={"ColorIndicate-medium"}
+              date={"20/9/2021"}
+              />
+              <GasProx
+              name={"Renta"}
+              balance={"2500"}
+              time={"3"}
+              periodo={"Semanal"}
+              color={"ColorIndicate-high"}
+              date={"20/9/2021"}
+              />
               </div>
            </div>
           </div>

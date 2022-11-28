@@ -461,6 +461,7 @@
     font-weight: 500;
 }
 .BtnChangeType{
+    cursor: pointer;
     color: var(--ter-color);
     background-color: white;
     box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.25);
@@ -612,7 +613,7 @@
     margin: 1vh 0 0 0;
 }
 .PeriodList i{
-    margin:.3vh 6vw auto ;
+    margin:1% 6vw auto ;
     position: absolute;
     rotate: 90deg;
     transition: rotate .5s;
@@ -653,7 +654,7 @@
     bottom: 1.4vh;
     list-style: none;
     transition: height .4s;
-    height: 0;
+    height: 100px;
     text-align: center;
     width: 9vw;
     border-radius: 0 0 1vw 1vw;
@@ -949,27 +950,55 @@
 .BodyFrec{
     display:flex ;
     width: 100%;
-    height: 100vh;
+    height: 90%;
 }
 .BodyLeft{
     width: 40%;
     height: 100%;
 }
+/* FOMR_FRECUENTES */
 .FormFrec{
-    background-color: transparent;
+    overflow: auto;
     height: 60%;
     width: 100%;
-    display: grid;
-    padding: 1vw;
+    padding: 2%;
 }
-.InfoFrec{
-    margin: 1vw;
+.FormFrecTitle{
+    width: 100%;
+    height: 10%;
+}
+.FormFrecTitle h2{
+    text-align: center;
+    font-size: 3vh;
+    color: var(--sec-color);
+}
+.FormTopFrec{
+    display: flex;
     height: 30%;
+    width: 100%;
+}
+.FormLeftFrec{
+    padding: 3%;
+    width: 50%;
+    height: 100%;
+}
+.FormRightFrec{
+    width: 50%;
+    height: 100%;
+}
+.FormBottomFrec{
+    padding: 3%;
+    width: 100%;
+    height: 60%;
+}
+
+.InfoFrec{
+    height: 33%;
     width: 80%;
     display: grid;
     border-radius: 10px;
     background-color: var(--sec-color);
-    margin: 10% 10% 5% 5%;
+    margin: 5% 10% 5% 5%;
     padding: 2%;
 }
 .InfoFrec h2{
@@ -994,6 +1023,7 @@
     margin-left: 10%;
 }
 .ColorFrec-low{
+    margin-left:5%;
     border: white solid 2px;
     width: 3vw;
     height: 5vh;
@@ -1005,6 +1035,7 @@
     background-position-y: center;
 }
 .ColorFrec-medium{
+    margin-left:5%;
     border: white solid 2px;
     width: 3vw;
     height: 5vh;
@@ -1016,6 +1047,7 @@
     background-position-y: center;
 }
 .ColorFrec-high{
+    margin-left:5%;
     border: white solid 2px;
     width: 3vw;
     height: 5.5vh;
@@ -1037,7 +1069,6 @@
     margin-top: 1%;
     width: 60%;
     height: 100%;
-
 }
 .ListFreTitle h1{
     font-weight: 600;
@@ -1047,9 +1078,121 @@
 }
 .ListFreBody{
     width: 90%;
-    height: 65%;
+    height: 70%;
     margin: 5%;
     overflow: auto;
     border-radius: 10px;
     box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.5);
+}
+.GasProx{
+    margin:0 0 10% 0%;
+    display: grid;
+    width: 100%;
+    height: 25%;
+    padding: 2%;
+}
+.GasProxTitle{
+    height: 15%;
+}
+.GasProxTitle h2{
+    margin-left: 2%;
+    color: var(--ter-color);
+    font-size: 2.5vh;
+}
+.GasProxBody{
+    width: 100%;
+    height: 85%;
+    display: flex;
+}
+.ColorIndicate-low{
+    width: 20%;
+    margin: 1% 5% 1% 5%;
+    height: 90%;
+    background-color: var(--main-color);
+    border-radius: 10px;
+    border:white solid 2px;
+    box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.5);
+}
+.ColorIndicate-medium{
+    width: 20%;
+    margin: 1% 5% 1% 5%;
+    height: 90%;
+    background-color: var(--sec-color);
+    border-radius: 10px;
+    border:white solid 2px;
+    box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.5);
+}
+.ColorIndicate-high{
+    width: 20%;
+    margin: 1% 5% 1% 5%;
+    height: 90%;
+    background-color: var(--ter-color);
+    border-radius: 10px;
+    border:white solid 2px;
+    box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.5);
+}
+.ContainerDataProx{
+    margin: 0 5% 0 5%;
+    width: 85%;
+    height: 100%;
+    display: flex;
+    text-align: center;
+    color: var(--sec-color);
+}
+.DataProx{
+    width: 20%;
+    height: 100%;
+    margin: 5%;
+}
+.DataProx h2{
+    margin-bottom: 2%;
+    color: var(--sec-color);
+    font-size: 2vh;
+}
+.DataProx h3{
+    font-size: 2vh;
+}
+.DataProx p{
+    font-size: 1.5vh;
+}
+.TimerProx{
+    width: 25%;
+    height: 100%;
+    margin: 5%;
+}
+.TimerProx h2{
+    text-align: center;
+    margin-bottom: 2%;
+    font-size: 2vh;
+    color: var(--sec-color);
+}
+.TimerProx p{
+    font-size: 2vh;
+    color: var(--sec-color);
+}
+.DateFact{
+    width: 30%;
+    height: 100%;
+    margin: 5% 5% 5% 0;
+}
+.DateFact h2{
+    text-align: center;
+    margin-bottom: 2%;
+    font-size: 2vh;
+    color: var(--sec-color);
+}
+.DateFact p{
+    font-size: 2vh;
+    color: var(--sec-color);
+}
+.PeriodPleg{
+    display: block;
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+}
+.FormRightFrec h2{
+    text-align: left;
+    color: var(--sec-color);
+    font-size: 2vh;
 }
