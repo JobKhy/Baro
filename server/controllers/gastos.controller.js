@@ -7,18 +7,25 @@ import moment from "moment/moment.js";
 export const createGastoDiario = async (req, res) => {
   moment.locale("es");
   const today = moment().add(1, "days").format("YYYY-MM-DD");
-  const from_date = moment().startOf("week").format("YYYY-MM-DD");
-  const to_date = moment().endOf("week").format("YYYY-MM-DD");
+  const from_date = moment()
+    .startOf("week")
+    .add(1, "days")
+    .format("YYYY-MM-DD");
+  const to_date = moment().endOf("week").add(1, "days").format("YYYY-MM-DD");
   console.log({
     today: today.toString(),
     from_date: from_date.toString(),
     to_date: to_date.toString(),
-  }); 
-  const { nombre, desc, monto } = req.body;
+  });
+  const { nombre, desc, monto, balance } = req.body;
+
   if (!nombre || !desc || !monto)
     return res.status(400).json({ message: "Faltan datos" });
   if (parseFloat(monto) <= 0)
     return res.status(400).json({ message: "Gasto invalido" });
+  if (parseFloat(balance) < parseFloat(monto)) {
+    return res.status(400).json({ message: "No tienes suficiente dinero" });
+  }
 
   const { token } = req.cookies;
   if (!token) {
@@ -29,19 +36,28 @@ export const createGastoDiario = async (req, res) => {
     return res.status(400).json({ message: "Token de acceso no válido" });
   }
 
+  const [updateing] = await pool.query(
+    "UPDATE data_usuario SET datBalance = ? WHERE usuId = ?",
+    [parseFloat(balance) - parseFloat(monto), id]
+  );
+
+  if (!updateing) {
+    return res.status(400).json({ message: "Error al actualizar balance" });
+  }
+
   const [rows1] = await pool.query(
     "select * from semanas where semStart = ? and usuId = ?;",
-    [from_date.toString(), id]
+    [from_date, id]
   );
   if (rows1.length === 0) {
     const [insert1] = await pool.query(
       "insert into semanas (semStart, semEnd, usuId) values (?, ?, ?)",
-      [from_date.toString(), to_date.toString(), id]
+      [from_date, to_date, id]
     );
     const { insertId } = insert1;
     const [insert2] = await pool.query(
       "insert into day(dayDate, semId) values(?, ?);",
-      [today.toString(), insertId]
+      [today, insertId]
     );
     const insertDay = insert2.insertId;
     const [insert3] = await pool.query(
@@ -54,14 +70,14 @@ export const createGastoDiario = async (req, res) => {
   } else if (rows1.length > 0) {
     const [resultDay] = await pool.query(
       "select * from day where semId = ? and dayDate = ?;",
-      [rows1[0].semId, "2022-11-18"]
+      [rows1[0].semId, today]
     );
-    console.log(resultDay)
     if (resultDay.length > 0) {
       const [insertDiario] = await pool.query(
         "insert into diarios(diaName, diaDescription, diaAmount, dayId) values(?,?,?,?)",
         [nombre, desc, monto, resultDay[0].dayId]
       );
+      console.log("data insertdiario");
       console.log(insertDiario);
       if (insertDiario) {
         return res.status(200).json({
@@ -71,12 +87,12 @@ export const createGastoDiario = async (req, res) => {
     } else if (resultDay.length === 0) {
       const [insertDay] = await pool.query(
         "insert into day (dayDate, semId) values(?, ?);",
-        ["2022-11-18", rows1[0].semId]
+        [today, rows1[0].semId]
       );
-      console.log(["2022-11-18", rows1[0].semId])
-      console.log(insertDay);
       if (!insertDay) {
-        return res.status(400).json({ message: "No se pudo crear day con semana pero sin day" });
+        return res
+          .status(400)
+          .json({ message: "No se pudo crear day con semana pero sin day" });
       }
       const [insertDiario] = await pool.query(
         "insert into diarios(diaName, diaDescription, diaAmount, dayId) values(?, ?, ?, ?);",
@@ -84,7 +100,10 @@ export const createGastoDiario = async (req, res) => {
       );
       console.log(insertDiario);
       if (insertDiario) {
-        return res.status(200).json({ message: "gasto creado exitosamente" });
+        return res.status(200).json({
+          message: "gasto creado exitosamente",
+          newBalance: parseFloat(balance) - parseFloat(monto),
+        });
       }
     }
   }
@@ -106,24 +125,31 @@ export const getGastos = async (req, res) => {
     return res.status(400).json({ message: "No hay semanas aun" });
   }
   const { semId } = rows[0];
-  const [rows1] = await pool.query("select * from day where semId =?;", [
+  const [rows1] = await pool.query("select * from day where semId = ?;", [
     semId,
   ]);
   if (rows1.length === 0) {
-    return res.status(400).json({ message: "No hay dias aquí" });
+    return res.status(400).json({ message: "No hay dias aún" });
   }
   const finalGastos = [];
-  rows1.forEach(async (e, i) => {
+
+  for (const e of rows1) {
     const [tmpRow] = await pool.query(
       "select * from diarios where dayId = ?;",
       [e.dayId]
     );
-    if (tmpRow) {
-      finalGastos.push(tmpRow[0]);
+    if (tmpRow.length > 0) {
+      tmpRow.forEach((e, i) => {
+        console.log(finalGastos.push(e));
+        console.log(finalGastos);
+      });
     }
-  });
+  }
+
   if (!finalGastos) {
     return res.status(400).json({ message: "No hay gastos aun " });
   }
-  return res.status(200).json({ message: "gastos exitosamente", finalGastos });
+  return res
+    .status(200)
+    .json({ message: "gastos exitosamente recuperados", gastos: finalGastos });
 };

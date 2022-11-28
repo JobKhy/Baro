@@ -245,14 +245,17 @@ export const Graph = () => {
 };
 export const GasRec = () => {
   const [gastos, setGastos] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function fetchData() {
+      setLoading(true);
       const data = await gastosFetch.getGastos();
       console.log(data);
       if (data?.status === 200) {
-        setGastos(data.data.finalGastos);
+        setGastos(data.data.gastos);
       }
+      setLoading(false);
     }
     fetchData();
   }, []);
@@ -262,19 +265,22 @@ export const GasRec = () => {
       <h1>Gastos recientes</h1>
       <div className="GasCont">
         <ul>
-          {gastos ? (
-            gastos.map((e, i) => {
-              return (
-                <Reciente
-                  gasto={e.diaName}
-                  icons={"fa-solid fa-bowl-food"}
-                  value={e.diaAmount}
-                  date={e.diaDescription}
-                />
-              );
-            })
+          {!loading ? (
+            gastos.length !== 0 ? (
+              gastos.map((e, i) => {
+                return (
+                  <Reciente
+                    gasto={e.diaName}
+                    icons={"fa-solid fa-calendar-days"}
+                    value={e.diaAmount}
+                  />
+                );
+              })
+            ) : (
+              <h1>No hay gastos</h1>
+            )
           ) : (
-            <h1>Aun no hay gastos</h1>
+            <h1>Cargando</h1>
           )}
         </ul>
       </div>
@@ -370,6 +376,8 @@ export const IngGas = () => {
 };
 
 export const Gasto = () => {
+  const { user, setUser } = useContext(UserContext);
+
   return (
     <>
       <h1>Agrega Gasto</h1>
@@ -411,9 +419,18 @@ export const Gasto = () => {
                 ),
             })}
             onSubmit={async (values, { resetForm }) => {
-              const res = await gastosFetch.createGastoDiario(values);
+              const res = await gastosFetch.createGastoDiario({
+                ...values,
+                balance: user.balance,
+              });
               console.log(res);
-              if(res?.status===200){
+              if (res?.status === 200) {
+                setUser((prev) => {
+                  return {
+                    ...prev,
+                    balance: prev.balance - parseFloat(values.monto),
+                  };
+                });
                 MySwal.fire({
                   title: "Gasto agregado",
                   text: res.data.message,
@@ -423,7 +440,7 @@ export const Gasto = () => {
                 }).then(() => {
                   resetForm({ values: { nombre: "", desc: "", monto: 0.0 } });
                 });
-              }else{
+              } else {
                 MySwal.fire({
                   title: "Error al agregar gasto",
                   text: res.response.data.message,
@@ -574,7 +591,7 @@ export const GasFrec = ({ name, balance, des, date, periodo, e, e2 }) => {
       <div className="NameFrec">{name}</div>
       <div className="ContainerDataFre">
         <div>
-          <PeriodPleg e={e}/>
+          <PeriodPleg e={e} />
         </div>
         <div className="PeriodAmount">
           <h2>Facturación</h2>
@@ -653,7 +670,7 @@ export const ColorFrec = ({ color, data }) => {
   );
 };
 
-export const GasProx = ({ name, balance, time, periodo,color,date }) => {
+export const GasProx = ({ name, balance, time, periodo, color, date }) => {
   return (
     <div className="GasProx">
       <div className="GasProxTitle">
@@ -680,33 +697,32 @@ export const GasProx = ({ name, balance, time, periodo,color,date }) => {
     </div>
   );
 };
-export const PeriodPleg = ({ e , periodo}) => {
+export const PeriodPleg = ({ e, periodo }) => {
   return (
     <div className="PeriodPleg">
-          <button className="PeriodList" onClick={e}>
-            <p>Periodos</p>
-            <i className="fa-solid fa-chevron-up"></i>
-          </button>
-          <div className="PeriodListCont">
-            <ul className="PeriodShow">
-              <li className="PeriodItem">
-                <div className="PeriodText" onClick={e}>
-                  Diario
-                </div>
-              </li>
-              <li className="PeriodItem">
-                <div className="PeriodText" onClick={e}>
-                  Semanal
-                </div>
-              </li>
-              <li className="PeriodItem">
-                <div className="PeriodText" onClick={e}>
-                  Quincenal
-                </div>
-              </li>
-            </ul>
-          </div>
+      <button className="PeriodList" onClick={e}>
+        <p>Periodos</p>
+        <i className="fa-solid fa-chevron-up"></i>
+      </button>
+      <div className="PeriodListCont">
+        <ul className="PeriodShow">
+          <li className="PeriodItem">
+            <div className="PeriodText" onClick={e}>
+              Diario
+            </div>
+          </li>
+          <li className="PeriodItem">
+            <div className="PeriodText" onClick={e}>
+              Semanal
+            </div>
+          </li>
+          <li className="PeriodItem">
+            <div className="PeriodText" onClick={e}>
+              Quincenal
+            </div>
+          </li>
+        </ul>
+      </div>
     </div>
-          
   );
 };

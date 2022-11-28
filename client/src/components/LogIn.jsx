@@ -45,9 +45,14 @@ export const LogIn = () => {
               try {
                 const res = await uApi.getUser(values);
                 if (res?.status === 200) {
+                  console.log("codigo aqui");
                   console.log(res);
                   setUser(res.data.user);
-                  nav("/home");
+                  if (res.data.user.profile === 0) {
+                    nav("/perfiles");
+                  }else{
+                    nav("/home");
+                  }
                 } else {
                   console.log(res);
                   MySwal.fire({
@@ -64,9 +69,7 @@ export const LogIn = () => {
           >
             {(formik) => (
               <form onSubmit={formik.handleSubmit}>
-                <div className="form-title">
-                  Iniciar sesión
-                </div>
+                <div className="form-title">Iniciar sesión</div>
                 <Entry
                   Id={"correo"}
                   Name={"Correo"}
