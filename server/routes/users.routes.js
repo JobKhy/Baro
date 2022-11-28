@@ -1,5 +1,6 @@
 import { Router } from "express";
-import { getUser, createUser, checkSession, setProfile, logout } from "../controllers/users.controller.js";
+import { getUser, createUser, checkSession, setProfile, logout, updatePhoto,updateUser } from "../controllers/users.controller.js";
+import mymulter from "../multer.js";
 
 const router = Router();
 
@@ -11,5 +12,7 @@ router.post('/getUser', getUser)
 router.get("/checkSession", checkSession)
 router.get("/logout", logout)
 
+router.post("/updatePhoto", mymulter.single("profilePic"), updatePhoto)
+router.get("/updateUser/:name", updateUser)
 
 export default router;

@@ -30,7 +30,8 @@ export const SignIn = () => {
             nombre: Yup.string()
               .min(3, "Nombre debe tener minimo 3 caracteres")
               .max(70, "El maximo numero de caracteres es de 70")
-              .required("El nombre es requerido"),
+              .required("El nombre es requerido")
+              .matches(/^[a-zA-Z\d ]+$/, "Solo letras"),
             correo: Yup.string()
               .max(100, "El maximo numero de caracteres es de 100")
               .email("Correo inválido")
@@ -39,7 +40,8 @@ export const SignIn = () => {
             contraseña: Yup.string()
               .min(8, "La contraseña debe minimo 8 caracteres")
               .max(32, `El maximo numero de caracteres es ${32}`)
-              .required("La contraseña es requerida"),
+              .required("La contraseña es requerida")
+              .matches(/^[a-zA-Z\d ]+$/, "Solo letras"),
             contraseñaConfirmada: Yup.string().test(
               "passwords-match",
               "Las contraseñas deben coincidir",

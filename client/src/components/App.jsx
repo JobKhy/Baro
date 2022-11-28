@@ -25,9 +25,6 @@ export const App = () => {
         console.log("XD")
         if (res.data.user.profile === 0) {
           nav("/perfiles");
-        } else {
-          console.log(":v");
-          nav("/home");
         }
       } 
     }

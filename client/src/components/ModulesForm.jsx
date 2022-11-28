@@ -3,7 +3,7 @@ import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import * as Yup from "yup";
-import { userFetch as uApi } from "../api/users.api";
+import { userFetch as uApi, userFetch } from "../api/users.api";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 
@@ -93,11 +93,11 @@ export const Entry2 = ({ Id, Name, Type, ExtraProps, onChange }) => {
 };
 
 //Usuario
-export const UserPf = ({ User }) => {
+export const UserPf = ({ User, image }) => {
   return (
     <div className="UserPf">
       <div className="circle">
-        <div className="circleImg"></div>
+        <img className="circleImg" src={`./assets/uploads/PFP/${image}`}></img>
       </div>
       <div className="NamePf">
         <h3>Bienvenido</h3>
@@ -514,62 +514,115 @@ export const SubSet = ({ name, icons, e }) => {
   );
 };
 
-export const UserConfg = ({ User }) => {
+export const UserConfg = ({ User, image, profile }) => {
   return (
     <div className="ConUserPf">
       <div className="Confcircle">
-        <div className="ConfcircleImg"></div>
+        <img className="ConfcircleImg" src={image}></img>
       </div>
       <div className="ConNamePf">
         <h2>{User}</h2>
-        <h3>Estudiante</h3>
+        <h3>{profile}</h3>
       </div>
     </div>
   );
 };
-export const EntrySet = ({
-  Id,
-  Name,
-  Type,
-  ExtraProps,
-  e1,
-  e2,
-  e3,
-  id1,
-  id2,
-  id3,
-}) => {
+export const EntrySet = ({ Id, Name, Type, initialValue }) => {
+  const { setUser } = useContext(UserContext);
+
+  const [show, setShow] = useState(false);
+
   return (
     <div className="InputSetContainer">
-      <div className="Setlogin-container">
-        <div className="Setlogin-group">
-          <input
-            className="Setlogin-input"
-            type={Type}
-            placeholder=" "
-            id={Id}
-            {...ExtraProps}
-            disabled
-          />
-          <label className="Setlogin-label">{Name}</label>
-          <span className="Setlogin-line"></span>
-        </div>
-      </div>
-      <div className="SetDat" id={id1}>
-        <button className="BtnSetDatI" onClick={e1}>
-          <i className="fa-solid fa-pen-to-square"></i>
-        </button>
-      </div>
-      <div className="SetDat-Can DisNone" id={id2}>
-        <button className="BtnSetDat-Can" onClick={e2}>
-          Cancel
-        </button>
-      </div>
-      <div className="SetDat DisNone" id={id3}>
-        <button className="BtnSetDat" onClick={e3}>
-          Cambiar
-        </button>
-      </div>
+      <Formik
+        initialValues={{
+          name: initialValue,
+        }}
+        validationSchema={Yup.object({
+          name: Yup.string()
+            .required("Campo requerido")
+            .min(3, "El nombre debe ser mayor a 3 caracteres")
+            .max(30, "El nombre debe ser menor a 30 caracteres")
+            .matches(/^[a-zA-Z\d ]+$/, "Solo letras"),
+        })}
+        onSubmit={async (values, { resetForm }) => {
+          console.log(values);
+          const res = await userFetch.updateUser(values.name);
+          if (res?.status === 200) {
+            setUser((prev) => {
+              return {
+                ...prev,
+                name: values.name,
+              };
+            });
+            MySwal.fire({
+              title: "Usuario actualizado",
+              text: res.data.message,
+              icon: "success",
+              confirmButtonText: `Ok`,
+              timer: 1000,
+            }).then(() => {
+              resetForm({ values: { name: "" } });
+              setShow(false);
+            });
+          }
+        }}
+      >
+        {(formik) => (
+          <form
+            onSubmit={formik.handleSubmit}
+            style={{ boxDecorationBreak: "unset" }}
+          >
+            <div className="Setlogin-container">
+              <div className="Setlogin-group">
+                <input
+                  className="Setlogin-input"
+                  type={Type}
+                  value={formik.values.name}
+                  id={Id}
+                  {...formik.getFieldProps("name")}
+                  disabled={!show}
+                />
+                <label className="Setlogin-label">{Name}</label>
+                <span className="Setlogin-line"></span>
+              </div>
+            </div>
+            {formik.touched[Id] && formik.errors[Id] ? (
+              <div style={{ color: "red" }}>{formik.errors[Id]}</div>
+            ) : null}
+            {show ? (
+              <>
+                <div className="SetDat-Can">
+                  <button
+                    className="BtnSetDat-Can"
+                    onClick={() => {
+                      console.log("noooo");
+                      setShow((prev) => !prev);
+                    }}
+                  >
+                    Cancel
+                  </button>
+                </div>
+                <div className="SetDat">
+                  <button className="BtnSetDat">Cambiar</button>
+                </div>
+              </>
+            ) : (
+              <div className="SetDat">
+                <button
+                  className="BtnSetDatI"
+                  onClick={() => {
+                    console.log("aaaa");
+                    setShow((prev) => !prev);
+                  }}
+                >
+                  <i className="fa-solid fa-pen-to-square"></i>
+                </button>
+              </div>
+            )}
+          </form>
+        )}
+      </Formik>
     </div>
   );
 };

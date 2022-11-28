@@ -26,7 +26,7 @@ CREATE TABLE `data_usuario` (
   `usuId` int NOT NULL,
   PRIMARY KEY (`datId`),
   KEY `usuId_idx` (`usuId`),
-  CONSTRAINT `usuIdDat` FOREIGN KEY (`usuId`) REFERENCES `usuario` (`usuId`)
+  CONSTRAINT `usuIdDat` FOREIGN KEY (`usuId`) REFERENCES `usuario` (`usuId`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 CREATE TABLE `semanas` (
@@ -36,7 +36,7 @@ CREATE TABLE `semanas` (
   `usuId` int NOT NULL,
   PRIMARY KEY (`semId`),
   KEY `usuId_idx` (`usuId`),
-  CONSTRAINT `usuIdSem` FOREIGN KEY (`usuId`) REFERENCES `usuario` (`usuId`)
+  CONSTRAINT `usuIdSem` FOREIGN KEY (`usuId`) REFERENCES `usuario` (`usuId`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 CREATE TABLE `day` (
@@ -45,7 +45,7 @@ CREATE TABLE `day` (
   `semId` int NOT NULL,
   PRIMARY KEY (`dayId`),
   KEY `semIdDay_idx` (`semId`),
-  CONSTRAINT `semIdDay` FOREIGN KEY (`semId`) REFERENCES `semanas` (`semId`)
+  CONSTRAINT `semIdDay` FOREIGN KEY (`semId`) REFERENCES `semanas` (`semId`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 CREATE TABLE `diarios` (
@@ -56,7 +56,7 @@ CREATE TABLE `diarios` (
   `dayId` int NOT NULL,
   PRIMARY KEY (`diaId`),
   KEY `dayIdDia_idx` (`dayId`),
-  CONSTRAINT `dayIdDia` FOREIGN KEY (`dayId`) REFERENCES `day` (`dayId`)
+  CONSTRAINT `dayIdDia` FOREIGN KEY (`dayId`) REFERENCES `day` (`dayId`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 CREATE TABLE `frecuentes` (
@@ -69,7 +69,7 @@ CREATE TABLE `frecuentes` (
   `dayId` int NOT NULL,
   PRIMARY KEY (`freId`),
   KEY `dayIdFre_idx` (`dayId`),
-  CONSTRAINT `dayIdFre` FOREIGN KEY (`dayId`) REFERENCES `day` (`dayId`)
+  CONSTRAINT `dayIdFre` FOREIGN KEY (`dayId`) REFERENCES `day` (`dayId`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 CREATE TABLE `cobros_fre` (
@@ -78,5 +78,5 @@ CREATE TABLE `cobros_fre` (
   `freId` int NOT NULL,
   PRIMARY KEY (`cobId`),
   KEY `freIdCob_idx` (`freId`),
-  CONSTRAINT `freIdCob` FOREIGN KEY (`freId`) REFERENCES `frecuentes` (`freId`)
+  CONSTRAINT `freIdCob` FOREIGN KEY (`freId`) REFERENCES `frecuentes` (`freId`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;

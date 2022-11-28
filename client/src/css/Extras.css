@@ -161,11 +161,16 @@
     width: 100%;
     height: 100%;
     border-radius: 100%;
-    background-image: url(../Img/PFP.png);
-    background-repeat: no-repeat;
-    background-size: cover;
     background-position-x: center;
     background-position-y: center;
+}
+.SetPhotoBtn{
+    position: absolute;
+    height: 100%;
+    border-radius: 100%;
+    background-color: none;
+    border: none;
+    cursor: pointer;
 }
 .Confcircle{
     position: absolute;
@@ -937,15 +942,7 @@
     margin-top: 11.1vh;
     display: flex;
 }
-.ContainerVaciar{
-    display: none;
-}
-.ContainerTerminos{
-    display: none;
-}
-.ContainerDelete{
-    display: block;
-}
+
 /*PAGINA_FRECUENTES_GUSTAVO*/
 .BodyFrec{
     display:flex ;

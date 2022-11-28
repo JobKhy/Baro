@@ -26,7 +26,7 @@ export const Home = () => {
       if (res?.status === 200) {
         setUser(res.data.user);
         if(res.data.user.profile===0){
-          nav("/profile");
+          nav("/perfiles");
         }
         console.log(res.data.user);
       } else {
@@ -43,7 +43,7 @@ export const Home = () => {
       <div className="home-body">
         <NavBar></NavBar>
         <div className="Balance">
-          <UserPf User={user?.name}></UserPf>
+          <UserPf User={user?.name} image={user?.photo}></UserPf>
           <div className="BalanceDisp">
             <div className="BalanceCant">
               <h1 className="white">$ {user?.balance}</h1>
