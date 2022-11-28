@@ -166,7 +166,9 @@ export const Config = () => {
             </div>
           </div>
           <div className="PerfSettings" id="PerfSettings">
+            <div className="PerfTitle">
             <h1>Perfil</h1>
+            </div>
             <div className="PerfBody">
               <div className="PerfLeft">
                 <div className="PerfData">
@@ -177,7 +179,6 @@ export const Config = () => {
                     initialValue={user?.name}
                   />
                 </div>
-
                 <div className="PerfImg">
                   <div className="ConUserPf-Set">
                     <div className="Confcircle-Set">
@@ -255,11 +256,6 @@ export const Config = () => {
                   </div>
                 </div>
               </div>
-              <br />
-              <br />
-              <br />
-              <br />
-              <br />
               {showPerf ? (
                 <div className="PerfType" id="SelectType">
                   <h1>¿A que tipo de perfil quieres cambiar?</h1>

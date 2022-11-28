@@ -117,8 +117,8 @@ form{
 }
 
 .form-title{
-	font-size: 2rem;
-	margin-bottom: .5em;
+	font-size: 4rem;
+	margin-bottom: 2em;
     color: var(--sec-color);
 }
 
@@ -679,12 +679,11 @@ h6{
     left: 0;
     padding:5%;
 }
-
 .Bt-perfiles h4{
     
     font-family: 'Poppins';
     font-style: normal;
-    font-size: 1vh;
+    font-size: 2vh;
     color:#FFFFFF;
     font-weight: 500;
 }

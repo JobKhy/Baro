@@ -126,6 +126,7 @@ export const SignIn = () => {
             </form>
           )}
         </Formik>
+        <div><a href="login">¿Ya tienes una cuenta?</a></div>
       </div>
       {/* {loading ? <Loader></Loader> : null} */}
     </div>

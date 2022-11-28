@@ -600,11 +600,11 @@ export const EntrySet = ({ Id, Name, Type, initialValue }) => {
                       setShow((prev) => !prev);
                     }}
                   >
-                    Cancel
+                    Cancelar
                   </button>
                 </div>
                 <div className="SetDat">
-                  <button className="BtnSetDat">Cambiar</button>
+                  <button className="BtnSetDat">Aplicar</button>
                 </div>
               </>
             ) : (
