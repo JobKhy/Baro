@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import UserContext from "../context/UserContext";
-import { userFetch as uApi } from "../api/users.api";
+import { userFetch as uApi, userFetch } from "../api/users.api";
 import {
   NavBar,
   SubSet,
@@ -380,19 +380,19 @@ export const Config = () => {
                 <SubAcc
                   name={"Vaciar Datos"}
                   icons={"fa-solid fa-inbox"}
-                  e={()=>setOpt(1)}
+                  e={() => setOpt(1)}
                 />
                 <div className="LineAcc"></div>
                 <SubAcc
                   name={"Términos y Condiciones"}
                   icons={"fa-solid fa-book"}
-                  e={()=>setOpt(2)}
+                  e={() => setOpt(2)}
                 />
                 <div className="LineAcc"></div>
                 <SubAcc
                   name={"Borrar Cuenta"}
                   icons={"fa-solid fa-fire"}
-                  e={()=>setOpt(3)}
+                  e={() => setOpt(3)}
                 />
               </div>
               <div className="ContainerResultsAcc">
@@ -414,10 +414,46 @@ export const Config = () => {
                       el cambio radical de tus gastos
                     </p>
                     <div className="BtnsVaciar">
-                      <div className="SetDat">
+                      {/* <div className="SetDat">
                         <button className="BtnSetDat">Cancelar</button>
-                      </div>
-                      <div className="SetDat">
+                      </div> */}
+                      <div
+                        className="SetDat"
+                        onClick={() => {
+                          MySwal.fire({
+                            title: "¿Estas seguro?",
+                            text: "No podras revertir esta acción",
+                            icon: "warning",
+                            showCancelButton: true,
+                            confirmButtonColor: "#3085d6",
+                            cancelButtonColor: "#d33",
+                            confirmButtonText: "Si, estoy seguro",
+                          }).then(async (result) => {
+                            if (result.isConfirmed) {
+                              const res = await userFetch.cleanAccount();
+                              if (res.status === 200) {
+                                MySwal.fire({
+                                  icon: "success",
+                                  title: "¡Listo!",
+                                  text: res.data.message,
+                                  timer: 2000,
+                                  showConfirmButton: false,
+                                  timerProgressBar: true,
+                                });
+                              } else {
+                                MySwal.fire({
+                                  icon: "error",
+                                  title: "¡Error!",
+                                  text: res.response.data.message,
+                                  timer: 2000,
+                                  showConfirmButton: false,
+                                  timerProgressBar: true,
+                                });
+                              }
+                            }
+                          });
+                        }}
+                      >
                         <button className="BtnSetDat">Cambiar</button>
                       </div>
                     </div>
@@ -459,10 +495,70 @@ export const Config = () => {
                     </p>
                     <div className="BtnsDelete">
                       <div className="SetDat">
-                        <button className="BtnSetDat">Cancelar</button>
-                      </div>
-                      <div className="SetDat">
-                        <button className="BtnSetDat">Confirmar</button>
+                        <button
+                          className="BtnSetDat"
+                          onClick={async () => {
+                            const steps = ["1", "2"];
+                            const Queue = MySwal.mixin({
+                              progressSteps: steps,
+                              confirmButtonText: "Siguiente >",
+                              showClass: { backdrop: "swal2-noanimation" },
+                              hideClass: { backdrop: "swal2-noanimation" },
+                            });
+                            await Queue.fire({
+                              title: "¿Estas seguro?",
+                              text: "No podras revertir esta acción",
+                              icon: "warning",
+                              showCancelButton: true,
+                              confirmButtonColor: "#3085d6",
+                              cancelButtonColor: "#d33",
+                              confirmButtonText: "Si, estoy seguro",
+                              cancelButtonText: "Cancelar",
+                              currentProgressStep: "0",
+                              showClass: { backdrop: "swal2-noanimation" },
+                            });
+                            await Queue.fire({
+                              title: "Ingresa tu contraseña",
+                              input: "password",
+                              inputAttributes: {
+                                autocapitalize: "off",
+                              },
+                              showCancelButton: true,
+                              confirmButtonText: "Siguiente",
+                              showLoaderOnConfirm: true,
+                              preConfirm: async (password) => {
+                                const res = await userFetch.deleteAccount({
+                                  password,
+                                });
+                                if (res.status === 200) {
+                                  MySwal.fire({
+                                    icon: "success",
+                                    title: "¡Listo!",
+                                    text: res.data.message,
+                                    timer: 2000,
+                                    showConfirmButton: false,
+                                    timerProgressBar: true,
+                                  }).then(()=>{
+                                    setUser(null);
+                                    nav("/")
+                                  })
+                                } else {
+                                  MySwal.fire({
+                                    icon: "error",
+                                    title: "¡Error!",
+                                    text: res.response.data.message,
+                                    timer: 2000,
+                                    showConfirmButton: false,
+                                    timerProgressBar: true,
+                                  });
+                                }
+                              },
+                              currentProgressStep: "1",
+                            });
+                          }}
+                        >
+                          Confirmar
+                        </button>
                       </div>
                     </div>
                   </div>
