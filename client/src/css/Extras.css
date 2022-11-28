@@ -27,7 +27,12 @@
     font-size: 7vh;
     text-align: center;
 }
-
+.typeOfGraph h2{
+    color:var(--ter-color);
+    opacity: .6;
+    font-size: 2.5vh;
+    text-align: center;
+}
 .ow{
     display: flex;
     flex-direction: row;
@@ -53,7 +58,7 @@
 
 .showDatGrap{
     position: relative;
-    margin: 0 auto 4.5vh;
+    margin: 1vh auto 1vh    ;
     width: 80%;
     height: calc(100% - 10vh - 20px);
     /* background-color: white; */
@@ -67,24 +72,25 @@
 
 .semData h2{
     text-align: center;
-    margin-top: 20px;
+    margin-top: 5vh;
+    margin-bottom: 1vh;
     font-family: 'Poppins';
     font-style: normal;
-    font-weight: 500;
-    font-size: 3.5vh;
+    font-weight: 600;
+    font-size: 4.5vh;
     color: var(--sec-color);
 
 }
 
 .DatGrap{
     color: white;
-    padding: 2% 8%;
+    padding: 2% 6%;
     width: 100%;
     justify-content: space-around;
     background-color: var(--ter-color);
     display: flex;
     flex-direction: row;
-    gap: 20px;
+    gap: 3vh;
     border-radius: 2rem;
 }
 
@@ -955,3 +961,4 @@
     height: 30vh;
     width: 50vw;
 }
+/*PAGINA_SEMANA_GUSTAVO*/
