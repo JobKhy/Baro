@@ -2,9 +2,7 @@ import { useState } from "react";
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
-
 import { userFetch as uApi } from "../api/users.api";
-
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 
@@ -474,29 +472,7 @@ export const GasFrec = ({ name, balance, des, date, periodo, e, e2 }) => {
       <div className="NameFrec">{name}</div>
       <div className="ContainerDataFre">
         <div>
-          <button className="PeriodList" onClick={e}>
-            <p>Periodos</p>
-            <i className="fa-solid fa-chevron-up"></i>
-          </button>
-          <div className="PeriodListCont">
-            <ul className="PeriodShow">
-              <li className="PeriodItem">
-                <div className="PeriodText" onClick={e}>
-                  Diario
-                </div>
-              </li>
-              <li className="PeriodItem">
-                <div className="PeriodText" onClick={e}>
-                  Semanal
-                </div>
-              </li>
-              <li className="PeriodItem">
-                <div className="PeriodText" onClick={e}>
-                  Quincenal
-                </div>
-              </li>
-            </ul>
-          </div>
+          <PeriodPleg e={e}/>
         </div>
         <div className="PeriodAmount">
           <h2>Facturación</h2>
@@ -575,12 +551,36 @@ export const ColorFrec = ({color, data}) => {
   );
 };
 
-export const AddFrec = ({ name, balance, des, date, periodo, e, e2 }) => {
+export const GasProx = ({ name, balance, time, periodo,color,date }) => {
   return (
-    <div className="ContainerFrec">
-      <div className="NameFrec">{name}</div>
-      <div className="ContainerDataFre">
-        <div>
+    <div className="GasProx">
+      <div className="GasProxTitle">
+        <h2>{name}</h2>
+      </div>
+      <div className="GasProxBody">
+        <div className={color}></div>
+        <div className="ContainerDataProx">
+          <div className="DataProx">
+            <h2>Facturación</h2>
+            <h3>{balance}</h3>
+            <p>{periodo}</p>
+          </div>
+          <div className="TimerProx">
+            <h2>Días restantes</h2>
+            <p>{time}</p>
+          </div>
+          <div className="DateFact">
+            <h2>Día de Facturación</h2>
+            <p>{date}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+export const PeriodPleg = ({ e , periodo}) => {
+  return (
+    <div className="PeriodPleg">
           <button className="PeriodList" onClick={e}>
             <p>Periodos</p>
             <i className="fa-solid fa-chevron-up"></i>
@@ -604,25 +604,7 @@ export const AddFrec = ({ name, balance, des, date, periodo, e, e2 }) => {
               </li>
             </ul>
           </div>
-        </div>
-        <div className="PeriodAmount">
-          <h2>Facturación</h2>
-          <input type={"number"} placeholder={balance} disabled />
-          <br></br>
-          <p>{periodo}</p>
-        </div>
-        <div className="FreLine"></div>
-        <div className="DescriptionFre">
-          <h2>Descripción</h2>
-          <p>{des}</p>
-        </div>
-        <div className="FreLine"></div>
-        <div className="DateStartFre">
-          <h2>Fecha de registro</h2>
-          <p>{date}</p>
-        </div>
-      </div>
-      <div className="LinePad"></div>
     </div>
+          
   );
 };
