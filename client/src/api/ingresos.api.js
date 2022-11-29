@@ -8,7 +8,7 @@ const myAxios = axios.create({
 export const ingresosFetch = {
   updateIngreso: async (ingreso) => {
     try {
-      const response = await myAxios.get(`ingresos/updateIngreso/${ingreso}`);
+      const response = await myAxios.post(`ingresos/updateIngreso/`, ingreso);
       return response;
     } catch (e) {
       return e;

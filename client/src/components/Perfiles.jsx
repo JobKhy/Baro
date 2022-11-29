@@ -50,7 +50,7 @@ export const Perfiles = () => {
           icon={"fa-solid fa-school"}
           perfil={"Estudiante"}
           descripcion={
-            "En este perfil encontraras gastos basicos como transporte, telefonia y alimentos."
+            "En este perfil encontraras gastos basicos como transporte, telefonia y alimentos. "
           }
           onClick={async ()=>{
             const res = await userFetch.setProfile({id: user.id, profile: 1})

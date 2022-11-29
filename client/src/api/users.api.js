@@ -45,5 +45,41 @@ export const userFetch = {
     } catch (error) {
       return error;
     }
+  },
+  updatePhoto: async (photo) => {
+    try {
+      const res = await myAxios.post(`/users/updatePhoto`, photo, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      return res;
+    } catch (error) {
+      return error;
+    }
+  },
+  updateUser: async (user) => {
+    try {
+      const res = await myAxios.get(`/users/updateUser/${user}`);
+      return res;
+    } catch (error) {
+      return error;
+    }
+  },
+  cleanAccount: async () => {
+    try {
+      const res = await myAxios.get(`/users/cleanAccount`);
+      return res;
+    } catch (error) {
+      return error;
+    }
+  },
+  deleteAccount: async (password) => {
+    try {
+      const res = await myAxios.post(`/users/deleteAccount`, password);
+      return res;
+    } catch (error) {
+      return error;
+    }
   }
 };

@@ -22,10 +22,9 @@ export const App = () => {
       if (res?.status === 200) {
         setUser(res.data.user);
         console.log(res.data.user);
+        console.log("XD")
         if (res.data.user.profile === 0) {
           nav("/perfiles");
-        } else {
-          nav("/home");
         }
       } 
     }

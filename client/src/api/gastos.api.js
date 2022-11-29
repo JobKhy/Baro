@@ -11,7 +11,17 @@ export const gastosFetch = {
       const response = await myAxios.post(`gastos/createGastoDiario`, gasto);
       return response;
     } catch (e) {
+      console.log(e)
       return e;
+    }
+  },
+  getGastos: async ()=>{
+    try {
+      const res = await myAxios.get("gastos/getGastos")
+      return res
+    } catch (error) {
+      console.log(error)
+      return error
     }
   }
 }

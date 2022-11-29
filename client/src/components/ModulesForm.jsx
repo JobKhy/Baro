@@ -2,9 +2,8 @@ import { useState } from "react";
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
-
-import { userFetch as uApi } from "../api/users.api";
-
+import * as Yup from "yup";
+import { userFetch as uApi, userFetch } from "../api/users.api";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 
@@ -56,7 +55,7 @@ export const Item = ({ secc, icons, sel }) => {
 };
 
 //Inputs
-export const Entry = ({ Id, Name, Type, ExtraProps }) => {
+export const Entry = ({ Id, Name, Type, ExtraProps, value }) => {
   return (
     <div className="login-container">
       <div className="login-group">
@@ -66,6 +65,7 @@ export const Entry = ({ Id, Name, Type, ExtraProps }) => {
           placeholder=" "
           id={Id}
           {...ExtraProps}
+          value={value}
         />
         <label className="login-label">{Name}</label>
         <span className="login-line"></span>
@@ -93,11 +93,11 @@ export const Entry2 = ({ Id, Name, Type, ExtraProps, onChange }) => {
 };
 
 //Usuario
-export const UserPf = ({ User }) => {
+export const UserPf = ({ User, image }) => {
   return (
     <div className="UserPf">
       <div className="circle">
-        <div className="circleImg"></div>
+        <img className="circleImg" src={`./assets/uploads/PFP/${image}`}></img>
       </div>
       <div className="NamePf">
         <h3>Bienvenido</h3>
@@ -234,6 +234,7 @@ import { useContext } from "react";
 import UserContext from "../context/UserContext";
 import { ingresosFetch } from "../api/ingresos.api";
 import { gastosFetch } from "../api/gastos.api";
+import { Formik } from "formik";
 
 export const Graph = () => {
   return (
@@ -243,41 +244,44 @@ export const Graph = () => {
   );
 };
 export const GasRec = () => {
+  const [gastos, setGastos] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchData() {
+      setLoading(true);
+      const data = await gastosFetch.getGastos();
+      console.log(data);
+      if (data?.status === 200) {
+        setGastos(data.data.gastos);
+      }
+      setLoading(false);
+    }
+    fetchData();
+  }, []);
+
   return (
     <>
       <h1>Gastos recientes</h1>
       <div className="GasCont">
         <ul>
-          <Reciente
-            gasto={"Mensualidad Gym"}
-            icons={"fa-solid fa-dumbbell"}
-            value={800}
-            date={"12/3/22"}
-          />
-          <Reciente
-            gasto={"Comida con Amigos"}
-            icons={"fa-solid fa-bowl-food"}
-            value={600}
-            date={"6/3/22"}
-          />
-          <Reciente
-            gasto={"Agua"}
-            icons={"fa-solid fa-faucet-drip"}
-            value={235}
-            date={"3/3/22"}
-          />
-          <Reciente
-            gasto={"Internet "}
-            icons={"fa-solid fa-wifi"}
-            value={759}
-            date={"2/3/22"}
-          />
-          <Reciente
-            gasto={"Visita a familiares"}
-            icons={"fa-solid fa-bus-simple"}
-            value={40}
-            date={"22/2/22"}
-          />
+          {!loading ? (
+            gastos.length !== 0 ? (
+              gastos.map((e, i) => {
+                return (
+                  <Reciente
+                    gasto={e.diaName}
+                    icons={"fa-solid fa-calendar-days"}
+                    value={e.diaAmount}
+                  />
+                );
+              })
+            ) : (
+              <h1>No hay gastos</h1>
+            )
+          ) : (
+            <h1>Cargando</h1>
+          )}
         </ul>
       </div>
     </>
@@ -292,95 +296,201 @@ export const IngGas = () => {
       <h1>Ingreso de Balance</h1>
       <div className="GasCont">
         <div className="alignGas">
-        <Entry2
-          Id={"Ingreso"}
-          Name={"Ingreso"}
-          Type={"number"}
-          onChange={(val) => {
-            setIngreso(val.target.value);
-          }}
-        />
-        <Button2
-          value={"Añadir"}
-          type={"submit"}
-          btnclass={"prime-btn"}
-          onClick={async () => {
-            const res = await ingresosFetch.updateIngreso(ingreso);
-            console.log(res);
-            if (res.status === 200) {
-              setUser((prev) => ({
-                ...prev,
-                balance: prev.balance + parseFloat(ingreso),
-              }));
-              MySwal.fire({
-                title: "Ingreso actualizado",
-                icon: "success",
-                confirmButtonText: `Ok`,
-                timer: 1000,
-              });
-            } else {
-              MySwal.fire({
-                title: "Error al actualizar ingreso",
-                text: res.response.data.message,
-                icon: "error",
-                confirmButtonText: `Ok`,
-                timer: 1000,
-              });
-            }
-          }}
-        />
+          <Formik
+            initialValues={{
+              ingreso: 0.0,
+            }}
+            validationSchema={Yup.object({
+              ingreso: Yup.number()
+                .required("Campo requerido")
+                .min(1.0, "El ingreso debe ser mayor a 0")
+                .max(10000, "El ingreso debe ser menor a 10000")
+                .positive("El ingreso debe ser positivo")
+                .typeError("El ingreso debe ser un numero")
+                .test(
+                  "is-decimal",
+                  "El ingreso debe ser un decimal de 2 digitos",
+                  (value) => {
+                    if (value) {
+                      if (!value.toString().split(".")[1]) return true;
+                      return value.toString().split(".")[1]?.length <= 2;
+                    }
+                    return true;
+                  }
+                ),
+            })}
+            onSubmit={async (values, { resetForm }) => {
+              const res = await ingresosFetch.updateIngreso(values);
+              console.log(res);
+              if (res.status === 200) {
+                MySwal.fire({
+                  title: "Ingreso actualizado",
+                  icon: "success",
+                  confirmButtonText: `Ok`,
+                  timer: 1000,
+                }).then(() => {
+                  setUser((prev) => {
+                    return {
+                      ...prev,
+                      balance: prev.balance + parseFloat(values.ingreso),
+                    };
+                  });
+                  resetForm({ values: { ingreso: 0.0 } });
+                });
+              } else {
+                MySwal.fire({
+                  title: "Error al actualizar ingreso",
+                  text: res.response.data.message,
+                  icon: "error",
+                  confirmButtonText: `Ok`,
+                  timer: 1000,
+                });
+              }
+            }}
+          >
+            {(formik) => (
+              <form onSubmit={formik.handleSubmit}>
+                <Entry
+                  Id={"ingreso"}
+                  Name={"Ingreso"}
+                  Type={"number"}
+                  value={formik.values.ingreso}
+                  ExtraProps={formik.getFieldProps("ingreso")}
+                />
+                {formik.touched.ingreso && formik.errors.ingreso ? (
+                  <div>{formik.errors.ingreso}</div>
+                ) : null}
+                <Button
+                  disabled={formik.isSubmitting}
+                  value={formik.isSubmitting ? "Subiendo" : "Continuar"}
+                  type={"submit"}
+                  btnclass={"prime-btn"}
+                />
+              </form>
+            )}
+          </Formik>
         </div>
-        
       </div>
     </>
   );
 };
 
 export const Gasto = () => {
-  const [values, setValues] = useState({
-    nombre: "",
-    desc: "",
-    monto: "",
-  });
+  const { user, setUser } = useContext(UserContext);
 
   return (
     <>
       <h1>Agrega Gasto</h1>
       <div className="GasCont">
         <div className="alignGas">
-        <Entry2
-          Id={"nombre"}
-          Name={"Nombre del gasto"}
-          Type={"text"}
-          onChange={(e) => {
-            setValues((prev) => ({ ...prev, nombre: e.target.value }));
-          }}
-        />
-        <Entry2
-          Id={"descripcion"}
-          Name={"Descripcion del gasto"}
-          Type={"text"}
-          onChange={(e) => {
-            setValues((prev) => ({ ...prev, desc: e.target.value }));
-          }}
-        />
-        <Entry2
-          Id={"monto"}
-          Name={"Monto por tiempo"}
-          Type={"number"}
-          onChange={(e) => {
-            setValues((prev) => ({ ...prev, monto: e.target.value }));
-          }}
-        />
-        <Button2
-          value={"Añadir"}
-          type={"submit"}
-          btnclass={"prime-btn"}
-          onClick={async () => {
-            const res = await gastosFetch.createGastoDiario(values);
-            console.log(res);
-          }}
-        />
+          <Formik
+            initialValues={{
+              nombre: "",
+              desc: "",
+              monto: 0.0,
+            }}
+            validationSchema={Yup.object({
+              nombre: Yup.string()
+                .required("Campo requerido")
+                .min(3, "El nombre debe ser mayor a 3 caracteres")
+                .max(30, "El nombre debe ser menor a 30 caracteres")
+                .matches(/^[a-zA-Z\d ]+$/, "Solo letras"),
+              desc: Yup.string()
+                .required("Campo requerido")
+                .min(10, "La descripcion debe ser mayor a 10 caracteres")
+                .max(100, "La descripcion debe ser menor a 100 caracteres")
+                .matches(/^[a-zA-Z\d ]+$/, "Solo letras"),
+              monto: Yup.number()
+                .required("Campo requerido")
+                .min(1.0, "El monto debe ser mayor a 0")
+                .max(10000, "El monto debe ser menor a 10000")
+                .positive("El monto debe ser positivo")
+                .typeError("El monto debe ser un numero")
+                .test(
+                  "is-decimal",
+                  "El monto debe ser un decimal de 2 digitos",
+                  (value) => {
+                    if (value) {
+                      if (!value.toString().split(".")[1]) return true;
+                      return value.toString().split(".")[1]?.length <= 2;
+                    }
+                    return true;
+                  }
+                ),
+            })}
+            onSubmit={async (values, { resetForm }) => {
+              const res = await gastosFetch.createGastoDiario({
+                ...values,
+                balance: user.balance,
+              });
+              console.log(res);
+              if (res?.status === 200) {
+                setUser((prev) => {
+                  return {
+                    ...prev,
+                    balance: prev.balance - parseFloat(values.monto),
+                  };
+                });
+                MySwal.fire({
+                  title: "Gasto agregado",
+                  text: res.data.message,
+                  icon: "success",
+                  confirmButtonText: `Ok`,
+                  timer: 1000,
+                }).then(() => {
+                  resetForm({ values: { nombre: "", desc: "", monto: 0.0 } });
+                });
+              } else {
+                MySwal.fire({
+                  title: "Error al agregar gasto",
+                  text: res.response.data.message,
+                  icon: "error",
+                  confirmButtonText: `Ok`,
+                });
+              }
+            }}
+          >
+            {(formik) => (
+              <form onSubmit={formik.handleSubmit}>
+                <Entry
+                  Id={"nombre"}
+                  Name={"Nombre del gasto"}
+                  Type={"text"}
+                  ExtraProps={formik.getFieldProps("nombre")}
+                  value={formik.values.nombre}
+                />
+                {formik.touched.nombre && formik.errors.nombre ? (
+                  <div style={{ color: "red" }}>{formik.errors.nombre}</div>
+                ) : null}
+                <Entry
+                  value={formik.values.monto}
+                  Id={"monto"}
+                  Name={"Cargo"}
+                  Type={"number"}
+                  ExtraProps={formik.getFieldProps("monto")}
+                />
+                {formik.touched.monto && formik.errors.monto ? (
+                  <div style={{ color: "red" }}>{formik.errors.monto}</div>
+                ) : null}
+                <Entry
+                  value={formik.values.desc}
+                  Id={"desc"}
+                  Name={"Descripcion del gasto"}
+                  Type={"text"}
+                  ExtraProps={formik.getFieldProps("desc")}
+                />
+                {formik.touched.desc && formik.errors.desc ? (
+                  <div style={{ color: "red" }}>{formik.errors.desc}</div>
+                ) : null}
+                <Button
+                  disabled={formik.isSubmitting}
+                  value={formik.isSubmitting ? "Subiendo" : "Continuar"}
+                  type={"submit"}
+                  btnclass={"prime-btn"}
+                />
+              </form>
+            )}
+          </Formik>
         </div>
       </div>
     </>
@@ -404,62 +514,115 @@ export const SubSet = ({ name, icons, e }) => {
   );
 };
 
-export const UserConfg = ({ User }) => {
+export const UserConfg = ({ User, image, profile }) => {
   return (
     <div className="ConUserPf">
       <div className="Confcircle">
-        <div className="ConfcircleImg"></div>
+        <img className="ConfcircleImg" src={image}></img>
       </div>
       <div className="ConNamePf">
         <h2>{User}</h2>
-        <h3>Estudiante</h3>
+        <h3>{profile}</h3>
       </div>
     </div>
   );
 };
-export const EntrySet = ({
-  Id,
-  Name,
-  Type,
-  ExtraProps,
-  e1,
-  e2,
-  e3,
-  id1,
-  id2,
-  id3,
-}) => {
+export const EntrySet = ({ Id, Name, Type, initialValue }) => {
+  const { setUser } = useContext(UserContext);
+
+  const [show, setShow] = useState(false);
+
   return (
     <div className="InputSetContainer">
-      <div className="Setlogin-container">
-        <div className="Setlogin-group">
-          <input
-            className="Setlogin-input"
-            type={Type}
-            placeholder=" "
-            id={Id}
-            {...ExtraProps}
-            disabled
-          />
-          <label className="Setlogin-label">{Name}</label>
-          <span className="Setlogin-line"></span>
-        </div>
-      </div>
-      <div className="SetDat" id={id1}>
-        <button className="BtnSetDatI" onClick={e1}>
-          <i className="fa-solid fa-pen-to-square"></i>
-        </button>
-      </div>
-      <div className="SetDat-Can DisNone" id={id2}>
-        <button className="BtnSetDat-Can" onClick={e2}>
-          Cancel
-        </button>
-      </div>
-      <div className="SetDat DisNone" id={id3}>
-        <button className="BtnSetDat" onClick={e3}>
-          Cambiar
-        </button>
-      </div>
+      <Formik
+        initialValues={{
+          name: initialValue,
+        }}
+        validationSchema={Yup.object({
+          name: Yup.string()
+            .required("Campo requerido")
+            .min(3, "El nombre debe ser mayor a 3 caracteres")
+            .max(30, "El nombre debe ser menor a 30 caracteres")
+            .matches(/^[a-zA-Z\d ]+$/, "Solo letras"),
+        })}
+        onSubmit={async (values, { resetForm }) => {
+          console.log(values);
+          const res = await userFetch.updateUser(values.name);
+          if (res?.status === 200) {
+            setUser((prev) => {
+              return {
+                ...prev,
+                name: values.name,
+              };
+            });
+            MySwal.fire({
+              title: "Usuario actualizado",
+              text: res.data.message,
+              icon: "success",
+              confirmButtonText: `Ok`,
+              timer: 1000,
+            }).then(() => {
+              resetForm({ values: { name: "" } });
+              setShow(false);
+            });
+          }
+        }}
+      >
+        {(formik) => (
+          <form
+            onSubmit={formik.handleSubmit}
+            style={{ boxDecorationBreak: "unset" }}
+          >
+            <div className="Setlogin-container">
+              <div className="Setlogin-group">
+                <input
+                  className="Setlogin-input"
+                  type={Type}
+                  value={formik.values.name}
+                  id={Id}
+                  {...formik.getFieldProps("name")}
+                  disabled={!show}
+                />
+                <label className="Setlogin-label">{Name}</label>
+                <span className="Setlogin-line"></span>
+              </div>
+            </div>
+            {formik.touched[Id] && formik.errors[Id] ? (
+              <div style={{ color: "red" }}>{formik.errors[Id]}</div>
+            ) : null}
+            {show ? (
+              <>
+                <div className="SetDat-Can">
+                  <button
+                    className="BtnSetDat-Can"
+                    onClick={() => {
+                      console.log("noooo");
+                      setShow((prev) => !prev);
+                    }}
+                  >
+                    Cancelar
+                  </button>
+                </div>
+                <div className="SetDat">
+                  <button className="BtnSetDat">Aplicar</button>
+                </div>
+              </>
+            ) : (
+              <div className="SetDat">
+                <button
+                  className="BtnSetDatI"
+                  onClick={() => {
+                    console.log("aaaa");
+                    setShow((prev) => !prev);
+                  }}
+                >
+                  <i className="fa-solid fa-pen-to-square"></i>
+                </button>
+              </div>
+            )}
+          </form>
+        )}
+      </Formik>
     </div>
   );
 };
@@ -476,34 +639,13 @@ export const SetPerfil = ({ icon, perfil }) => {
 };
 
 export const GasFrec = ({ name, balance, des, date, periodo, e, e2 }) => {
+  
   return (
     <div className="ContainerFrec">
       <div className="NameFrec">{name}</div>
       <div className="ContainerDataFre">
         <div>
-          <button className="PeriodList" onClick={e}>
-            <p>Periodos</p>
-            <i className="fa-solid fa-chevron-up"></i>
-          </button>
-          <div className="PeriodListCont">
-            <ul className="PeriodShow">
-              <li className="PeriodItem">
-                <div className="PeriodText" onClick={e}>
-                  Diario
-                </div>
-              </li>
-              <li className="PeriodItem">
-                <div className="PeriodText" onClick={e}>
-                  Semanal
-                </div>
-              </li>
-              <li className="PeriodItem">
-                <div className="PeriodText" onClick={e}>
-                  Quincenal
-                </div>
-              </li>
-            </ul>
-          </div>
+          <PeriodPleg e={e} />
         </div>
         <div className="PeriodAmount">
           <h2>Facturación</h2>
@@ -569,6 +711,72 @@ export const SubAcc = ({ name, icons, e }) => {
           <p>{name}</p>
         </button>
       </span>
+    </div>
+  );
+};
+
+export const ColorFrec = ({ color, data }) => {
+  return (
+    <div className="JercFrec">
+      <div className={color}></div>
+      <p>{data}</p>
+    </div>
+  );
+};
+
+export const GasProx = ({ name, balance, time, periodo, color, date }) => {
+  return (
+    <div className="GasProx">
+      <div className="GasProxTitle">
+        <h2>{name}</h2>
+      </div>
+      <div className="GasProxBody">
+        <div className={color}></div>
+        <div className="ContainerDataProx">
+          <div className="DataProx">
+            <h2>Facturación</h2>
+            <h3>{balance}</h3>
+            <p>{periodo}</p>
+          </div>
+          <div className="TimerProx">
+            <h2>Días restantes</h2>
+            <p>{time}</p>
+          </div>
+          <div className="DateFact">
+            <h2>Día de Facturación</h2>
+            <p>{date}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+export const PeriodPleg = ({ e, periodo }) => {
+  return (
+    <div className="PeriodPleg">
+      <button className="PeriodList" onClick={e}>
+        <p>Periodos</p>
+        <i className="fa-solid fa-chevron-up"></i>
+      </button>
+      <div className="PeriodListCont">
+        <ul className="PeriodShow">
+          <li className="PeriodItem">
+            <div className="PeriodText" onClick={e}>
+              Diario
+            </div>
+          </li>
+          <li className="PeriodItem">
+            <div className="PeriodText" onClick={e}>
+              Semanal
+            </div>
+          </li>
+          <li className="PeriodItem">
+            <div className="PeriodText" onClick={e}>
+              Quincenal
+            </div>
+          </li>
+        </ul>
+      </div>
     </div>
   );
 };

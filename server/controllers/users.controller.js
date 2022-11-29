@@ -2,6 +2,9 @@ import { pool } from "../DB/DB.js";
 import bcrypt from "bcrypt";
 import { SECRET } from "../config.js";
 import jwt from "jsonwebtoken";
+import { __public } from "../index.js";
+import { unlink } from "fs/promises";
+import { join } from "path";
 
 export const createUser = async (req, res) => {
   try {
@@ -189,18 +192,133 @@ export const setProfile = async (req, res) => {
 };
 export const logout = async (req, res) => {
   try {
-    if(!req.cookies.token){
-      return res.status(400).json({message: "No hay sesión iniciada"})
+    if (!req.cookies.token) {
+      return res.status(400).json({ message: "No hay sesión iniciada" });
     }
-    req.session.destroy((err)=>{
-      if(err){
-        return res.status(400).json({message: "Error al cerrar sesión"})
+    req.session.destroy((err) => {
+      if (err) {
+        return res.status(400).json({ message: "Error al cerrar sesión" });
       }
       res.clearCookie("token");
-      return res.status(200).json({message: "Sesión cerrada correctamente"})
+      return res.status(200).json({ message: "Sesión cerrada correctamente" });
     });
   } catch (e) {
     return res.status(400).json({ message: "Error al cerrar sesión", e });
   }
 };
-// abrela 
+export const updatePhoto = async (req, res) => {
+  console.log(req.file);
+  const { token } = req.cookies;
+  if (!token) {
+    return res.status(400).json({ message: "No hay sesión iniciada" });
+  }
+  const { id } = jwt.verify(token, SECRET);
+  if (!id) {
+    return res.status(400).json({ message: "Sesión invalida" });
+  }
+  const { filename } = req.file;
+
+  const [row] = await pool.query("select * from data_usuario where usuId = ?", [
+    id,
+  ]);
+  if (!row) {
+    return res.status(400).json({ message: "Error al obtener usuario" });
+  }
+  if (row[0].datPhoto) {
+    unlink(join(__public, `assets/uploads/PFP/${row[0].datPhoto}`), (err) =>
+      console.log(err)
+    )
+      .then(() => {
+        console.log("Archivo eliminado");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  } else {
+    console.log("No hay foto para eliminar");
+  }
+
+  const [result] = await pool.query(
+    "UPDATE data_usuario SET datPhoto = ? WHERE usuId = ?",
+    [filename, id]
+  );
+  if (!result) {
+    return res.status(400).json({ message: "Error al actualizar foto" });
+  }
+
+  return res.status(200).json({ message: "Foto actualizada", filename });
+};
+export const updateUser = async (req, res) => {
+  const { name } = req.params;
+  if (!name) {
+    return res.status(400).json({ message: "Faltan datos (name)" });
+  }
+  const { token } = req.cookies;
+  if (!token) {
+    return res.status(400).json({ message: "No hay sesión iniciada" });
+  }
+  const { id } = jwt.verify(token, SECRET);
+  if (!id) {
+    return res.status(400).json({ message: "Sesión invalida" });
+  }
+  const [result] = await pool.query(
+    "UPDATE data_usuario SET datName = ? WHERE usuId = ?",
+    [name, id]
+  );
+  if (!result) {
+    return res.status(400).json({ message: "Error al actualizar nombre" });
+  }
+  return res.status(200).json({ message: "Nombre actualizado" });
+};
+export const cleanAccount = async (req, res) => {
+  const { token } = req.cookies;
+  if (!token) {
+    return res.status(400).json({ message: "No hay sesión iniciada" });
+  }
+  const { id } = jwt.verify(token, SECRET);
+  if (!id) {
+    return res.status(400).json({ message: "Sesión invalida" });
+  }
+  const [result] = await pool.query("delete from semanas where usuId = ?", [
+    id,
+  ]);
+  if (!result) {
+    return res.status(400).json({ message: "Error al limpiar cuenta" });
+  }
+  return res.status(200).json({ message: "Cuenta limpiada" });
+};
+export const deleteAccount = async (req, res) => {
+  const { token } = req.cookies;
+  if (!token) {
+    return res.status(400).json({ message: "No hay sesión iniciada" });
+  }
+  const { id } = jwt.verify(token, SECRET);
+  if (!id) {
+    return res.status(400).json({ message: "Sesión invalida" });
+  }
+  const { password } = req.body;
+  if (!password) {
+    return res.status(400).json({ message: "Faltan datos (password)" });
+  }
+  const [row] = await pool.query("select * from usuario where usuId = ?", [id]);
+  if (!row) {
+    return res.status(400).json({ message: "Error al obtener usuario" });
+  }
+  const validPassword = await bcrypt.compare(password, row[0].usuPassword);
+  if (!validPassword) {
+    return res.status(400).json({ message: "Contraseña incorrecta" });
+  }
+  const [result] = await pool.query("delete from usuario where usuId = ?", [
+    id,
+  ]);
+  if (!result) {
+    return res.status(400).json({ message: "Error al eliminar cuenta" });
+  }
+  req.session.destroy((err) => {
+    if (err) {
+      return res.status(400).json({ message: "Error al cerrar sesión" });
+    }
+    res.clearCookie("token");
+    return res.status(200).json({ message: "Cuenta eliminada" });
+  });
+};

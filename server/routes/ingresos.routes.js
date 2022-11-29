@@ -4,6 +4,6 @@ import { updateIngreso } from "../controllers/ingresos.controller.js";
 
 const router = Router();
 
-router.get("/updateIngreso/:ingreso", updateIngreso)
+router.post("/updateIngreso", updateIngreso)
 
 export default router;

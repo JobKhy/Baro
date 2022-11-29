@@ -4,6 +4,7 @@ import BaroLogo from "../Img/BaroLogo.png";
 import Fondobaromain from "../Img/Fondobaromain.png";
 import { Loader } from "./Loader";
 import { Button } from "./ModulesForm";
+import { Slides } from "./Slides";
 
 export const Index = () => {
   const { state } = useLocation();
@@ -11,6 +12,7 @@ export const Index = () => {
   return (
     <>
       <img src={Fondobaromain} alt="fondo" className="bg-img" />
+      <Slides></Slides>
       <div className="inicio">
         <div className="bir">
           <img src={BaroLogo} alt="fondo" className="baro-img" />
