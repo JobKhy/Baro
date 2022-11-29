@@ -1,19 +1,21 @@
-import { DayNGas, Graph, NavBar,DayGas, Entry } from "./ModulesForm";
+import { DayNGas, Graph, NavBar, DayGas, Entry } from "./ModulesForm";
 import "../style.css";
 import "../css/Extras.css";
 import { useContext, useEffect } from "react";
 import { userFetch as uApi, userFetch } from "../api/users.api";
 import UserContext from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
+import { gastosFetch } from "../api/gastos.api";
 
 export const Graficas = () => {
-  const nav = useNavigate()
+  const nav = useNavigate();
 
   const { user, setUser } = useContext(UserContext);
-  
+
   useEffect(() => {
     async function fetchUser() {
       const res = await userFetch.checkSession();
+      const res2 = await gastosFetch.getSemanas()
       if (res?.status === 200) {
         setUser(res.data.user);
         console.log(res.data.user);
@@ -25,12 +27,12 @@ export const Graficas = () => {
       fetchUser();
     }
   }, []);
-  const e = ()=>{
-    document.querySelector(".Days").style.display="none"
-    document.querySelector(".Week").style.display="flex"
-    document.querySelector(".DaysTitle").style.display="none"
-    document.querySelector(".WeekTitle").style.display="block"
-  }
+  const e = () => {
+    document.querySelector(".Days").style.display = "none";
+    document.querySelector(".Week").style.display = "flex";
+    document.querySelector(".DaysTitle").style.display = "none";
+    document.querySelector(".WeekTitle").style.display = "block";
+  };
   return (
     <>
       <div className="home-body-w">
@@ -38,13 +40,13 @@ export const Graficas = () => {
         <div className="colGraph">
           <div className="typeOfGraph">
             <div className="WeekTitle">
-            <h1>Semanas</h1>
-            <h2>12/10/22 --- 18/12/22</h2>
+              <h1>Semanas</h1>
+              <h2>12/10/22 --- 18/12/22</h2>
             </div>
             <div className="DaysTitle">
               <button onClick={e}>Regresar</button>
-            <h1>Lunes</h1>
-            <h2>18/12/22</h2>
+              <h1>Lunes</h1>
+              <h2>18/12/22</h2>
             </div>
           </div>
           <div className="ow">
@@ -69,70 +71,22 @@ export const Graficas = () => {
               <div className="DaysData">
                 <h2>Gastos</h2>
                 <div className="GasDaysList">
-                  <DayGas
-                  name={"Comida"}
-                  cant={"400"}
-                  />
-                  <DayGas
-                  name={"Comida"}
-                  cant={"400"}
-                  />
-                  <DayGas
-                  name={"Comida"}
-                  cant={"400"}
-                  />
-                  <DayGas
-                  name={"Comida"}
-                  cant={"400"}
-                  />
-                  <DayGas
-                  name={"Comida"}
-                  cant={"400"}
-                  />
-                  <DayGas
-                  name={"Comida"}
-                  cant={"400"}
-                  />
-                   <DayGas
-                  name={"Comida"}
-                  cant={"400"}
-                  />
-                   <DayGas
-                  name={"Comida"}
-                  cant={"400"}
-                  />
-                   <DayGas
-                  name={"Comida"}
-                  cant={"400"}
-                  />
-                   <DayGas
-                  name={"Comida"}
-                  cant={"400"}
-                  />
-                   <DayGas
-                  name={"Comida"}
-                  cant={"400"}
-                  />
-                   <DayGas
-                  name={"Comida"}
-                  cant={"400"}
-                  />
-                   <DayGas
-                  name={"Comida"}
-                  cant={"400"}
-                  />
-                   <DayGas
-                  name={"Comida"}
-                  cant={"400"}
-                  />
-                   <DayGas
-                  name={"Comida"}
-                  cant={"400"}
-                  />
-                   <DayGas
-                  name={"Comida"}
-                  cant={"400"}
-                  />
+                  <DayGas name={"Comida"} cant={"400"} />
+                  <DayGas name={"Comida"} cant={"400"} />
+                  <DayGas name={"Comida"} cant={"400"} />
+                  <DayGas name={"Comida"} cant={"400"} />
+                  <DayGas name={"Comida"} cant={"400"} />
+                  <DayGas name={"Comida"} cant={"400"} />
+                  <DayGas name={"Comida"} cant={"400"} />
+                  <DayGas name={"Comida"} cant={"400"} />
+                  <DayGas name={"Comida"} cant={"400"} />
+                  <DayGas name={"Comida"} cant={"400"} />
+                  <DayGas name={"Comida"} cant={"400"} />
+                  <DayGas name={"Comida"} cant={"400"} />
+                  <DayGas name={"Comida"} cant={"400"} />
+                  <DayGas name={"Comida"} cant={"400"} />
+                  <DayGas name={"Comida"} cant={"400"} />
+                  <DayGas name={"Comida"} cant={"400"} />
                 </div>
               </div>
               <div className="GasData">
@@ -140,19 +94,13 @@ export const Graficas = () => {
                   <h2>Datos del Gasto</h2>
                 </div>
                 <div className="FormDataGas">
-                  <Entry
-                  Name={"Nombre"}
-                  Type={"text"}
-                  />
-                  <Entry
-                  Name={"Monto"}
-                  Type={"text"}
-                  />
+                  <Entry Name={"Nombre"} Type={"text"} />
+                  <Entry Name={"Monto"} Type={"text"} />
                 </div>
                 <div className="FormDesc">
                   <p>{"Description de gasto diario que seleccionaste"}</p>
-                  <button className='BtnChangeTypeF'>Editar</button>
-                  <button className='BtnChangeTypeF'>Eliminar</button>
+                  <button className="BtnChangeTypeF">Editar</button>
+                  <button className="BtnChangeTypeF">Eliminar</button>
                 </div>
               </div>
             </div>

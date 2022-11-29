@@ -23,5 +23,18 @@ export const gastosFetch = {
       console.log(error)
       return error
     }
+  }, 
+  getSemanas: async ()=>{
+    try {
+      const res = await myAxios.get("gastos/getSemanas")
+      return res
+    } catch (error) {
+      console.log(error)
+      return error
+    }
   }
+}
+
+const frecuentesFetch = {
+  
 }
