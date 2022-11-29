@@ -41,7 +41,7 @@ h1 {
     color: var(--sec-color);
 }
 
-h2 {
+.typeOfGraph h2 {
     font-weight: 500;
     font-size: 1.5rem;
     letter-spacing: 0.2em;
