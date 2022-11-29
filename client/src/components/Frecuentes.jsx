@@ -50,8 +50,11 @@ const nav = useNavigate()
                   />
                 </div>
                 <div className="FormRightFrec">
-                 <PeriodPleg/>
+                 <PeriodPleg
+                 names={"h"}
+                 />
                 <h2>{"Periodo de facturación: "}</h2>
+                <p></p>
                 </div>
               </div>
               <div className="FormBottomFrec">

@@ -1,4 +1,4 @@
-import { DayNGas, Graph, NavBar } from "./ModulesForm";
+import { DayNGas, Graph, NavBar,DiaFacFre } from "./ModulesForm";
 import "../style.css";
 import "../css/Extras.css";
 import { useContext, useEffect } from "react";
@@ -32,24 +32,43 @@ export const Graficas = () => {
         <NavBar initialActive={1}></NavBar>
         <div className="colGraph">
           <div className="typeOfGraph">
+            <div className="WeekTitle">
             <h1>Semanas</h1>
             <h2>12/10/22 --- 18/12/22</h2>
+            </div>
+            <div className="DaysTitle">
+            <h1>Lunes</h1>
+            <h2>18/12/22</h2>
+            </div>
           </div>
           <div className="ow">
-            <div className="semData">
-              <h2>Días</h2>
-              <div className="showDatGrap">
-                <DayNGas dat={"Lunes"} date={"12/10/22"} amount={46546} />
-                <DayNGas dat={"Martes"} date={"13/10/22"} amount={46546} />
-                <DayNGas dat={"Miercoles"} date={"14/10/22"} amount={46546} />
-                <DayNGas dat={"Jueves"} date={"15/10/22"} amount={46546} />
-                <DayNGas dat={"Viernes"} date={"16/10/22"} amount={46546} />
-                <DayNGas dat={"Sabado"} date={"17/10/22"} amount={46546} />
-                <DayNGas dat={"Domingo"} date={"18/10/22"} amount={46546} />
+            <div className="Week">
+              <div className="semData">
+                <h2>Días</h2>
+                <div className="showDatGrap">
+                  <DayNGas dat={"Lunes"} date={"12/10/22"} amount={46546} />
+                  <DayNGas dat={"Martes"} date={"13/10/22"} amount={46546} />
+                  <DayNGas dat={"Miercoles"} date={"14/10/22"} amount={46546} />
+                  <DayNGas dat={"Jueves"} date={"15/10/22"} amount={46546} />
+                  <DayNGas dat={"Viernes"} date={"16/10/22"} amount={46546} />
+                  <DayNGas dat={"Sabado"} date={"17/10/22"} amount={46546} />
+                  <DayNGas dat={"Domingo"} date={"18/10/22"} amount={46546} />
+                </div>
+              </div>
+              <div className="Graph">
+                <Graph></Graph>
               </div>
             </div>
-            <div className="Graph">
-              <Graph></Graph>
+            <div className="Days">
+              <div className="DaysData">
+                <h2>Gastos</h2>
+                <div className="GasDaysList">
+
+                </div>
+              </div>
+              <div className="GasData">
+                
+              </div>
             </div>
           </div>
         </div>

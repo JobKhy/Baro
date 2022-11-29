@@ -219,9 +219,15 @@ export const NavBar = ({ initialActive }) => {
   );
 };
 
-export const DayNGas = ({ dat, date, amount }) => {
+export const DayNGas = ({ dat, date, amount}) => {
+  const e = ()=>{
+    document.querySelector(".Days").style.display="flex"
+    document.querySelector(".Week").style.display="none"
+    document.querySelector(".DaysTitle").style.display="flex"
+    document.querySelector(".WeekTitle").style.display="none"
+  }
   return (
-    <div className="DatGrap">
+    <div className="DatGrap" onClick={e}>
       <span>{dat}</span>
       <span>{date}</span>
       <span>${amount}</span>
@@ -638,13 +644,19 @@ export const SetPerfil = ({ icon, perfil }) => {
   );
 };
 
-export const GasFrec = ({ name, balance, des, date, periodo, e, e2 }) => {
+export const GasFrec = ({ name, balance, des, date, periodo, e }) => {
+  const btndiasfac = () => {
+    let diafacts = document.querySelector(".DiaFacFre");
+    let listfacts = document.querySelector(".ListFrec");
+    diafacts.style.display = "block";
+    listfacts.style.display = "none";
+  };
   return (
     <div className="ContainerFrec">
       <div className="NameFrec">{name}</div>
       <div className="ContainerDataFre">
         <div>
-          <PeriodPleg e={e} />
+          <PeriodPleg names={e} />
         </div>
         <div className="PeriodAmount">
           <h2>Facturación</h2>
@@ -665,7 +677,7 @@ export const GasFrec = ({ name, balance, des, date, periodo, e, e2 }) => {
       </div>
       <div className="FreOptions">
         <div className="FactFre ">
-          <button className="BtnFactFre" onClick={e2}>
+          <button className="BtnFactFre" onClick={btndiasfac}>
             Ver días de Facturación<i className="fa-solid fa-calendar-days"></i>
           </button>
         </div>
@@ -750,32 +762,24 @@ export const GasProx = ({ name, balance, time, periodo, color, date }) => {
     </div>
   );
 };
-export const PeriodPleg = ({ e, periodo }) => {
+export const PeriodPleg = ({ names }) => {
   return (
     <div className="PeriodPleg">
-      <button className="PeriodList" onClick={e}>
-        <p>Periodos</p>
-        <i className="fa-solid fa-chevron-up"></i>
-      </button>
-      <div className="PeriodListCont">
-        <ul className="PeriodShow">
-          <li className="PeriodItem">
-            <div className="PeriodText" onClick={e}>
-              Diario
-            </div>
-          </li>
-          <li className="PeriodItem">
-            <div className="PeriodText" onClick={e}>
-              Semanal
-            </div>
-          </li>
-          <li className="PeriodItem">
-            <div className="PeriodText" onClick={e}>
-              Quincenal
-            </div>
-          </li>
-        </ul>
-      </div>
+      <label className="LabRadPer">
+        <input type="radio" value="Diario" className="RadPer" name={names}/>
+        <div className="RadD"></div>
+          Diario
+      </label>
+      <label className="LabRadPer">
+        <input type="radio" value="Semanal" className="RadPer" name={names}/>
+        <div className="RadD"></div>
+          Semanal
+      </label>
+      <label className="LabRadPer">
+        <input type="radio" value="Quincenal" className="RadPer" name={names}/>
+        <div className="RadD"></div>
+          Quincenal
+      </label>
     </div>
   );
 };
