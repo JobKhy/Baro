@@ -71,6 +71,7 @@ export const Config = () => {
       const res = await uApi.checkSession();
       if (res?.status === 200) {
         setUser(res.data.user);
+        console.log("config")
         console.log(res.data.user);
       } else {
         nav("/login");
