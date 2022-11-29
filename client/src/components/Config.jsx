@@ -125,7 +125,7 @@ export const Config = () => {
     {
       nombre: "Trabajador",
       icons: "fa-solid fa-briefcase",
-      desc: "",
+      desc: "Un trabajador godinez pendejo y estupido",
     },
     { nombre: "Independiente", icons: "fa-solid fa-house", desc: "" },
     { nombre: "Otro", icons: "fa-solid fa-user", desc: "" },
