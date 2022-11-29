@@ -1,4 +1,4 @@
-import { DayNGas, Graph, NavBar,DayGas } from "./ModulesForm";
+import { DayNGas, Graph, NavBar,DayGas, Entry } from "./ModulesForm";
 import "../style.css";
 import "../css/Extras.css";
 import { useContext, useEffect } from "react";
@@ -25,7 +25,12 @@ export const Graficas = () => {
       fetchUser();
     }
   }, []);
-  
+  const e = ()=>{
+    document.querySelector(".Days").style.display="none"
+    document.querySelector(".Week").style.display="flex"
+    document.querySelector(".DaysTitle").style.display="none"
+    document.querySelector(".WeekTitle").style.display="block"
+  }
   return (
     <>
       <div className="home-body-w">
@@ -37,6 +42,7 @@ export const Graficas = () => {
             <h2>12/10/22 --- 18/12/22</h2>
             </div>
             <div className="DaysTitle">
+              <button onClick={e}>Regresar</button>
             <h1>Lunes</h1>
             <h2>18/12/22</h2>
             </div>
@@ -130,7 +136,24 @@ export const Graficas = () => {
                 </div>
               </div>
               <div className="GasData">
-                <h2>Datos del Gasto</h2>
+                <div className="GasDataTitle">
+                  <h2>Datos del Gasto</h2>
+                </div>
+                <div className="FormDataGas">
+                  <Entry
+                  Name={"Nombre"}
+                  Type={"text"}
+                  />
+                  <Entry
+                  Name={"Monto"}
+                  Type={"text"}
+                  />
+                </div>
+                <div className="FormDesc">
+                  <p>{"Description de gasto diario que seleccionaste"}</p>
+                  <button className='BtnChangeTypeF'>Editar</button>
+                  <button className='BtnChangeTypeF'>Eliminar</button>
+                </div>
               </div>
             </div>
           </div>
