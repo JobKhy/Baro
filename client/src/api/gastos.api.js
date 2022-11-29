@@ -2,7 +2,7 @@ import axios from "axios";
 // "http://localhost:3000/api/"
 //
 const myAxios = axios.create({
-  baseURL: "http://localhost:3000/api/",
+  baseURL: "https://baro.up.railway.app/api/",
 });
 
 export const gastosFetch = {
@@ -23,5 +23,18 @@ export const gastosFetch = {
       console.log(error)
       return error
     }
+  }, 
+  getSemanas: async ()=>{
+    try {
+      const res = await myAxios.get("gastos/getSemanas")
+      return res
+    } catch (error) {
+      console.log(error)
+      return error
+    }
   }
+}
+
+const frecuentesFetch = {
+  
 }

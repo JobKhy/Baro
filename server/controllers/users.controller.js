@@ -5,6 +5,7 @@ import jwt from "jsonwebtoken";
 import { __public } from "../index.js";
 import { unlink } from "fs/promises";
 import { join } from "path";
+import moment from "moment/moment.js";
 
 export const createUser = async (req, res) => {
   try {
@@ -157,36 +158,152 @@ export const setProfile = async (req, res) => {
   try {
     const { id, profile } = req.body;
     if (!id) {
+      console.log("no id");
       return res.status(400).json({ message: "Faltan datos (id)" });
     }
 
     if (!profile) {
-      console.log("XD");
       const [isProfile] = await pool.query(
         "SELECT * FROM data_usuario WHERE usuId = ?",
         [id]
       );
-      console.log(isProfile);
       if (!isProfile) {
+        console.log("Error al obtener usuario");
         return res.status(400).json({ message: "Error al obtener usuario" });
       }
       if (isProfile[0].datProfile === 0) {
-        console.log("XD en datprofile");
         return res.status(200).json({ message: "Ya tienes un perfil" });
       }
-    }
-
-    if (profile) {
+    } else {
       const [result] = await pool.query(
         "UPDATE data_usuario SET datProfile = ? WHERE usuId = ?",
         [profile, id]
       );
+
+      if(profile===4){
+        return res.status(200).json({ message: "Perfil creado exitosamente" });
+      }
+
+      // nombre, descripcion, color, monto, tiempo
+      const perfiles = [
+        [
+          ["Comida", "Gastos de comida promedio", "#4CADCA", 6000, 14],
+          ["Transporte", "Gastos de transporte promedio", "#4CADCA", 600, 14],
+        ],
+        [
+          ["Renta", "Gastos de renta promedio", "#4CADCA", 2500, 14],
+          ["Internet", "Gastos de internet promedio", "#4CADCA", 250, 14],
+        ],
+        [
+          [
+            "Servicio de streaming",
+            "Gastos de servicio de streaming promedio",
+            "#4CADCA",
+            100,
+            14,
+          ],
+          [
+            "Servicio de telefonía",
+            "Gastos de servicio de telefonía promedio",
+            "#4CADCA",
+            100,
+            14,
+          ],
+        ],
+      ];
+
+      const data = perfiles[profile - 1];
+
+      moment.locale("es");
+      const today = moment().add(1, "days").format("YYYY-MM-DD");
+      const from_date = moment()
+        .startOf("week")
+        .add(1, "days")
+        .format("YYYY-MM-DD");
+      const to_date = moment()
+        .endOf("week")
+        .add(1, "days")
+        .format("YYYY-MM-DD");
+      console.log({
+        today: today.toString(),
+        from_date: from_date.toString(),
+        to_date: to_date.toString(),
+      });
+      console.log(data[0].concat(id, data[1], id))
+      const [rows1] = await pool.query(
+        "select * from semanas where semStart = ? and usuId = ?;",
+        [from_date, id]
+      );
+      if (rows1.length === 0) {
+        const [insert1] = await pool.query(
+          "insert into semanas (semStart, semEnd, usuId) values (?, ?, ?)",
+          [from_date, to_date, id]
+        );
+        const { insertId } = insert1;
+        const [insert2] = await pool.query(
+          "insert into day(dayDate, semId) values(?, ?);",
+          [today, insertId]
+        );
+        const insertDay = insert2.insertId;
+        const [insert3] = await pool.query(
+          "insert into frecuentes(freName, freDescription, freColor, freAmount, freLapse, dayId) values(?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?);",
+          data[0].concat(insertDay, data[1], insertDay)
+        );
+        if (insert3) {
+          return res
+            .status(200)
+            .json({ message: "gasto frecuente agregado exitosamente" });
+        }
+      } else if (rows1.length > 0) {
+        const [resultDay] = await pool.query(
+          "select * from day where semId = ? and dayDate = ?;",
+          [rows1[0].semId, today]
+        );
+        if (resultDay.length > 0) {
+          const [insertFrec] = await pool.query(
+            "insert into frecuentes(freName, freDescription, freColor, freAmount, freLapse, dayId) values(?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?);",
+            data[0].concat(resultDay[0].dayId, data[1], resultDay[0].dayId)
+          );
+          console.log("data insertFrec");
+          console.log(insertFrec);
+          if (insertFrec) {
+            return res.status(200).json({
+              message: "gasto frecuente agregado exitosamente",
+            });
+          }
+        } else if (resultDay.length === 0) {
+          const [insertDay] = await pool.query(
+            "insert into day (dayDate, semId) values(?, ?);",
+            [today, rows1[0].semId]
+          );
+          if (!insertDay) {
+            return res.status(400).json({
+              message: "No se pudo crear day con semana pero sin day",
+            });
+          }
+          const [insert3] = await pool.query(
+            "insert into frecuentes(freName, freDescription, freColor, freAmount, freLapse, dayId) values(?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?);",
+            data[0].concat(insertDay.insertId, data[1], insertDay.insertId)
+          );
+          if (insertDiario) {
+            return res.status(200).json({
+              message: "gasto creado exitosamente",
+              newBalance: parseFloat(balance) - parseFloat(monto),
+            });
+          }
+        }
+      }
+
+      const [insert] = await pool.query("insert into frecuentes ");
+
       if (!result) {
+        console.log("Error al actualizar perfil");
         return res.status(400).json({ message: "Error al actualizar perfil" });
       }
+      return res.status(200).json({ message: "Perfil actualizado" });
     }
-    return res.status(200).json({ message: "Perfil actualizado" });
   } catch (e) {
+    console.log(e);
     return res.status(400).json({ message: "Error al actualizar perfil", e });
   }
 };

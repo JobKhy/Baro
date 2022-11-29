@@ -50,8 +50,11 @@ const nav = useNavigate()
                   />
                 </div>
                 <div className="FormRightFrec">
-                 <PeriodPleg/>
+                 <PeriodPleg
+                 names={"h"}
+                 />
                 <h2>{"Periodo de facturación: "}</h2>
+                <p></p>
                 </div>
               </div>
               <div className="FormBottomFrec">
@@ -60,7 +63,7 @@ const nav = useNavigate()
                   Name={"Descripción"}
                   Type={"text"}
                   />
-                  <button className='BtnChangeType'>Agregar</button>
+                  <button className='BtnChangeTypeF'>Agregar</button>                    
               </div>
              </div>
               <div className="InfoFrec">

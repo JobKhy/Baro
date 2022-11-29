@@ -38,40 +38,7 @@ export const Config = () => {
     document.querySelector("#GasSettings").style.display = "none";
   };
   //STATES
-  const btnlistperiod = (e) => {
-    let lista = document.querySelector(".PeriodList");
-    let flecha = document.querySelector(".PeriodList i");
-    lista.classList.toggle("select");
-    let alto = 0;
-    let listperiod = lista.nextElementSibling;
-    flecha.style.rotate = "90deg";
-    if (listperiod.clientHeight == "0") {
-      flecha.style.rotate = "180deg";
-      alto = listperiod.scrollHeight - 2;
-    }
-    listperiod.style.height = alto + "px";
-    if (
-      e.target.textContent == "Periodos" ||
-      e.target.textContent == "Diario" ||
-      e.target.textContent == "Semanal" ||
-      e.target.textContent == "Quincenal"
-    ) {
-      if (e.target.textContent == "Periodos") {
-        setPeriodo("Eligiendo...");
-      } else {
-        setPeriodo(e.target.textContent);
-      }
-    } else {
-      setPeriodo("Eligiendo...");
-    }
-    //IDENTIFICADOR DE ENTRADA DE GASTO
-  };
-  const btndiasfac = () => {
-    let diafacts = document.querySelector(".DiaFacFre");
-    let listfacts = document.querySelector(".ListFrec");
-    diafacts.style.display = "block";
-    listfacts.style.display = "none";
-  };
+  
   const btnlistfrec = () => {
     let diafacts = document.querySelector(".DiaFacFre");
     let listfacts = document.querySelector(".ListFrec");
@@ -104,6 +71,7 @@ export const Config = () => {
       const res = await uApi.checkSession();
       if (res?.status === 200) {
         setUser(res.data.user);
+        console.log("config")
         console.log(res.data.user);
       } else {
         nav("/login");
@@ -321,25 +289,24 @@ export const Config = () => {
                 balance={"500"}
                 des={"Gasto de consumo de agua de la casa de don juan"}
                 date={"14/04/2024"}
-                periodo={periodo}
-                e={btnlistperiod}
-                e2={btndiasfac}
+                periodo={"Semanal"}
+                e={"hola"}
               />
               <GasFrec
                 name={"Gas"}
                 balance={"500"}
                 des={"Gasto de consumo de agua de la casa de don juan"}
                 date={"14/04/2024"}
-                periodo={periodo}
-                e={btnlistperiod}
+                periodo={"Diario"}
+                e={"asd"}
               />
               <GasFrec
                 name={"Gas"}
                 balance={"500"}
                 des={"Gasto de consumo de agua de la casa de don juan"}
                 date={"14/04/2024"}
-                periodo={periodo}
-                e={btnlistperiod}
+                periodo={"Quincenal"}
+                e={"sdf"}
               />
             </div>
             <div className="DiaFacFre">

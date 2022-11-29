@@ -7,37 +7,62 @@
 
 .semData {
     position: relative;
-    width: calc(100vw - 50vw - 80px);
-    height: 90vh;
+    width: 50%;
+    height: 100%;
 }
 
 .colGraph{
+    width: 100%;
+    height: 100%;
     display: flex;
     flex-direction: column;
 }
 
 .typeOfGraph{
     position: relative;
-    width: calc(100vw - 80px);
-    height: 10vh;
+    width: 100%;
+    height: 15%;
     text-transform: capitalize;
 }
-
 .typeOfGraph h1{
     font-size: 7vh;
     text-align: center;
 }
-
+.typeOfGraph h2{
+    font-size: 3vh;
+    text-align: center;
+}
+.WeekTitle{
+    display: block;
+}
+.WeekTitle h1{
+    font-size: 7vh;
+    text-align: center;
+}
+.WeekTitle h2{
+    font-size: 3vh;
+    text-align: center;
+}
+.DaysTitle{
+    display: none;
+}
+.DaysTitle h1{
+    font-size: 7vh;
+    text-align: center;
+}
+.DaysTitle h2{
+    font-size: 3vh;
+    text-align: center;
+}
 .ow{
     display: flex;
-    flex-direction: row;
-    height: 90vh;
+    width: 100%;
+    height: 85%;
 }
 
 .Graph {
-    position: relative;
-    height: 100vh;
-    width: 50vw;
+    height: 100%;
+    width: 50%;
     align-items: center;
     align-content: center;
     justify-content: center;
@@ -53,41 +78,41 @@
 
 .showDatGrap{
     position: relative;
-    margin: 0 auto 4.5vh;
-    width: 80%;
-    height: calc(100% - 10vh - 20px);
-    /* background-color: white; */
+    width: 100%;
+    height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     gap: 2rem;
-    /* padding: ; */
+
 }
 
 .semData h2{
     text-align: center;
-    margin-top: 20px;
     font-family: 'Poppins';
     font-style: normal;
     font-weight: 500;
-    font-size: 3.5vh;
+    font-size: 4vh;
     color: var(--sec-color);
-
 }
 
 .DatGrap{
+    cursor: pointer;
     color: white;
     padding: 2% 8%;
     width: 100%;
+    height: 7%;
     justify-content: space-around;
     background-color: var(--ter-color);
     display: flex;
     flex-direction: row;
-    gap: 20px;
-    border-radius: 2rem;
+    gap: 5%;
+    border-radius: 15px;
 }
-
+.DatGrap span{
+    font-size: 2vh;
+}
 .white{
     color: white;
 }
@@ -278,19 +303,19 @@ a:visited{
 /*DIVS_DINAMICOS*/
 /*DIV_PERFIL*/
 .PerfSettings{
-    padding: 2%;
-    border-radius: 10px;
+    padding: 1rem;
+    border-radius: 1rem;
     display: grid;
     margin-top:8vh ;
     margin-right: 5vw;
     background-color: var(--sec-color);
+    box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.5);
     grid-column: 2/3;   
     width: 60vw;
     height: 75vh;
 }
 .PerfSettings h1{
     width: 100%;
-    height: 5%;
     margin-left: 2vw;
     color: white;
     height: 15%;
@@ -311,7 +336,7 @@ a:visited{
 .Setlogin-group{
     bottom: 1%;
 	position: relative;
-	--color: var(--ter-color);
+	--color: white;
 }
 .Setlogin-input{
 	width: 100%;
@@ -335,7 +360,7 @@ a:visited{
 .Setlogin-input:not(:placeholder-shown) + .Setlogin-label{
 	transform: translateY(-12px) scale(.7);
 	transform-origin: left top;
-	color: var(--ter-color)
+	color: white
 }
 .Setlogin-label{
     font-size: 1.45vw;
@@ -489,8 +514,24 @@ a:visited{
     font-style: normal;
     font-size: 1.7vh;
     font-weight: 600;
-    width: 8%;
+    width: 10%;
     height: 4%;    
+    margin-top: 7%;
+    margin-left: 1vw;
+}
+.BtnChangeTypeF{
+    cursor: pointer;
+    color: var(--ter-color);
+    background-color: white;
+    box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    border: none;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-size: 1.7vh;
+    font-weight: 600;
+    width: 15%;
+    height: 10%;    
     margin-top: 7%;
     margin-left: 1vw;
 }
@@ -592,6 +633,7 @@ a:visited{
     margin-right: 5vw;
     background-color: var(--sec-color);
     grid-column: 2/3;   
+    box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.5);
     width: 60vw;
     height: 75vh;
 }
@@ -603,6 +645,7 @@ a:visited{
     font-size: 8vh; 
 }
 .ContainerFrec{
+    background-color: white;
     padding: 1vh 2vw 1vh 2vw;
 }
 .NameFrec{
@@ -615,7 +658,7 @@ a:visited{
     border-radius: 1rem;
     position: absolute;
     margin: 1.5vh;
-    background-color: var(--main-color);
+    background-color: white;
     height: 56vh;
     width: 57vw;
 }
@@ -649,7 +692,7 @@ a:visited{
 .DescriptionFre{
     width: 17vw;
     height: 13vh;
-    color: white;
+    color: var(--sec-color);
 }
 .DescriptionFre p{
     font-size: 1.5vh;
@@ -661,7 +704,7 @@ a:visited{
 }
 .DateStartFre{
     text-align: center;
-    color: #fff;
+    color: var(--sec-color);
 }
 .DateStartFre p{
     font-size: 1vw;
@@ -690,7 +733,7 @@ a:visited{
     position: relative;
     align-items: center;
     margin: 0 0 1vh 1vw;
-    color: white;
+    color: var(--sec-color);
 }
 .PeriodAmount input{
     text-align: center;
@@ -699,11 +742,11 @@ a:visited{
     border: none;
     outline: none;
     font-size: 3vh;
-    background-color: var(--main-color);
-    color: white;
+    background-color: white;
+    color: var(--sec-color);
 }
 .PeriodAmount input::placeholder{
-    color: white;
+    color: var(--sec-color);
     font-family: 'Poppins';
 }
 .FreLine{
@@ -715,8 +758,7 @@ a:visited{
 .PeriodAmount p{
     margin-top: 1vh;
     text-align: center;
-    font-size: 1vw;
-    font-weight: 600;
+    font-size: 2vh;
 }
 .PeriodAmount h3{
     text-align: center;
@@ -744,6 +786,7 @@ a:visited{
     align-items: center;
     border-radius: 1em;
     background-color: white;
+    box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.5);
     width: 15vw;
     height: 5vh;
     margin: 2vh 1vw 1vh 1vw;
@@ -754,6 +797,7 @@ a:visited{
     color: white;
     border-radius: 1em;
     background-color: var(--ter-color);
+    box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.5);
     width: 15vw;
     height: 5vh;
     margin: 2vh 1vw 1vh 1vw;
@@ -877,6 +921,7 @@ a:visited{
     margin-top:8vh ;
     margin-right: 5vw;
     background-color: var(--sec-color);
+    box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.5);
     grid-column: 2/3;   
     width: 60vw;
     height: 75vh;
@@ -996,9 +1041,11 @@ a:visited{
     height: 100%;
 }
 .FormRightFrec{
+    padding-left: 5%;
     width: 50%;
     height: 100%;
 }
+
 .FormBottomFrec{
     padding: 3%;
     width: 100%;
@@ -1199,13 +1246,154 @@ a:visited{
     color: var(--sec-color);
 }
 .PeriodPleg{
-    display: block;
+    display: grid;
     position: relative;
-    margin-left: auto;
-    margin-right: auto;
+    margin: 3%;
 }
 .FormRightFrec h2{
     text-align: left;
     color: var(--sec-color);
     font-size: 2vh;
+}
+.FormRightFrec p{
+    text-align: left;
+    color: var(--sec-color);
+    font-size: 2vh;
+}
+.LabRadPer{
+    color: var(--sec-color);
+    font-size: 2vh;
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+    margin-left: 10px;
+}
+.RadPer{
+    display: none;
+}
+.RadD{
+    width: 1.25em;
+    height: 1.25em;
+    border: none;
+    border-radius: 50%;
+    margin-right: 10px;
+    box-sizing: border-box;
+    padding: 2px;
+}
+.RadD::after{
+    content: "";
+    width: 100%;
+    height: 100%;
+    display: block;
+    background:var(--ter-color);
+    border-radius: 50%;
+    transform: scale(0);
+}
+.RadPer:checked + .RadD::after{
+    transform: scale(1);
+}
+/*PAGINA_SEMANAS_DIAS_GUSTAVO*/
+.Week{
+    display: flex;
+    width: 100%;
+    height: 100%;
+}
+.Days{
+    display: none;
+    width: 100%;
+    height: 100%;
+}
+
+.DaysData{
+    width: 40%;
+    height: 100%;
+    text-align: center;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 4vh;
+    color: var(--sec-color);
+}
+.GasData{
+    width: 60%;
+    height: 100%;
+    text-align: center;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 4vh;
+    color: var(--sec-color);
+}
+.GasData p{
+    font-size: 3vh;
+    color: var(--sec-color);
+}
+.GasDataTitle{
+    width: 100%;
+    height: 15%;
+}
+.FormDataGas{
+    height: 40%;
+    width: 50%;
+    margin: 5% 25%;
+}
+.FormDesc{
+    height: 50%;
+    width: 80%;
+    margin: 0 10%;
+}
+.FormDesc p{
+    font-size: 2vh;
+    color: var(--sec-color);
+    margin-bottom: 3%;
+}
+.GasDaysList{
+    margin: 5%;
+    width: 90%;
+    height: 80%;
+    overflow: auto;
+    box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.5);
+}
+.GasDayElement{
+    cursor: pointer;
+    width: 100%;
+    height: 8%;
+    color: var(--ter-color);
+    display: flex;
+    padding: 2%;
+    border-top: none;
+    border-bottom:  .17vw solid var(--ter-color);
+}
+.GasDayName{
+    width: 50%;
+    height: 100%;
+}
+.GasDayName h2{
+    font-size: 1.5vh;
+    text-align: center;
+}
+.GasDayCant{
+    width: 50%;
+    height: 100%;
+}
+.GasDayCant h2{
+    font-size: 1.5vh;
+    text-align: center;
+}
+.EditGasData{
+    margin: 10% 15%;
+    width: 70%;
+    height: 50%;
+}
+.DaysTitle button{
+    position: absolute;
+    border-radius: 10px;
+    margin: 3%;
+    cursor: pointer;
+    border: none;
+    font-size: 3vh;
+    background-color: var(--ter-color);
+    color: white;
+    width: 10%;
+    height: 30%;
 }

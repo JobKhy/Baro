@@ -70,6 +70,8 @@ CREATE TABLE `frecuentes` (
   PRIMARY KEY (`freId`),
   KEY `dayIdFre_idx` (`dayId`),
   CONSTRAINT `dayIdFre` FOREIGN KEY (`dayId`) REFERENCES `day` (`dayId`) ON DELETE CASCADE
+  KEY `usuIdFre_idx` (`usuId`),
+  CONSTRAINT `dayIdFre` FOREIGN KEY (`usuId`) REFERENCES `day` (`usuId`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 CREATE TABLE `cobros_fre` (
