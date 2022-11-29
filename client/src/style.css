@@ -41,6 +41,14 @@ h1 {
     color: var(--sec-color);
 }
 
+.typeOfGraph h2 {
+    font-weight: 500;
+    font-size: 1.5rem;
+    letter-spacing: 0.2em;
+    color: var(--sec-color);
+    text-align: center;
+}
+
 .bg-img {
     position: absolute;
     width: 87vw;
@@ -376,7 +384,7 @@ form{
     height: 84%;
     border-radius: 100%;
     margin: 8%;
-    background-image: url(Img/PFP.png);
+    /* background-image: url(Img/PFP.png); */
     background-repeat: no-repeat;
     background-size: cover;
     background-position-x: center;

@@ -32,17 +32,20 @@ export const Graficas = () => {
         <NavBar initialActive={1}></NavBar>
         <div className="colGraph">
           <div className="typeOfGraph">
-            <h1>semana</h1>
+            <h1>Semanas</h1>
+            <h2>12/10/22 --- 18/12/22</h2>
           </div>
           <div className="ow">
             <div className="semData">
-              <h2>semana</h2>
+              <h2>Días</h2>
               <div className="showDatGrap">
-                <DayNGas dat={"hola"} date={"12/10/22"} amount={46546} />
-                <DayNGas dat={"hola"} date={"12/10/22"} amount={46546} />
-                <DayNGas dat={"hola"} date={"12/10/22"} amount={46546} />
-                <DayNGas dat={"hola"} date={"12/10/22"} amount={46546} />
-                <DayNGas dat={"hola"} date={"12/10/22"} amount={46546} />
+                <DayNGas dat={"Lunes"} date={"12/10/22"} amount={46546} />
+                <DayNGas dat={"Martes"} date={"13/10/22"} amount={46546} />
+                <DayNGas dat={"Miercoles"} date={"14/10/22"} amount={46546} />
+                <DayNGas dat={"Jueves"} date={"15/10/22"} amount={46546} />
+                <DayNGas dat={"Viernes"} date={"16/10/22"} amount={46546} />
+                <DayNGas dat={"Sabado"} date={"17/10/22"} amount={46546} />
+                <DayNGas dat={"Domingo"} date={"18/10/22"} amount={46546} />
               </div>
             </div>
             <div className="Graph">
