@@ -9,7 +9,6 @@
     position: relative;
     width: 50%;
     height: 100%;
-    background-color: aqua;
 }
 
 .colGraph{
@@ -34,7 +33,7 @@
     text-align: center;
 }
 .WeekTitle{
-    display: none;
+    display: block;
 }
 .WeekTitle h1{
     font-size: 7vh;
@@ -45,7 +44,7 @@
     text-align: center;
 }
 .DaysTitle{
-    display: block;
+    display: none;
 }
 .DaysTitle h1{
     font-size: 7vh;
@@ -62,7 +61,6 @@
 }
 
 .Graph {
-    background-color: orange;
     height: 100%;
     width: 50%;
     align-items: center;
@@ -1296,16 +1294,14 @@ a:visited{
 }
 /*PAGINA_SEMANAS_DIAS_GUSTAVO*/
 .Week{
-    display: none;
-    width: 100%;
-    height: 100%;
-    background-color: rebeccapurple;
-}
-.Days{
     display: flex;
     width: 100%;
     height: 100%;
-    background-color: yellowgreen;
+}
+.Days{
+    display: none;
+    width: 100%;
+    height: 100%;
 }
 
 .DaysData{
@@ -1327,6 +1323,29 @@ a:visited{
     font-weight: 500;
     font-size: 4vh;
     color: var(--sec-color);
+}
+.GasData p{
+    font-size: 3vh;
+    color: var(--sec-color);
+}
+.GasDataTitle{
+    width: 100%;
+    height: 15%;
+}
+.FormDataGas{
+    height: 40%;
+    width: 50%;
+    margin: 5% 25%;
+}
+.FormDesc{
+    height: 50%;
+    width: 80%;
+    margin: 0 10%;
+}
+.FormDesc p{
+    font-size: 2vh;
+    color: var(--sec-color);
+    margin-bottom: 3%;
 }
 .GasDaysList{
     margin: 5%;
@@ -1360,4 +1379,21 @@ a:visited{
 .GasDayCant h2{
     font-size: 1.5vh;
     text-align: center;
+}
+.EditGasData{
+    margin: 10% 15%;
+    width: 70%;
+    height: 50%;
+}
+.DaysTitle button{
+    position: absolute;
+    border-radius: 10px;
+    margin: 3%;
+    cursor: pointer;
+    border: none;
+    font-size: 3vh;
+    background-color: var(--ter-color);
+    color: white;
+    width: 10%;
+    height: 30%;
 }

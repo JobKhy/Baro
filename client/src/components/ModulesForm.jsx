@@ -148,7 +148,7 @@ export const Perfil = ({ icon, perfil, descripcion, onClick }) => {
 export const NavBar = ({ initialActive }) => {
   const Menus = [
     { Name: "Home", icon: "fa-solid fa-house", dest: "../home" },
-    { Name: "Graficas", icon: "fa-solid fa-chart-simple", dest: "../graficas" },
+    { Name: "Análisis", icon: "fa-solid fa-chart-simple", dest: "../graficas" },
     {
       Name: "Frecuentes",
       icon: "fa-solid fa-dollar-sign",
@@ -223,7 +223,7 @@ export const DayNGas = ({ dat, date, amount}) => {
   const e = ()=>{
     document.querySelector(".Days").style.display="flex"
     document.querySelector(".Week").style.display="none"
-    document.querySelector(".DaysTitle").style.display="flex"
+    document.querySelector(".DaysTitle").style.display="block"
     document.querySelector(".WeekTitle").style.display="none"
   }
   return (
