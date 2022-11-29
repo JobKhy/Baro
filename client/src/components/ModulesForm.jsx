@@ -762,6 +762,18 @@ export const GasProx = ({ name, balance, time, periodo, color, date }) => {
     </div>
   );
 };
+export const DayGas = ({ name, cant }) => {
+  return (
+    <div className="GasDayElement">
+      <div className="GasDayName">
+        <h2>{name}</h2>
+      </div>
+      <div className="GasDayCant">
+        <h2>{cant}</h2>
+      </div>
+    </div>
+  );
+};
 export const PeriodPleg = ({ names }) => {
   return (
     <div className="PeriodPleg">

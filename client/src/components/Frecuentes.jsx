@@ -63,7 +63,7 @@ const nav = useNavigate()
                   Name={"Descripción"}
                   Type={"text"}
                   />
-                  <button className='BtnChangeType'>Agregar</button>
+                  <button className='BtnChangeTypeF'>Agregar</button>                    
               </div>
              </div>
               <div className="InfoFrec">

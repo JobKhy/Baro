@@ -1,4 +1,4 @@
-import { DayNGas, Graph, NavBar,DiaFacFre } from "./ModulesForm";
+import { DayNGas, Graph, NavBar,DayGas } from "./ModulesForm";
 import "../style.css";
 import "../css/Extras.css";
 import { useContext, useEffect } from "react";
@@ -63,11 +63,74 @@ export const Graficas = () => {
               <div className="DaysData">
                 <h2>Gastos</h2>
                 <div className="GasDaysList">
-
+                  <DayGas
+                  name={"Comida"}
+                  cant={"400"}
+                  />
+                  <DayGas
+                  name={"Comida"}
+                  cant={"400"}
+                  />
+                  <DayGas
+                  name={"Comida"}
+                  cant={"400"}
+                  />
+                  <DayGas
+                  name={"Comida"}
+                  cant={"400"}
+                  />
+                  <DayGas
+                  name={"Comida"}
+                  cant={"400"}
+                  />
+                  <DayGas
+                  name={"Comida"}
+                  cant={"400"}
+                  />
+                   <DayGas
+                  name={"Comida"}
+                  cant={"400"}
+                  />
+                   <DayGas
+                  name={"Comida"}
+                  cant={"400"}
+                  />
+                   <DayGas
+                  name={"Comida"}
+                  cant={"400"}
+                  />
+                   <DayGas
+                  name={"Comida"}
+                  cant={"400"}
+                  />
+                   <DayGas
+                  name={"Comida"}
+                  cant={"400"}
+                  />
+                   <DayGas
+                  name={"Comida"}
+                  cant={"400"}
+                  />
+                   <DayGas
+                  name={"Comida"}
+                  cant={"400"}
+                  />
+                   <DayGas
+                  name={"Comida"}
+                  cant={"400"}
+                  />
+                   <DayGas
+                  name={"Comida"}
+                  cant={"400"}
+                  />
+                   <DayGas
+                  name={"Comida"}
+                  cant={"400"}
+                  />
                 </div>
               </div>
               <div className="GasData">
-                
+                <h2>Datos del Gasto</h2>
               </div>
             </div>
           </div>
