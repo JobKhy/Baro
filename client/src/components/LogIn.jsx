@@ -45,8 +45,6 @@ export const LogIn = () => {
               try {
                 const res = await uApi.getUser(values);
                 if (res?.status === 200) {
-                  console.log("codigo aqui");
-                  console.log(res);
                   setUser(res.data.user);
                   if (res.data.user.profile === 0) {
                     nav("/perfiles");

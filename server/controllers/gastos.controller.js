@@ -153,3 +153,54 @@ export const getGastos = async (req, res) => {
     .status(200)
     .json({ message: "gastos exitosamente recuperados", gastos: finalGastos });
 };
+export const getSemanas = async (req, res) => {
+  moment.locale("es");
+  const today = moment().add(1, "days").format("YYYY-MM-DD");
+  const from_date = moment()
+    .startOf("week")
+    .add(1, "days")
+    .format("YYYY-MM-DD");
+  const to_date = moment().endOf("week").add(1, "days").format("YYYY-MM-DD");
+  console.log({
+    today: today.toString(),
+    from_date: from_date.toString(),
+    to_date: to_date.toString(),
+  });
+  const { token } = req.cookies;
+  if (!token) {
+    return res.status(400).json({ message: "Token de acceso no válido" });
+  }
+  const { id } = jwt.verify(token, SECRET);
+  if (!id) {
+    return res.status(400).json({ message: "Token de acceso no válido" });
+  }
+  const [rows] = await pool.query(
+    "select * from semanas where semStart = ? and usuId = ? order by semStart desc;",
+    [from_date, id]
+  );
+  if (rows.length === 0) {
+    return res.status(400).json({ message: "No hay semanas aun" });
+  }
+  const dates = [];
+
+  const startDate = moment(rows[0].semStart).subtract(1, "day");
+  const endDate = moment(rows[0].semEnd).subtract(1, "day");
+
+  while (startDate.diff(endDate) <= 0) {
+    dates.push(startDate.format("YYYY-MM-DD"));
+    startDate.add(1, "days");
+  }
+
+  const finalDays = [];
+
+  for (const e of dates) {
+    console.log(moment(e).format("YYYY-MM-DD"));
+    const [tmpRow] = await pool.query(
+      "select * from day where dayDate = ? and semId = ?;",
+      [moment(e).add(1, "days").format("YYYY-MM-DD"), rows[0].semId]
+    );
+    console.log(tmpRow);
+  }
+
+  return res.status(200).json({ message: "semanas recuperadas exitosamente" });
+};
