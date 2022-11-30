@@ -97,7 +97,7 @@ export const UserPf = ({ User, image }) => {
   return (
     <div className="UserPf">
       <div className="circle">
-        <img className="circleImg" src={`./assets/uploads/PFP/${image}`}></img>
+        <img className="circleImg" src={image?`./assets/uploads/PFP/${image}`:"./assets/PFP.4330773c.png"}></img>
       </div>
       <div className="NamePf">
         <h3>Bienvenido</h3>
