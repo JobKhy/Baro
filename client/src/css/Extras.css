@@ -1409,3 +1409,145 @@ a:visited{
     width: 10%;
     height: 30%;
 }
+:root {
+    --main-color: #4CADCA;
+    --sec-color: #2584a0;
+    --ter-color: #044C7C;
+    --wh-color: white;
+}
+
+.DaysTitle{
+    height: 15%;
+    width: 100%;
+}
+.DaysTitle h1{
+    margin: 0;
+    font-size: 5vh;
+    text-align: center;
+    color: var(--sec-color);
+    font-weight: 300;
+}
+.DaysTitle h2{
+    margin: 0;
+    font-size: 3vh;
+    text-align: center;
+    color: black;
+}
+
+.conteinerAll{
+    width: 100%;
+    height: 85%;
+    display: flex;
+}
+
+.conteinerGraphs{
+    width: 35%;
+    height: 100%;
+    display: grid;
+    place-items: center;
+}
+
+.conteinerGraphs2{
+    width: 65%;
+    height: 100%;
+}
+
+.miniGraphs{
+    width: 100%;
+    height: 40%;
+    display: flex;
+}
+
+.data1{
+    width: 33.333%;
+    height: 100%;
+    display: grid;
+    place-items: center;
+}
+
+.data2{
+    width: 33.333%;
+    height: 100%;
+    display: grid;
+    place-items: center;
+}
+
+.data3{
+    width: 33.333%;
+    height: 100%;
+    display: grid;
+    place-items: center;
+}
+
+.conteinerG3{
+    height: 60%;
+    width: 100%;
+    display: flex;
+}
+
+.timeGraph{
+    width: 50%;
+    height: 100%;
+    display: grid;
+    place-items: center;
+}
+
+.cakeGraph{
+    width: 50%;
+    height: 100%;
+    display: grid;
+    place-items: center;
+}
+
+.contDG{
+    background-color: darkgrey;
+    height: auto;
+    width: 90%;
+    border-radius: 2vw;
+    padding: 1vw;
+}
+
+.conteinerDG1{
+    background-color: darkgrey; 
+    height: auto;
+    width: 90%;
+    border-radius: 2vw;
+    padding: 1vw;
+}
+
+.conteinerDG2{
+    background-color: darkgrey; 
+    height: auto;
+    width: 90%;
+    border-radius: 2vw;
+    padding: 1vw;
+}
+
+.average{
+    width: 80%;
+    height: 60%;
+    border-radius: 1vw;
+    background-color: aliceblue;
+
+}
+
+.diffinexp{
+    width: 80%;
+    height: 60%;
+    border-radius: 1vw;
+    background-color: aliceblue;
+
+}
+
+.percentage{
+    width: 80%;
+    height: 60%;
+    border-radius: 1vw;
+    background-color: aliceblue;
+}
+
+.ImageNoYe{
+    height: 100%;
+    width: 100%;
+    
+}

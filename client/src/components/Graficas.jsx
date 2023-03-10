@@ -6,7 +6,7 @@ import { userFetch as uApi, userFetch } from "../api/users.api";
 import UserContext from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
 import { gastosFetch } from "../api/gastos.api";
-
+import IMG from "../Img/grafica.png"
 export const Graficas = () => {
   const nav = useNavigate();
 
@@ -26,7 +26,7 @@ export const Graficas = () => {
     if (!user) {
       fetchUser();
     }
-  }, []);
+  }, []); 
   const e = () => {
     document.querySelector(".Days").style.display = "none";
     document.querySelector(".Week").style.display = "flex";
@@ -47,7 +47,7 @@ export const Graficas = () => {
               <button onClick={e}>Regresar</button>
               <h1>Lunes</h1>
               <h2>18/12/22</h2>
-            </div>
+              </div>
           </div>
           <div className="ow">
             <div className="Week">
@@ -64,7 +64,7 @@ export const Graficas = () => {
                 </div>
               </div>
               <div className="Graph">
-                <Graph></Graph>
+              <img src={IMG} alt="" className="ye" />
               </div>
             </div>
             <div className="Days">

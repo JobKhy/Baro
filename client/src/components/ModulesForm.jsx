@@ -6,6 +6,8 @@ import * as Yup from "yup";
 import { userFetch as uApi, userFetch } from "../api/users.api";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
+import Chart from "react-apexcharts";
+import { ApexOptions } from "apexcharts";
 
 const MySwal = withReactContent(Swal);
 
@@ -97,7 +99,14 @@ export const UserPf = ({ User, image }) => {
   return (
     <div className="UserPf">
       <div className="circle">
-        <img className="circleImg" src={image?`./assets/uploads/PFP/${image}`:"./assets/PFP.4330773c.png"}></img>
+        <img
+          className="circleImg"
+          src={
+            image
+              ? `./assets/uploads/PFP/${image}`
+              : "./assets/PFP.4330773c.png"
+          }
+        ></img>
       </div>
       <div className="NamePf">
         <h3>Bienvenido</h3>
@@ -219,13 +228,13 @@ export const NavBar = ({ initialActive }) => {
   );
 };
 
-export const DayNGas = ({ dat, date, amount}) => {
-  const e = ()=>{
-    document.querySelector(".Days").style.display="flex"
-    document.querySelector(".Week").style.display="none"
-    document.querySelector(".DaysTitle").style.display="block"
-    document.querySelector(".WeekTitle").style.display="none"
-  }
+export const DayNGas = ({ dat, date, amount }) => {
+  const e = () => {
+    document.querySelector(".Days").style.display = "flex";
+    document.querySelector(".Week").style.display = "none";
+    document.querySelector(".DaysTitle").style.display = "block";
+    document.querySelector(".WeekTitle").style.display = "none";
+  };
   return (
     <div className="DatGrap">
       <span>{dat}</span>
@@ -243,9 +252,9 @@ import { gastosFetch } from "../api/gastos.api";
 import { Formik } from "formik";
 
 export const Graph = () => {
-  return (
-    <div>
-      <img src={diosYe} alt="" className="ye" />
+    return (
+    <div className="ImageNoYe">
+      
     </div>
   );
 };
@@ -778,19 +787,19 @@ export const PeriodPleg = ({ names }) => {
   return (
     <div className="PeriodPleg">
       <label className="LabRadPer">
-        <input type="radio" value="Diario" className="RadPer" name={names}/>
+        <input type="radio" value="Diario" className="RadPer" name={names} />
         <div className="RadD"></div>
-          Diario
+        Diario
       </label>
       <label className="LabRadPer">
-        <input type="radio" value="Semanal" className="RadPer" name={names}/>
+        <input type="radio" value="Semanal" className="RadPer" name={names} />
         <div className="RadD"></div>
-          Semanal
+        Semanal
       </label>
       <label className="LabRadPer">
-        <input type="radio" value="Quincenal" className="RadPer" name={names}/>
+        <input type="radio" value="Quincenal" className="RadPer" name={names} />
         <div className="RadD"></div>
-          Quincenal
+        Quincenal
       </label>
     </div>
   );
